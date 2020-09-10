@@ -9,6 +9,11 @@ CYAN = [0, 100, 100]
 MAGENTA = [100, 0, 100]
 YELLOW = [100, 100, 0]
 
+DIM_WHITE = [3, 5, 5]
+DIM_BLUE = [0, 0, 50]
+DIM_RED = [1, 0, 0]
+DIM_GREEN = [0, 50, 0]
+
 ALL_COLORS = [
     WHITE,
     RED,

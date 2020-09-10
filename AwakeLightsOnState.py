@@ -1,4 +1,3 @@
-import AwakeLightsOffState
 import ColorConstants
 from State import State
 
@@ -6,28 +5,26 @@ from State import State
 class AwakeLightsOnState(State):
     id = 4
     name = 'Awake Lights On'
+    ring_color = ColorConstants.WHITE
+    on_press_ring_color = ColorConstants.DIM_WHITE
+    on_long_press_ring_color = ColorConstants.BLUE
 
     def __init__(self, previous_state=None):
-        super().__init__(self, self.id, self.name, previous_state)
+        super().__init__(self.id, self.name, self.ring_color, self.on_press_ring_color, self.on_long_press_ring_color, previous_state)
 
     def on_short_press(self):
-        var = AwakeLightsOffState(self)
-        return var
+        from AwakeLightsOffState import AwakeLightsOffState
+        return AwakeLightsOffState(self)
 
     def on_long_press(self):
-        pass
+        from AsleepLightsOffState import AsleepLightsOffState
+        return AsleepLightsOffState(self)
 
     def on_extra_long_press(self):
-        pass
+        return self
 
     def execute_state_change(self):
-        pass
+        print('changed to: ' + self.name)
 
     def on_time_expire(self):
-        pass
-
-    def get_ring_color(self):
-        return ColorConstants.YELLOW
-
-    def get_ring_color_on_press(self):
-        pass
+        return self
