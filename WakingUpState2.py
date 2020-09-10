@@ -22,4 +22,3 @@ class WakingUpState1(State):
 
     def get_ring_color_on_press(self):
         pass
-

@@ -27,3 +27,6 @@ class State:
     def __eq__(self, other):
         return other.get_state_identifier() == self.get_state_identifier()
 
+    def __ne__(self, other):
+        return not self.__eq__(other)
+

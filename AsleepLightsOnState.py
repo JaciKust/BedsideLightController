@@ -1,12 +1,12 @@
 from State import State
 
 
-class AsleepLightsOn(State):
+class AsleepLightsOnState(State):
     id = 2
     name = 'Asleep Lights On'
 
     def __init__(self):
-        super().__init__(self, self.id, self.name)
+        super().__init__(self.id, self.name)
 
     def on_short_press(self):
         pass

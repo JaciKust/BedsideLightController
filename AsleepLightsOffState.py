@@ -6,7 +6,7 @@ class AsleepLightsOffState(State):
     name = 'Asleep Lights Off'
 
     def __init__(self):
-        super().__init__(self, self.id, self.name)
+        super().__init__(self.id, self.name)
 
     def on_short_press(self):
         pass
