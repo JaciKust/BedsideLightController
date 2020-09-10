@@ -1,6 +1,7 @@
 from RPi import GPIO
 import time
 
+import Lights
 from AwakeLightsOnState import AwakeLightsOnState
 import ColorConstants
 import colorsys
@@ -21,15 +22,6 @@ blue_led = GPIO.PWM(PrimaryButtonConstants.BLUE_PIN, LED_MAXIMUM)
 red_led = GPIO.PWM(PrimaryButtonConstants.RED_PIN, LED_MAXIMUM)
 green_led = GPIO.PWM(PrimaryButtonConstants.GREEN_PIN, LED_MAXIMUM)
 
-
-def rgb_to_hsv(rgb_color, temperature=3500):
-    r = rgb_color[ColorConstants.RED_LOCATION] / 100.0
-    g = rgb_color[ColorConstants.GREEN_LOCATION] / 100.0
-    b = rgb_color[ColorConstants.BLUE_LOCATION] / 100.0
-    h, s, v = colorsys.rgb_to_hsv(r, g, b)
-    return [h*65535, s*65535, v*65535, temperature]
-
-
 def set_led_color(color):
     red_led.ChangeDutyCycle(LED_MAXIMUM - color[ColorConstants.RED_LOCATION])
     green_led.ChangeDutyCycle(LED_MAXIMUM - color[ColorConstants.GREEN_LOCATION])
@@ -37,7 +29,7 @@ def set_led_color(color):
 
 
 current_state = AwakeLightsOnState()
-current_state.execute_state_change()
+current_state.execute_state_change([Lights.charlie])
 
 
 def button_callback(channel):
@@ -76,7 +68,7 @@ def button_callback(channel):
 
     set_led_color(current_state.get_ring_color())
     if current_state != previous_state:
-        current_state.execute_state_change()
+        current_state.execute_state_change([Lights.charlie])
     else:
         print("-----------> No state change detected.")
 

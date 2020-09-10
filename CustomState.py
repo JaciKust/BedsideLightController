@@ -23,7 +23,7 @@ class CustomState(State):
         # No planned acton
         return self
 
-    def execute_state_change(self):
+    def execute_state_change(self, lights):
         print('changed to: ' + self.name)
 
     def on_time_expire(self):

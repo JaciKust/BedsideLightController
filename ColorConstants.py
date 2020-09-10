@@ -1,5 +1,5 @@
 WHITE = [100, 100, 100]
-BLACK = [0, 5, 3]
+BLACK = [0, 0, 0]
 
 RED = [100, 0, 0]
 GREEN = [0, 100, 0]
@@ -14,16 +14,8 @@ DIM_BLUE = [0, 0, 1]
 DIM_RED = [1, 0, 0]
 DIM_GREEN = [0, 1, 0]
 
-ALL_COLORS = [
-    WHITE,
-    RED,
-    GREEN,
-    BLUE,
-    CYAN,
-    MAGENTA,
-    YELLOW,
-    BLACK,
-]
+DIMMEST_WHITE = [0.1, 0.1, 0.1]
+
 
 PRIMARIES = [
     RED,

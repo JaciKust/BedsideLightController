@@ -21,7 +21,7 @@ class WakingUpState1(State):
     def on_extra_long_press(self):
         return self
 
-    def execute_state_change(self):
+    def execute_state_change(self, lights):
         print('changed to: ' + self.name)
 
     def on_time_expire(self):

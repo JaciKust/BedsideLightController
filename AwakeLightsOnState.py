@@ -23,8 +23,16 @@ class AwakeLightsOnState(State):
     def on_extra_long_press(self):
         return self
 
-    def execute_state_change(self):
+    def execute_state_change(self, lights):
         print('changed to: ' + self.name)
+        from AsleepLightsOffState import AsleepLightsOffState
+        from AsleepLightsOnState import AsleepLightsOnState
+        transition_time = 0
+        if isinstance(self.previous_state, AsleepLightsOffState) or \
+                isinstance(self.previous_state, AsleepLightsOnState):
+            transition_time = 10_000
+        self._set_lights(lights, ColorConstants.WHITE, transition_time)
+
 
     def on_time_expire(self):
         return self
