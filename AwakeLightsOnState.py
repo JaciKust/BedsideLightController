@@ -27,7 +27,7 @@ class AwakeLightsOnState(State):
         print('changed to: ' + self.name)
         from AsleepLightsOffState import AsleepLightsOffState
         from AsleepLightsOnState import AsleepLightsOnState
-        transition_time = 0
+        transition_time = 1_000
         if isinstance(self.previous_state, AsleepLightsOffState) or \
                 isinstance(self.previous_state, AsleepLightsOnState):
             transition_time = 10_000

@@ -26,7 +26,7 @@ class AwakeLightsOffState(State):
 
     def execute_state_change(self, lights):
         print('changed to: ' + self.name)
-        self._set_lights(lights, ColorConstants.BLACK, 2_000)
+        self._set_lights(lights, ColorConstants.BLACK, 1_000)
 
     def on_time_expire(self):
         return self
