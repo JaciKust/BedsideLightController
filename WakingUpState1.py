@@ -1,9 +1,9 @@
 from State import State
 
 
-class AwakeLightsOff(State):
-    id = 3
-    name = 'Awake Lights Off'
+class WakingUpState1(State):
+    id = 5
+    name = 'Waking Up 1'
 
     def __init__(self):
         super().__init__(self, self.id, self.name)
@@ -22,3 +22,4 @@ class AwakeLightsOff(State):
 
     def get_ring_color_on_press(self):
         pass
+
