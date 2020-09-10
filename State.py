@@ -1,7 +1,8 @@
 class State:
-    def __init__(self, id, name):
+    def __init__(self, id, name, previous_state):
         self.id = id
         self.name = name
+        self.previous_state = previous_state
 
     def on_short_press(self):
         pass
@@ -23,6 +24,12 @@ class State:
 
     def get_state_identifier(self):
         return self.id
+
+    def execute_state_change(self):
+        pass
+
+    def on_time_expire(self):
+        pass
 
     def __eq__(self, other):
         return other.get_state_identifier() == self.get_state_identifier()
