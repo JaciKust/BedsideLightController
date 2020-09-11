@@ -31,7 +31,7 @@ def set_led_color(color):
 
 
 current_state = AwakeLightsOnState()
-current_state.execute_state_change([Lights.charlie])
+current_state.execute_state_change(Lights.all_lights)
 
 
 def button_callback(channel):
@@ -70,7 +70,7 @@ def button_callback(channel):
 
     set_led_color(current_state.get_ring_color())
     if current_state != previous_state:
-        current_state.execute_state_change([Lights.charlie])
+        current_state.execute_state_change(Lights.all_lights)
     else:
         print("-----------> No state change detected.")
 
@@ -82,7 +82,6 @@ def button_callback(channel):
         print("Press time: " + str(button_time))
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     red_led.start(100)
     green_led.start(100)
@@ -92,7 +91,7 @@ if __name__ == '__main__':
     GPIO.setup(PrimaryButtonConstants.TRIGGER_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 10 to be an input pin and set initial value to be pulled low (off)
     GPIO.add_event_detect(PrimaryButtonConstants.TRIGGER_PIN, GPIO.RISING, callback=button_callback, bouncetime=PrimaryButtonConstants.BOUNCE_TIME)
     print("Current time: " + str(datetime.now()))
-    #message = input("Press enter to quit\n\n")  # Run until someone presses enter
+
     while True:
         time.sleep(20)
         print('checking from while')
@@ -101,14 +100,11 @@ if __name__ == '__main__':
 
         if current_state != previous_state:
             print("Executing state change based on time")
-            current_state.execute_state_change([Lights.charlie])
+            current_state.execute_state_change(Lights.all_lights)
             set_led_color(current_state.get_ring_color())
+
     set_led_color([0, 0, 0])
     blue_led.stop()
     green_led.stop()
     red_led.stop()
     GPIO.cleanup()
-
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/

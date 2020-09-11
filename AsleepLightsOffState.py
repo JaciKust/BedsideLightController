@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 import ColorConstants
 import TimeConstants
@@ -53,7 +53,7 @@ class AsleepLightsOffState(State):
 
     def on_time_expire_check(self):
         # Should start the wake up process
-        current_time = datetime.now()
+        current_time = datetime.datetime.now()
         if self.wake_time < current_time:
             from WakingUpState1 import WakingUpState1
             return WakingUpState1(self.wake_time, self)

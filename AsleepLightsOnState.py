@@ -40,7 +40,7 @@ class AsleepLightsOnState(State):
         self._set_lights(lights, ColorConstants.DIMMEST_WHITE, 0)
 
     def on_time_expire_check(self):
-        current_time = datetime.now()
+        current_time = datetime.datetime.now()
         if current_time > self.wake_time:
             from WakingUpState1 import WakingUpState1
             return WakingUpState1(self.wake_time, self)

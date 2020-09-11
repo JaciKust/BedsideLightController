@@ -5,8 +5,8 @@ RED = [100, 0, 0]
 GREEN = [0, 100, 0]
 BLUE = [0, 0, 100]
 
-CYAN = [0, 100, 100]
-MAGENTA = [100, 0, 100]
+CYAN = [0, 1, 1]
+MAGENTA = [1, 0, 1]
 YELLOW = [100, 100, 0]
 
 DIM_WHITE = [3, 5, 5]

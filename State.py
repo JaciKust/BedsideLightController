@@ -1,4 +1,5 @@
 import colorsys
+import time
 
 from lifxlan import LightSetPower
 
@@ -63,7 +64,15 @@ class State:
             try:
                 light.set_color(color, transition_time)
             except:
+                print('. Failed Once')
+                time.sleep(0.1)
                 try:
                     light.set_color(color, transition_time)
                 except:
-                    pass
+                    print('.. Failed Twice')
+                    time.sleep(0.1)
+                    try:
+                        light.set_color(color, transition_time)
+                    except:
+                        print('... Failed Three Times')
+                        pass
