@@ -41,7 +41,7 @@ class State:
     def execute_state_change(self, lights):
         pass
 
-    def on_time_expire(self):
+    def on_time_expire_check(self):
         pass
 
     def __eq__(self, other):
@@ -60,4 +60,10 @@ class State:
     def _set_lights(self, lights, color, transition_time):
         color = self._rgb_to_hsv(color)
         for light in lights:
-            light.set_color(color, transition_time)
+            try:
+                light.set_color(color, transition_time)
+            except:
+                try:
+                    light.set_color(color, transition_time)
+                except:
+                    pass

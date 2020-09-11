@@ -1,4 +1,6 @@
 import ColorConstants
+import TimeConstants
+import TimeFunctions
 from State import State
 
 
@@ -18,15 +20,16 @@ class AwakeLightsOffState(State):
 
     def on_long_press(self):
         from AsleepLightsOffState import AsleepLightsOffState
-        return AsleepLightsOffState(self)
+        return AsleepLightsOffState(TimeFunctions.get_next(TimeConstants.wakeup_time), self)
 
     def on_extra_long_press(self):
-        # No planned acton
+        # Should go to Mood states
         return self
 
     def execute_state_change(self, lights):
         print('changed to: ' + self.name)
         self._set_lights(lights, ColorConstants.BLACK, 1_000)
 
-    def on_time_expire(self):
+    def on_time_expire_check(self):
+        # No action
         return self

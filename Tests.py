@@ -11,13 +11,13 @@ class MyTestCase(unittest.TestCase):
 
 class TestStateEquality(unittest.TestCase):
     def test_same_state_equal(self):
-        asleepLighsOff = AsleepLightsOffState()
-        asleepLightsOffTwo = AsleepLightsOffState()
+        asleepLighsOff = AsleepLightsOffState(None)
+        asleepLightsOffTwo = AsleepLightsOffState(None)
         self.assertEqual(asleepLighsOff, asleepLightsOffTwo)
 
     def test_different_state_not_equal(self):
-        asleepLightsOff = AsleepLightsOffState()
-        asleepLightsOn = AsleepLightsOnState()
+        asleepLightsOff = AsleepLightsOffState(None)
+        asleepLightsOn = AsleepLightsOnState(None)
         self.assertNotEqual(asleepLightsOff, asleepLightsOn)
 
 

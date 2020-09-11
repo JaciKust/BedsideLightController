@@ -1,7 +1,7 @@
-wake_up_hour = 5
-wake_up_minutes = 45
+import datetime
 
-wake_up_duration_window = 30
-wake_up_duration_other = 15
-other_delay = 30
+wakeup_time = datetime.time(6, 0)
 
+waking_up_1_duration_minutes = 15
+waking_up_2_duration_minutes = 15
+snooze_time = 30

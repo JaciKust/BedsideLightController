@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from RPi import GPIO
 import time
 
@@ -89,8 +91,18 @@ if __name__ == '__main__':
 
     GPIO.setup(PrimaryButtonConstants.TRIGGER_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 10 to be an input pin and set initial value to be pulled low (off)
     GPIO.add_event_detect(PrimaryButtonConstants.TRIGGER_PIN, GPIO.RISING, callback=button_callback, bouncetime=PrimaryButtonConstants.BOUNCE_TIME)
+    print("Current time: " + str(datetime.now()))
+    #message = input("Press enter to quit\n\n")  # Run until someone presses enter
+    while True:
+        time.sleep(20)
+        print('checking from while')
+        previous_state = current_state
+        current_state = current_state.on_time_expire_check()
 
-    message = input("Press enter to quit\n\n")  # Run until someone presses enter
+        if current_state != previous_state:
+            print("Executing state change based on time")
+            current_state.execute_state_change([Lights.charlie])
+            set_led_color(current_state.get_ring_color())
     set_led_color([0, 0, 0])
     blue_led.stop()
     green_led.stop()
