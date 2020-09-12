@@ -35,9 +35,10 @@ class AsleepLightsOnState(State):
     def on_extra_long_press(self):
         return AsleepLightsOnState(self.wake_time, self.previous_state, not self.auto_alarm)
 
-    def execute_state_change(self, lights):
+    def execute_state_change(self):
         print('changed to: ' + self.name)
-        self._set_lights(lights, ColorConstants.DIMMEST_WHITE, 0)
+        import Lights
+        self._set_lights(Lights.all_group, ColorConstants.DIMMEST_WHITE, 0)
 
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()

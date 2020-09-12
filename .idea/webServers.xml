@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="0eca8e48-89a7-41a6-9222-07869f2f0518" name="Extol">
+        <fileTransfer rootFolder="/home/pi" accessType="SFTP" host="192.168.0.157" port="22" sshConfigId="645dd101-5a76-4f35-bfa9-828cf19cafac" sshConfig="pi@157 Extol">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

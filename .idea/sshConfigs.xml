@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="192.168.0.157" id="645dd101-5a76-4f35-bfa9-828cf19cafac" port="22" customName="pi@157 Extol" nameFormat="CUSTOM" username="pi">
+        <option name="customName" value="pi@157 Extol" />
+      </sshConfig>
+      <sshConfig authType="PASSWORD" host="192.168.0.158" id="2542d19d-8806-4a36-a1a6-a058c5a0e955" port="22" customName="pi@158 Chaise" nameFormat="CUSTOM" username="pi">
+        <option name="customName" value="pi@158 Chaise" />
+      </sshConfig>
+      <sshConfig authType="PASSWORD" host="192.168.0.159" id="f1af0459-cc68-4e42-b19f-da48f3475851" port="22" customName="pi@159 Kayo" nameFormat="CUSTOM" username="pi">
+        <option name="customName" value="pi@159 Kayo" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

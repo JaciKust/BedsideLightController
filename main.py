@@ -31,7 +31,7 @@ def set_led_color(color):
 
 
 current_state = AwakeLightsOnState()
-current_state.execute_state_change(Lights.all_lights)
+current_state.execute_state_change()
 
 
 def button_callback(channel):
@@ -70,7 +70,7 @@ def button_callback(channel):
 
     set_led_color(current_state.get_ring_color())
     if current_state != previous_state:
-        current_state.execute_state_change(Lights.all_lights)
+        current_state.execute_state_change()
     else:
         print("-----------> No state change detected.")
 
@@ -100,7 +100,7 @@ if __name__ == '__main__':
 
         if current_state != previous_state:
             print("Executing state change based on time")
-            current_state.execute_state_change(Lights.all_lights)
+            current_state.execute_state_change()
             set_led_color(current_state.get_ring_color())
 
     set_led_color([0, 0, 0])

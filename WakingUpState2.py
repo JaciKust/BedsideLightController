@@ -33,9 +33,10 @@ class WakingUpState2(State):
         from AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(self.wake_up_time, self, False)
 
-    def execute_state_change(self, lights):
+    def execute_state_change(self):
         import Lights
-        self._set_lights(Lights.room_lights, ColorConstants.WHITE, TimeConstants.waking_up_2_duration_minutes * 60 * 1_000)
+        self._set_lights(Lights.room_group, ColorConstants.WHITE,
+                         TimeConstants.waking_up_2_duration_minutes * 60 * 1_000)
 
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()

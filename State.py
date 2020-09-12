@@ -39,7 +39,7 @@ class State:
     def get_state_identifier(self):
         return self.id
 
-    def execute_state_change(self, lights):
+    def execute_state_change(self):
         pass
 
     def on_time_expire_check(self):
@@ -58,21 +58,20 @@ class State:
         h, s, v = colorsys.rgb_to_hsv(r, g, b)
         return [h * 65535, s * 65535, v * 65535, temperature]
 
-    def _set_lights(self, lights, color, transition_time):
+    def _set_lights(self, group, color, transition_time):
         color = self._rgb_to_hsv(color)
-        for light in lights:
+        try:
+            group.set_color(color, transition_time)
+        except:
+            print('. Failed Once')
+            time.sleep(0.1)
             try:
-                light.set_color(color, transition_time)
+                group.set_color(color, transition_time)
             except:
-                print('. Failed Once')
+                print('.. Failed Twice')
                 time.sleep(0.1)
                 try:
-                    light.set_color(color, transition_time)
+                    group.set_color(color, transition_time)
                 except:
-                    print('.. Failed Twice')
-                    time.sleep(0.1)
-                    try:
-                        light.set_color(color, transition_time)
-                    except:
-                        print('... Failed Three Times')
-                        pass
+                    print('... Failed Three Times')
+                    pass

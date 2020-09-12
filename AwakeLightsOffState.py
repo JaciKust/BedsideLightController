@@ -26,9 +26,10 @@ class AwakeLightsOffState(State):
         # Should go to Mood states
         return self
 
-    def execute_state_change(self, lights):
+    def execute_state_change(self):
         print('changed to: ' + self.name)
-        self._set_lights(lights, ColorConstants.BLACK, 1_000)
+        import Lights
+        self._set_lights(Lights.all_group, ColorConstants.BLACK, 1_000)
 
     def on_time_expire_check(self):
         # No action

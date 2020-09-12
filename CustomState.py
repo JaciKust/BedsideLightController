@@ -25,7 +25,7 @@ class CustomState(State):
         from AwakeLightsOffState import AwakeLightsOffState
         return AwakeLightsOffState(self)
 
-    def execute_state_change(self, lights):
+    def execute_state_change(self):
         print('changed to: ' + self.name)
 
     def on_time_expire_check(self):

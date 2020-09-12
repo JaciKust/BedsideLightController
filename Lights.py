@@ -1,4 +1,4 @@
-from lifxlan import Light
+from lifxlan import Light, Group
 
 alpha = Light('d0:73:d5:2b:5b:08', '192.168.0.200')
 beta = Light('d0:73:d5:2a:69:0c', '192.168.0.201')
@@ -32,3 +32,8 @@ room_lights = [
     foxtrot,
     gamma,
 ]
+
+window_group = Group(window_lights)
+room_group = Group(room_lights)
+all_group = Group(all_lights)
+
