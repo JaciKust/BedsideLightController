@@ -50,29 +50,28 @@ def button_callback(channel):
 
     is_noise_press = False
 
-    previous_state = current_state
+    new_state = None
     # extra long press
     if button_time >= PrimaryButtonConstants.EXTRA_LONG_PRESS_MIN:
-        current_state = current_state.on_extra_long_press()
-
+        new_state = current_state.on_extra_long_press()
     # long button press
     elif button_time >= PrimaryButtonConstants.LONG_PRESS_MIN:
-        current_state = current_state.on_long_press()
-
+        new_state = current_state.on_long_press()
     # short press
     elif button_time >= PrimaryButtonConstants.NOISE_THRESHOLD:
-        current_state = current_state.on_short_press()
-
+        new_state = current_state.on_short_press()
     # noise
     else:
         print("Was determined to be noise")
         is_noise_press = True
 
-    set_led_color(current_state.get_ring_color())
-    if current_state != previous_state:
-        current_state.execute_state_change()
-    else:
+    if new_state is None:
         print("-----------> No state change detected.")
+        set_led_color(current_state.get_ring_color())
+    else:
+        current_state = new_state
+        set_led_color(current_state.get_ring_color())
+        current_state.execute_state_change()
 
     if not is_noise_press:
         # Wait for button to be released if still pressed for extra long press.
@@ -95,16 +94,10 @@ if __name__ == '__main__':
     while True:
         time.sleep(20)
         print('checking from while')
-        previous_state = current_state
-        current_state = current_state.on_time_expire_check()
+        new_state = current_state.on_time_expire_check()
 
-        if current_state != previous_state:
+        if new_state is not None:
             print("Executing state change based on time")
+            current_state = new_state
             current_state.execute_state_change()
             set_led_color(current_state.get_ring_color())
-
-    set_led_color([0, 0, 0])
-    blue_led.stop()
-    green_led.stop()
-    red_led.stop()
-    GPIO.cleanup()
