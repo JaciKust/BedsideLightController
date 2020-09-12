@@ -23,8 +23,15 @@ LED_MAXIMUM = 100
 blue_led = GPIO.PWM(PrimaryButtonConstants.BLUE_PIN, LED_MAXIMUM)
 red_led = GPIO.PWM(PrimaryButtonConstants.RED_PIN, LED_MAXIMUM)
 green_led = GPIO.PWM(PrimaryButtonConstants.GREEN_PIN, LED_MAXIMUM)
+previous_color = None
+
 
 def set_led_color(color):
+    global previous_color
+    if previous_color == color:
+        return
+    previous_color = color
+    print("Setting color to: " + str(color))
     red_led.ChangeDutyCycle(LED_MAXIMUM - color[ColorConstants.RED_LOCATION])
     green_led.ChangeDutyCycle(LED_MAXIMUM - color[ColorConstants.GREEN_LOCATION])
     blue_led.ChangeDutyCycle(LED_MAXIMUM - color[ColorConstants.BLUE_LOCATION])
@@ -38,13 +45,20 @@ def button_callback(channel):
     global current_state
     start_time = time.time()
     button_time = 0
-    set_led_color(current_state.get_ring_color_on_press())
+    time.sleep(0.01)
     print('button pressed')
     while GPIO.input(channel) == PrimaryButtonConstants.BUTTON_PRESSED_VALUE and button_time < PrimaryButtonConstants.EXTRA_LONG_PRESS_MIN:  # Wait for the button up
-        time.sleep(0.1)
+        print("In button loop")
         button_time = time.time() - start_time
-        if button_time >= PrimaryButtonConstants.LONG_PRESS_MIN:
+        set_long_press = False
+        set_press = False
+        if not set_long_press and button_time >= PrimaryButtonConstants.LONG_PRESS_MIN:
+            set_long_press = True
             set_led_color(current_state.get_ring_color_on_long_press())
+        elif not set_press:
+            set_press = True
+            set_led_color(current_state.get_ring_color_on_press())
+        time.sleep(0.1)
 
     print('continuing')
 
@@ -88,7 +102,7 @@ if __name__ == '__main__':
     set_led_color(current_state.get_ring_color())
 
     GPIO.setup(PrimaryButtonConstants.TRIGGER_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 10 to be an input pin and set initial value to be pulled low (off)
-    GPIO.add_event_detect(PrimaryButtonConstants.TRIGGER_PIN, GPIO.RISING, callback=button_callback, bouncetime=PrimaryButtonConstants.BOUNCE_TIME)
+    GPIO.add_event_detect(PrimaryButtonConstants.TRIGGER_PIN, GPIO.RISING, callback=button_callback, bouncetime=PrimaryButtonConstants.BOUNCE_TIME_MS)
     print("Current time: " + str(datetime.now()))
 
     while True:
