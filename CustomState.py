@@ -14,7 +14,7 @@ class CustomState(State):
 
     def on_short_press(self):
         # Should rotate through custom settings here
-        return self
+        return None
 
     def on_long_press(self):
 
@@ -30,4 +30,4 @@ class CustomState(State):
 
     def on_time_expire_check(self):
         # No action
-        return self
+        return None

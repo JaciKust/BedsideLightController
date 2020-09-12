@@ -24,7 +24,7 @@ class AwakeLightsOnState(State):
 
     def on_extra_long_press(self):
         # Should go to Mood states
-        return self
+        return None
 
     def execute_state_change(self):
         print('changed to: ' + self.name)
@@ -39,4 +39,4 @@ class AwakeLightsOnState(State):
 
     def on_time_expire_check(self):
         # No action
-        return self
+        return None

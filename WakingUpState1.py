@@ -43,4 +43,4 @@ class WakingUpState1(State):
         if current_time > self.state_complete_time:
             from WakingUpState2 import WakingUpState2
             return WakingUpState2(self.wake_up_time)
-        return self
+        return None

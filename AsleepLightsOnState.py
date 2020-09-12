@@ -45,4 +45,4 @@ class AsleepLightsOnState(State):
         if current_time > self.wake_time:
             from WakingUpState1 import WakingUpState1
             return WakingUpState1(self.wake_time, self)
-        return self
+        return None
