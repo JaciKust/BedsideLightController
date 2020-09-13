@@ -17,8 +17,6 @@ class AsleepLightsOffState(State):
     on_press_ring_color_alarm_on = ColorConstants.RED
     on_press_ring_color_alarm_off = ColorConstants.GREEN
 
-    on_long_press_ring_color = ColorConstants.BLUE
-
     def __init__(self, wake_time, previous_state=None, auto_alarm=True):
         if auto_alarm:
             super().__init__(self.id, self.name, self.ring_color_alarm_on, self.on_press_ring_color_alarm_on,
