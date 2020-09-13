@@ -1,5 +1,4 @@
 import datetime
-
 import ColorConstants
 import TimeConstants
 from State import State

@@ -1,5 +1,4 @@
 import unittest
-
 from AsleepLightsOnState import AsleepLightsOnState
 from AsleepLightsOffState import AsleepLightsOffState
 

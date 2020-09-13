@@ -1,8 +1,5 @@
 import colorsys
 import time
-
-from lifxlan import LightSetPower
-
 import ColorConstants
 
 

@@ -1,14 +1,8 @@
 from datetime import datetime
-
 from RPi import GPIO
 import time
-
-import Lights
 from AwakeLightsOnState import AwakeLightsOnState
 import ColorConstants
-import colorsys
-from lifxlan import Light
-
 import PrimaryButtonConstants
 
 
