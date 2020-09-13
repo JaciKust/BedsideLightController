@@ -40,5 +40,6 @@ class MyTestCase(unittest.TestCase):
         expected = datetime.datetime(2009, 12, 6, 5, 0)
         self.assertEqual(expected, result)
 
+
 if __name__ == '__main__':
     unittest.main()

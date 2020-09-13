@@ -1,6 +1,6 @@
 import colorsys
 import time
-import ColorConstants
+from Constants import Color as ColorConstant
 
 
 class State:
@@ -49,9 +49,9 @@ class State:
         return not self.__eq__(other)
 
     def _rgb_to_hsv(self, rgb_color, temperature=3500):
-        r = rgb_color[ColorConstants.RED_LOCATION] / 100.0
-        g = rgb_color[ColorConstants.GREEN_LOCATION] / 100.0
-        b = rgb_color[ColorConstants.BLUE_LOCATION] / 100.0
+        r = rgb_color[ColorConstant.RED_LOCATION] / 100.0
+        g = rgb_color[ColorConstant.GREEN_LOCATION] / 100.0
+        b = rgb_color[ColorConstant.BLUE_LOCATION] / 100.0
         h, s, v = colorsys.rgb_to_hsv(r, g, b)
         return [h * 65535, s * 65535, v * 65535, temperature]
 

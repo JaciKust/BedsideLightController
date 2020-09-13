@@ -1,6 +1,6 @@
 import unittest
-from State.State import AsleepLightsOnState
-from State.State import AsleepLightsOffState
+from State.AsleepLightsOnState import AsleepLightsOnState
+from State.AsleepLightsOffState import AsleepLightsOffState
 
 
 class MyTestCase(unittest.TestCase):

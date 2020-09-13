@@ -1,5 +1,5 @@
 import datetime
-import ColorConstants
+from Constants import Color as ColorConstant, Light
 from State.State import State
 
 
@@ -7,13 +7,13 @@ class AsleepLightsOnState(State):
     id = 2
     name = 'Asleep Lights On'
 
-    ring_color_alarm_on = ColorConstants.DIM_RED
-    ring_color_alarm_off = ColorConstants.DIM_GREEN
+    ring_color_alarm_on = ColorConstant.DIM_RED
+    ring_color_alarm_off = ColorConstant.DIM_GREEN
 
-    on_press_ring_color_alarm_on = ColorConstants.RED
-    on_press_ring_color_alarm_off = ColorConstants.GREEN
+    on_press_ring_color_alarm_on = ColorConstant.RED
+    on_press_ring_color_alarm_off = ColorConstant.GREEN
 
-    on_long_press_ring_color = ColorConstants.BLUE
+    on_long_press_ring_color = ColorConstant.BLUE
 
     def __init__(self, wake_time, previous_state=None, auto_alarm=True):
         if auto_alarm:
@@ -36,8 +36,7 @@ class AsleepLightsOnState(State):
 
     def execute_state_change(self):
         print('changed to: ' + self.name)
-        import Lights
-        self._set_lights(Lights.all_group, ColorConstants.DIMMEST_WHITE, 0)
+        self._set_lights(Light.all_group, Color.DIMMEST_WHITE, 0)
 
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()

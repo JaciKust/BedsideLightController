@@ -1,13 +1,13 @@
-import ColorConstants
+from Constants import Color as ColorConstant
 from State.State import State
 
 
 class CustomState(State):
     id = 0
     name = 'Custom'
-    ring_color = ColorConstants.GREEN
-    on_press_ring_color = ColorConstants.DIM_GREEN
-    on_long_press_ring_color = ColorConstants.BLUE
+    ring_color = ColorConstant.GREEN
+    on_press_ring_color = ColorConstant.DIM_GREEN
+    on_long_press_ring_color = ColorConstant.BLUE
 
     def __init__(self, previous_state):
         super().__init__(self.id, self.name, self.ring_color, self.on_press_ring_color, self.on_long_press_ring_color, previous_state)
