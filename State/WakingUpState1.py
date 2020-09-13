@@ -1,7 +1,7 @@
 import datetime
 import ColorConstants
 import TimeConstants
-from State import State
+from State.State import State
 
 
 class WakingUpState1(State):
@@ -19,17 +19,17 @@ class WakingUpState1(State):
     def on_short_press(self):
         # Snooze
         new_wake_time = datetime.datetime.now() + datetime.timedelta(minutes=TimeConstants.snooze_time)
-        from AsleepLightsOffState import AsleepLightsOffState
+        from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(new_wake_time, self)
 
     def on_long_press(self):
         # Wake Up
-        from AwakeLightsOnState import AwakeLightsOnState
+        from State.AwakeLightsOnState import AwakeLightsOnState
         return AwakeLightsOnState(self)
 
     def on_extra_long_press(self):
         # Turn off Alarm
-        from AsleepLightsOffState import AsleepLightsOffState
+        from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(self.wake_up_time, self, False)
 
     def execute_state_change(self):
@@ -40,6 +40,6 @@ class WakingUpState1(State):
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()
         if current_time > self.state_complete_time:
-            from WakingUpState2 import WakingUpState2
+            from State.WakingUpState2 import WakingUpState2
             return WakingUpState2(self.wake_up_time)
         return None

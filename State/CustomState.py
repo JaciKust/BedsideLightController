@@ -1,5 +1,5 @@
 import ColorConstants
-from State import State
+from State.State import State
 
 
 class CustomState(State):
@@ -17,12 +17,11 @@ class CustomState(State):
         return None
 
     def on_long_press(self):
-
-        from AwakeLightsOnState import AwakeLightsOnState
+        from State.AwakeLightsOnState import AwakeLightsOnState
         return AwakeLightsOnState(self)
 
     def on_extra_long_press(self):
-        from AwakeLightsOffState import AwakeLightsOffState
+        from State.AwakeLightsOffState import AwakeLightsOffState
         return AwakeLightsOffState(self)
 
     def execute_state_change(self):

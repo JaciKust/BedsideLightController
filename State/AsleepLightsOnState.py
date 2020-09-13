@@ -1,6 +1,6 @@
 import datetime
 import ColorConstants
-from State import State
+from State.State import State
 
 
 class AsleepLightsOnState(State):
@@ -24,11 +24,11 @@ class AsleepLightsOnState(State):
         self.wake_time = wake_time
 
     def on_short_press(self):
-        from AsleepLightsOffState import AsleepLightsOffState
+        from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(self.wake_time, self, self.auto_alarm)
 
     def on_long_press(self):
-        from AwakeLightsOnState import AwakeLightsOnState
+        from State.AwakeLightsOnState import AwakeLightsOnState
         return AwakeLightsOnState(self)
 
     def on_extra_long_press(self):
@@ -42,6 +42,6 @@ class AsleepLightsOnState(State):
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()
         if current_time > self.wake_time:
-            from WakingUpState1 import WakingUpState1
+            from State.WakingUpState1 import WakingUpState1
             return WakingUpState1(self.wake_time, self)
         return None

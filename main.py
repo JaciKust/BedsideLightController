@@ -1,7 +1,7 @@
 from datetime import datetime
 from RPi import GPIO
 import time
-from AwakeLightsOnState import AwakeLightsOnState
+from State.AwakeLightsOnState import AwakeLightsOnState
 import ColorConstants
 import PrimaryButtonConstants
 

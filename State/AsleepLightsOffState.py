@@ -1,6 +1,6 @@
 import datetime
 import ColorConstants
-from State import State
+from State.State import State
 
 
 class AsleepLightsOffState(State):
@@ -25,11 +25,12 @@ class AsleepLightsOffState(State):
         self.wake_time = wake_time
 
     def on_short_press(self):
-        from AsleepLightsOnState import AsleepLightsOnState
+
+        from State.AsleepLightsOnState import AsleepLightsOnState
         return AsleepLightsOnState(self.wake_time, self, self.auto_alarm)
 
     def on_long_press(self):
-        from AwakeLightsOnState import AwakeLightsOnState
+        from State.AwakeLightsOnState import AwakeLightsOnState
         return AwakeLightsOnState(self)
 
     def on_extra_long_press(self):
@@ -37,7 +38,7 @@ class AsleepLightsOffState(State):
 
     def execute_state_change(self):
         print('changed to: ' + self.name)
-        from AwakeLightsOnState import AwakeLightsOnState
+        from State.AwakeLightsOnState import AwakeLightsOnState
 
         transition_time = 0
         # If coming from Awake Lights On change over ten seconds
@@ -51,6 +52,6 @@ class AsleepLightsOffState(State):
         # Should start the wake up process
         current_time = datetime.datetime.now()
         if self.wake_time < current_time:
-            from WakingUpState1 import WakingUpState1
+            from State.WakingUpState1 import WakingUpState1
             return WakingUpState1(self.wake_time, self)
         return None

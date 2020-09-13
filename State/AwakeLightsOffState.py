@@ -1,7 +1,7 @@
 import ColorConstants
 import TimeConstants
 import TimeFunctions
-from State import State
+from State.State import State
 
 
 class AwakeLightsOffState(State):
@@ -15,11 +15,11 @@ class AwakeLightsOffState(State):
         super().__init__(self.id, self.name, self.ring_color, self.on_press_ring_color, self.on_long_press_ring_color, previous_state)
 
     def on_short_press(self):
-        from AwakeLightsOnState import AwakeLightsOnState
+        from State.AwakeLightsOnState import AwakeLightsOnState
         return AwakeLightsOnState(self)
 
     def on_long_press(self):
-        from AsleepLightsOffState import AsleepLightsOffState
+        from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(TimeFunctions.get_next(TimeConstants.wakeup_time), self)
 
     def on_extra_long_press(self):
