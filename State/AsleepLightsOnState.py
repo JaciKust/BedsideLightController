@@ -1,5 +1,7 @@
 import datetime
-from Constants import Color as ColorConstant, Light
+from Constants import Color as ColorConstant
+from Constants import Light as LightConstant
+
 from State.State import State
 
 
@@ -36,7 +38,7 @@ class AsleepLightsOnState(State):
 
     def execute_state_change(self):
         print('changed to: ' + self.name)
-        self._set_lights(Light.all_group, Color.DIMMEST_WHITE, 0)
+        self._set_lights(LightConstant.all_group, ColorConstant.DIMMEST_WHITE, 0)
 
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()

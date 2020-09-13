@@ -1,5 +1,6 @@
 import datetime
-from Constants import Color as ColorConstant, Light
+from Constants import Color as ColorConstant
+from Constants import Light as LightConstant
 from State.State import State
 
 
@@ -45,7 +46,7 @@ class AsleepLightsOffState(State):
         if isinstance(self.previous_state, AwakeLightsOnState):
             transition_time = 10_000
 
-        self._set_lights(Light.all_group, Color.BLACK, transition_time)
+        self._set_lights(LightConstant.all_group, ColorConstant.BLACK, transition_time)
 
     def on_time_expire_check(self):
         # Should start the wake up process

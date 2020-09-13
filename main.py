@@ -2,19 +2,20 @@ from datetime import datetime
 from RPi import GPIO
 import time
 from State.AwakeLightsOnState import AwakeLightsOnState
-from Constants import Color as ColorConstant, PrimaryButton
+from Constants import Color as ColorConstant
+from Constants import PrimaryButton as PrimaryButtonConstant
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)  # Ignore warning for now
 
-GPIO.setup(PrimaryButton.BLUE_PIN, GPIO.OUT)
-GPIO.setup(PrimaryButton.RED_PIN, GPIO.OUT)
-GPIO.setup(PrimaryButton.GREEN_PIN, GPIO.OUT)
+GPIO.setup(PrimaryButtonConstant.BLUE_PIN, GPIO.OUT)
+GPIO.setup(PrimaryButtonConstant.RED_PIN, GPIO.OUT)
+GPIO.setup(PrimaryButtonConstant.GREEN_PIN, GPIO.OUT)
 
 LED_MAXIMUM = 100
-blue_led = GPIO.PWM(PrimaryButton.BLUE_PIN, LED_MAXIMUM)
-red_led = GPIO.PWM(PrimaryButton.RED_PIN, LED_MAXIMUM)
-green_led = GPIO.PWM(PrimaryButton.GREEN_PIN, LED_MAXIMUM)
+blue_led = GPIO.PWM(PrimaryButtonConstant.BLUE_PIN, LED_MAXIMUM)
+red_led = GPIO.PWM(PrimaryButtonConstant.RED_PIN, LED_MAXIMUM)
+green_led = GPIO.PWM(PrimaryButtonConstant.GREEN_PIN, LED_MAXIMUM)
 previous_color = None
 
 
@@ -39,12 +40,12 @@ def button_callback(channel):
     button_time = 0
     time.sleep(0.01)
     print('button pressed')
-    while GPIO.input(channel) == PrimaryButton.BUTTON_PRESSED_VALUE and button_time < PrimaryButton.EXTRA_LONG_PRESS_MIN:  # Wait for the button up
+    while GPIO.input(channel) == PrimaryButtonConstant.BUTTON_PRESSED_VALUE and button_time < PrimaryButtonConstant.EXTRA_LONG_PRESS_MIN:  # Wait for the button up
         print("In button loop")
         button_time = time.time() - start_time
         set_long_press = False
         set_press = False
-        if not set_long_press and button_time >= PrimaryButton.LONG_PRESS_MIN:
+        if not set_long_press and button_time >= PrimaryButtonConstant.LONG_PRESS_MIN:
             set_long_press = True
             set_led_color(current_state.get_ring_color_on_long_press())
         elif not set_press:
@@ -58,13 +59,13 @@ def button_callback(channel):
 
     new_state = None
     # extra long press
-    if button_time >= PrimaryButton.EXTRA_LONG_PRESS_MIN:
+    if button_time >= PrimaryButtonConstant.EXTRA_LONG_PRESS_MIN:
         new_state = current_state.on_extra_long_press()
     # long button press
-    elif button_time >= PrimaryButton.LONG_PRESS_MIN:
+    elif button_time >= PrimaryButtonConstant.LONG_PRESS_MIN:
         new_state = current_state.on_long_press()
     # short press
-    elif button_time >= PrimaryButton.NOISE_THRESHOLD:
+    elif button_time >= PrimaryButtonConstant.NOISE_THRESHOLD:
         new_state = current_state.on_short_press()
     # noise
     else:
@@ -81,7 +82,7 @@ def button_callback(channel):
 
     if not is_noise_press:
         # Wait for button to be released if still pressed for extra long press.
-        while GPIO.input(channel) == PrimaryButton.BUTTON_PRESSED_VALUE:
+        while GPIO.input(channel) == PrimaryButtonConstant.BUTTON_PRESSED_VALUE:
             time.sleep(0.1)
 
         print("Press time: " + str(button_time))
@@ -93,8 +94,8 @@ if __name__ == '__main__':
     blue_led.start(100)
     set_led_color(current_state.get_ring_color())
 
-    GPIO.setup(PrimaryButton.TRIGGER_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 10 to be an input pin and set initial value to be pulled low (off)
-    GPIO.add_event_detect(PrimaryButton.TRIGGER_PIN, GPIO.RISING, callback=button_callback, bouncetime=PrimaryButton.BOUNCE_TIME_MS)
+    GPIO.setup(PrimaryButtonConstant.TRIGGER_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 10 to be an input pin and set initial value to be pulled low (off)
+    GPIO.add_event_detect(PrimaryButtonConstant.TRIGGER_PIN, GPIO.RISING, callback=button_callback, bouncetime=PrimaryButtonConstant.BOUNCE_TIME_MS)
     print("Current time: " + str(datetime.now()))
 
     while True:
