@@ -1,9 +1,11 @@
-from datetime import datetime
-from RPi import GPIO
 import time
-from State.AwakeLightsOnState import AwakeLightsOnState
+from datetime import datetime
+
+from RPi import GPIO
+
 from Constants import Color as ColorConstant
 from Constants import PrimaryButton as PrimaryButtonConstant
+from State.AwakeLightsOnState import AwakeLightsOnState
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -21,6 +23,13 @@ current_state = AwakeLightsOnState()
 current_state.execute_state_change()
 
 
+def log_data(data):
+    now = str(datetime.now())
+    data = str(data)
+    output = '[{}] {}'.format(now, data)
+    print(output)
+
+
 def set_button_color(color):
     global previous_color
     if previous_color == color:
@@ -33,18 +42,19 @@ def set_button_color(color):
 
 def on_button_press(channel):
     global current_state
-    start_time = time.time()
-    button_time = 0
+    button_start_press_time = time.time()
+    button_press_time = 0
     has_long_press_been_set = False
     has_short_press_been_set = False
     time.sleep(0.01)
 
     while GPIO.input(channel) == PrimaryButtonConstant.BUTTON_PRESSED_VALUE and \
-            button_time < PrimaryButtonConstant.EXTRA_LONG_PRESS_MIN:  # Wait for the button up
-        button_time, has_long_press_been_set, has_short_press_been_set = \
-            handle_button_color(start_time, has_long_press_been_set, has_short_press_been_set)
+            button_press_time < PrimaryButtonConstant.EXTRA_LONG_PRESS_MIN:  # Wait for the button up
+        button_press_time, has_long_press_been_set, has_short_press_been_set = \
+            handle_button_color(button_start_press_time, has_long_press_been_set, has_short_press_been_set)
 
-    set_new_state(get_new_state(button_time))
+    log_data("Button pressed for {} seconds".format(button_press_time))
+    set_new_state(get_new_state(button_press_time))
     wait_for_button_release(channel)
 
 
@@ -54,6 +64,7 @@ def set_new_state(state):
         set_button_color(current_state.get_ring_color())
     else:
         current_state = state
+        log_data("Setting state to: " + str(current_state))
         set_button_color(current_state.get_ring_color())
         current_state.execute_state_change()
 
@@ -77,26 +88,28 @@ def get_new_state(button_time):
     return return_state
 
 
-def handle_button_color(start_time, has_long_press_been_set, has_short_press_been_set):
-    button_time = time.time() - start_time
-    if not has_long_press_been_set and button_time >= PrimaryButtonConstant.LONG_PRESS_MIN:
+def handle_button_color(button_start_press_time, has_long_press_been_set, has_short_press_been_set):
+    button_press_time = time.time() - button_start_press_time
+    if not has_long_press_been_set and button_press_time >= PrimaryButtonConstant.LONG_PRESS_MIN:
         has_long_press_been_set = True
         set_button_color(current_state.get_ring_color_on_long_press())
     elif not has_short_press_been_set:
         has_short_press_been_set = True
         set_button_color(current_state.get_ring_color_on_press())
     time.sleep(0.1)
-    return button_time, has_long_press_been_set, has_short_press_been_set
+    return button_press_time, has_long_press_been_set, has_short_press_been_set
 
 
 if __name__ == '__main__':
+    log_data('Starting')
     red_led.start(100)
     green_led.start(100)
     blue_led.start(100)
     set_button_color(current_state.get_ring_color())
 
-    GPIO.setup(PrimaryButtonConstant.TRIGGER_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 10 to be an input pin and set initial value to be pulled low (off)
-    GPIO.add_event_detect(PrimaryButtonConstant.TRIGGER_PIN, GPIO.RISING, callback=on_button_press, bouncetime=PrimaryButtonConstant.BOUNCE_TIME_MS)
+    GPIO.setup(PrimaryButtonConstant.TRIGGER_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.add_event_detect(PrimaryButtonConstant.TRIGGER_PIN, GPIO.RISING, callback=on_button_press,
+                          bouncetime=PrimaryButtonConstant.BOUNCE_TIME_MS)
     print("Current time: " + str(datetime.now()))
 
     while True:

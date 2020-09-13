@@ -1,7 +1,8 @@
 import datetime
+
 from Constants import Color as ColorConstant
-from Constants import Time as TimeConstant
 from Constants import Light as LightConstant
+from Constants import Time as TimeConstant
 from State.State import State
 
 
@@ -43,3 +44,6 @@ class WakingUpState2(State):
             from State.AwakeLightsOnState import AwakeLightsOnState
             return AwakeLightsOnState(self)
         return None
+
+    def __str__(self):
+        return super().__str__() + "Wake Time: " + str(self.wake_up_time)

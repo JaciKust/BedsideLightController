@@ -1,14 +1,14 @@
-from Constants import Color as ColorConstant
-from Constants import Time as TimeConstant
-from Constants import Light as LightConstant
 import TimeFunctions
+from Constants import Color as ColorConstant
+from Constants import Light as LightConstant
+from Constants import Time as TimeConstant
 from State.State import State
 
 
 class AwakeLightsOffState(State):
     id = 3
     name = 'Awake Lights Off'
-    ring_color = ColorConstant.WHITE
+    ring_color = ColorConstant.MEDIUM_WHITE
     on_press_ring_color = ColorConstant.DIM_WHITE
     on_long_press_ring_color = ColorConstant.BLUE
 

@@ -10,6 +10,7 @@ MAGENTA = [1, 0, 1]
 YELLOW = [100, 100, 0]
 
 DIM_WHITE = [3, 5, 5]
+MEDIUM_WHITE = [20, 20, 20]
 DIM_BLUE = [0, 0, 1]
 DIM_RED = [1, 0, 0]
 DIM_GREEN = [0, 1, 0]

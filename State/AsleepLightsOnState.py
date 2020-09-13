@@ -1,7 +1,7 @@
 import datetime
+
 from Constants import Color as ColorConstant
 from Constants import Light as LightConstant
-
 from State.State import State
 
 
@@ -46,3 +46,6 @@ class AsleepLightsOnState(State):
             from State.WakingUpState1 import WakingUpState1
             return WakingUpState1(self.wake_time, self)
         return None
+
+    def __str__(self):
+        return super().__str__() + "Alarm set: " + str(self.auto_alarm)
