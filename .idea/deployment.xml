@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Aril" uploadOnCheckin="81b1ad53-3076-4e0c-b76b-dbb90169a383" remoteFilesAllowedToDisappearOnAutoupload="false" autoUploadExternalChanges="true">
+  <component name="PublishConfigData" autoUpload="Always" serverName="pi@158 Chaise" uploadOnCheckin="81b1ad53-3076-4e0c-b76b-dbb90169a383" remoteFilesAllowedToDisappearOnAutoupload="false" autoUploadExternalChanges="true" showAutoUploadSettingsWarning="false">
     <serverData>
       <paths name="Aril">
         <serverdata>
@@ -13,6 +13,13 @@
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Chaise">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/Projects/BedSideLightSwitch" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
@@ -55,6 +62,13 @@
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="pi@158 Chaise">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/pi/Projects" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
