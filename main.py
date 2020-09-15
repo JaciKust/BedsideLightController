@@ -100,25 +100,25 @@ def handle_button_color(button_start_press_time, has_long_press_been_set, has_sh
     return button_press_time, has_long_press_been_set, has_short_press_been_set
 
 
-if __name__ == '__main__':
+def on_start():
     log_data('Starting')
     red_led.start(100)
     green_led.start(100)
     blue_led.start(100)
     set_button_color(current_state.get_ring_color())
-
     GPIO.setup(PrimaryButtonConstant.TRIGGER_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     GPIO.add_event_detect(PrimaryButtonConstant.TRIGGER_PIN, GPIO.RISING, callback=on_button_press,
                           bouncetime=PrimaryButtonConstant.BOUNCE_TIME_MS)
-    print("Current time: " + str(datetime.now()))
+
+
+if __name__ == '__main__':
+    on_start()
 
     while True:
-        time.sleep(20)
-        print('checking from while')
+        time.sleep(60)
         new_state = current_state.on_time_expire_check()
 
         if new_state is not None:
-            print("Executing state change based on time")
             current_state = new_state
             current_state.execute_state_change()
             set_button_color(current_state.get_ring_color())
