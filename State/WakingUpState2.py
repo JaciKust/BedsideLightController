@@ -9,7 +9,7 @@ from State.State import State
 class WakingUpState2(State):
     id = 6
     name = 'Waking Up 2'
-    ring_color = ColorConstant.CYAN
+    ring_color = ColorConstant.DARK_MAGENTA
     on_press_ring_color = ColorConstant.DIM_RED
     on_long_press_ring_color = ColorConstant.BLUE
 

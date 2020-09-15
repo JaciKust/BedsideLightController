@@ -5,12 +5,17 @@ RED = [100, 0, 0]
 GREEN = [0, 100, 0]
 BLUE = [0, 0, 100]
 
-CYAN = [0, 1, 1]
-MAGENTA = [1, 0, 1]
+DARK_CYAN = [0, 1, 1]
+DARK_MAGENTA = [1, 0, 1]
+DARK_YELLOW = [1, 0, 0]
+
+CYAN = [0, 100, 100]
+MAGENTA = [100, 0, 100]
 YELLOW = [100, 100, 0]
 
 DIM_WHITE = [3, 5, 5]
 MEDIUM_WHITE = [20, 20, 20]
+
 DIM_BLUE = [0, 0, 1]
 DIM_RED = [1, 0, 0]
 DIM_GREEN = [0, 1, 0]
