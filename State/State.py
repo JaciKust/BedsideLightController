@@ -14,13 +14,13 @@ class State:
         self.previous_state = previous_state
 
     def on_short_press(self):
-        pass
+        return None
 
     def on_long_press(self):
-        pass
+        return None
 
     def on_extra_long_press(self):
-        pass
+        return None
 
     def get_ring_color(self):
         return self.ring_color
@@ -41,7 +41,7 @@ class State:
         pass
 
     def on_time_expire_check(self):
-        pass
+        return None
 
     def __eq__(self, other):
         return other.get_state_identifier() == self.get_state_identifier()
