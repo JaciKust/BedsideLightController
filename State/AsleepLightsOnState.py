@@ -44,7 +44,7 @@ class AsleepLightsOnState(State):
         current_time = datetime.datetime.now()
         if current_time > self.wake_time:
             from State.WakingUpState1 import WakingUpState1
-            return WakingUpState1(self.wake_time, self)
+            return WakingUpState1(self.wake_time)
         return None
 
     def __str__(self):

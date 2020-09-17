@@ -1,7 +1,7 @@
-from Constants import Color as ColorConstant
-from Constants import Time as TimeConstant
-from Constants import Light as LightConstant
 import TimeFunctions
+from Constants import Color as ColorConstant
+from Constants import Light as LightConstant
+from Constants import Time as TimeConstant
 from State.State import State
 
 
@@ -24,8 +24,8 @@ class AwakeLightsOnState(State):
         return AsleepLightsOffState(TimeFunctions.get_next(TimeConstant.wakeup_time), self)
 
     def on_extra_long_press(self):
-        # Should go to Mood states
-        return None
+        from State import StateConstants
+        return StateConstants.order[0]
 
     def execute_state_change(self):
         print('changed to: ' + self.name)
@@ -36,7 +36,3 @@ class AwakeLightsOnState(State):
                 isinstance(self.previous_state, AsleepLightsOnState):
             transition_time = 10_000
         self._set_lights(LightConstant.all_group, ColorConstant.WHITE, transition_time)
-
-    def on_time_expire_check(self):
-        # No action
-        return None

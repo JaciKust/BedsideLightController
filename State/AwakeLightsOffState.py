@@ -23,10 +23,6 @@ class AwakeLightsOffState(State):
         from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(TimeFunctions.get_next(TimeConstant.wakeup_time), self)
 
-    def on_extra_long_press(self):
-        # Should go to Mood states
-        return None
-
     def execute_state_change(self):
         print('changed to: ' + self.name)
         self._set_lights(LightConstant.all_group, ColorConstant.BLACK, 1_000)

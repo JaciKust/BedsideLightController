@@ -22,21 +22,6 @@ class State:
     def on_extra_long_press(self):
         return None
 
-    def get_ring_color(self):
-        return self.ring_color
-
-    def get_ring_color_on_press(self):
-        return self.on_press_ring_color
-
-    def get_ring_color_on_long_press(self):
-        return self.on_long_press_ring_color
-
-    def get_state_name(self):
-        return self.name
-
-    def get_state_identifier(self):
-        return self.id
-
     def execute_state_change(self):
         pass
 
@@ -44,7 +29,7 @@ class State:
         return None
 
     def __eq__(self, other):
-        return other.get_state_identifier() == self.get_state_identifier()
+        return other.id == self.id
 
     def __ne__(self, other):
         return not self.__eq__(other)

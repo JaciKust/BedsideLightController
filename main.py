@@ -1,3 +1,4 @@
+import sys
 import time
 from datetime import datetime
 
@@ -41,31 +42,39 @@ def set_button_color(color):
 
 
 def on_button_press(channel):
-    global current_state
-    button_start_press_time = time.time()
-    button_press_time = 0
-    has_long_press_been_set = False
-    has_short_press_been_set = False
-    time.sleep(0.01)
+    try:
+        global current_state
+        button_start_press_time = time.time()
+        button_press_time = 0
+        has_long_press_been_set = False
+        has_short_press_been_set = False
+        time.sleep(0.01)
 
-    while GPIO.input(channel) == PrimaryButtonConstant.BUTTON_PRESSED_VALUE and \
-            button_press_time < PrimaryButtonConstant.EXTRA_LONG_PRESS_MIN:  # Wait for the button up
-        button_press_time, has_long_press_been_set, has_short_press_been_set = \
-            handle_button_color(button_start_press_time, has_long_press_been_set, has_short_press_been_set)
+        while GPIO.input(channel) == PrimaryButtonConstant.BUTTON_PRESSED_VALUE and \
+                button_press_time < PrimaryButtonConstant.EXTRA_LONG_PRESS_MIN:  # Wait for the button up
+            button_press_time, has_long_press_been_set, has_short_press_been_set = \
+                handle_button_color(button_start_press_time, has_long_press_been_set, has_short_press_been_set)
 
-    log_data("Button pressed for {} seconds".format(button_press_time))
-    set_new_state(get_new_state(button_press_time))
-    wait_for_button_release(channel)
+        log_data("Button pressed for {} seconds".format(round(button_press_time, 3)))
+        set_new_state(get_new_state(button_press_time))
+        wait_for_button_release(channel)
+
+    except Exception:
+        type, value, traceback = sys.exc_info()
+        log_data("An error was encountered of type: {}".format(type))
+        log_data("Value: {}".format(value))
+        log_data(str(traceback))
+        raise
 
 
 def set_new_state(state):
     global current_state
     if state is None:
-        set_button_color(current_state.get_ring_color())
+        set_button_color(current_state.ring_color)
     else:
         current_state = state
         log_data("Setting state to: " + str(current_state))
-        set_button_color(current_state.get_ring_color())
+        set_button_color(current_state.ring_color)
         current_state.execute_state_change()
 
 
@@ -92,10 +101,10 @@ def handle_button_color(button_start_press_time, has_long_press_been_set, has_sh
     button_press_time = time.time() - button_start_press_time
     if not has_long_press_been_set and button_press_time >= PrimaryButtonConstant.LONG_PRESS_MIN:
         has_long_press_been_set = True
-        set_button_color(current_state.get_ring_color_on_long_press())
+        set_button_color(current_state.on_long_press_ring_color)
     elif not has_short_press_been_set:
         has_short_press_been_set = True
-        set_button_color(current_state.get_ring_color_on_press())
+        set_button_color(current_state.on_press_ring_color)
     time.sleep(0.1)
     return button_press_time, has_long_press_been_set, has_short_press_been_set
 
@@ -105,7 +114,7 @@ def on_start():
     red_led.start(100)
     green_led.start(100)
     blue_led.start(100)
-    set_button_color(current_state.get_ring_color())
+    set_button_color(current_state.ring_color)
     GPIO.setup(PrimaryButtonConstant.TRIGGER_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     GPIO.add_event_detect(PrimaryButtonConstant.TRIGGER_PIN, GPIO.RISING, callback=on_button_press,
                           bouncetime=PrimaryButtonConstant.BOUNCE_TIME_MS)
@@ -121,4 +130,4 @@ if __name__ == '__main__':
         if new_state is not None:
             current_state = new_state
             current_state.execute_state_change()
-            set_button_color(current_state.get_ring_color())
+            set_button_color(current_state.ring_color)

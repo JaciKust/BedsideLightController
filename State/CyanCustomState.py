@@ -7,7 +7,7 @@ class CyanCustomState(CustomState):
     name = 'Custom - Cyan'
     ring_color = ColorConstant.YELLOW
 
-    def __init__(self, previous_state):
+    def __init__(self):
         super().__init__(self.ring_color)
 
     def execute_state_change(self):

@@ -3,36 +3,18 @@ import datetime
 from Constants import Color as ColorConstant
 from Constants import Light as LightConstant
 from Constants import Time as TimeConstant
-from State.State import State
+from State.WakingUpState import WakingUpState
 
 
-class WakingUpState2(State):
+class WakingUpState2(WakingUpState):
     id = 6
     name = 'Waking Up 2'
     ring_color = ColorConstant.DARK_MAGENTA
-    on_press_ring_color = ColorConstant.DIM_RED
-    on_long_press_ring_color = ColorConstant.BLUE
 
-    def __init__(self, wake_up_time, previous_state=None):
-        super().__init__(self.id, self.name, self.ring_color, self.on_press_ring_color, self.on_long_press_ring_color, previous_state)
-        self.wake_up_time = wake_up_time
-        self.state_complete_time = wake_up_time + datetime.timedelta(minutes=TimeConstant.waking_up_1_duration_minutes + TimeConstant.waking_up_2_duration_minutes)
-
-    def on_short_press(self):
-        # Snooze
-        new_wake_time = datetime.datetime.now() + datetime.timedelta(minutes=TimeConstant.snooze_time)
-        from State.AsleepLightsOffState import AsleepLightsOffState
-        return AsleepLightsOffState(new_wake_time, self)
-
-    def on_long_press(self):
-        # Wake Up
-        from State.AwakeLightsOnState import AwakeLightsOnState
-        return AwakeLightsOnState(self)
-
-    def on_extra_long_press(self):
-        # Turn off Alarm
-        from State.AsleepLightsOffState import AsleepLightsOffState
-        return AsleepLightsOffState(self.wake_up_time, self, False)
+    def __init__(self, wake_up_time):
+        super().__init__(self.ring_color, self.id, self.name, wake_up_time)
+        self.state_complete_time = wake_up_time + datetime.timedelta(
+            minutes=TimeConstant.waking_up_1_duration_minutes + TimeConstant.waking_up_2_duration_minutes)
 
     def execute_state_change(self):
         self._set_lights(LightConstant.room_group, ColorConstant.WHITE,
