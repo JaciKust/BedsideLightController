@@ -109,7 +109,7 @@ def handle_button_color(button_start_press_time, has_long_press_been_set, has_sh
     return button_press_time, has_long_press_been_set, has_short_press_been_set
 
 
-def on_start():
+def init():
     log_data('Starting')
     red_led.start(100)
     green_led.start(100)
@@ -121,13 +121,20 @@ def on_start():
 
 
 if __name__ == '__main__':
-    on_start()
+    init()
 
     while True:
         time.sleep(60)
-        new_state = current_state.on_time_expire_check()
+        try:
+            new_state = current_state.on_time_expire_check()
 
-        if new_state is not None:
-            current_state = new_state
-            current_state.execute_state_change()
-            set_button_color(current_state.ring_color)
+            if new_state is not None:
+                current_state = new_state
+                current_state.execute_state_change()
+                set_button_color(current_state.ring_color)
+        except:
+            type, value, traceback = sys.exc_info()
+            log_data("An error was encountered of type: {}".format(type))
+            log_data("Value: {}".format(value))
+            log_data(str(traceback))
+            raise
