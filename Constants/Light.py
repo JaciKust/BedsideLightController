@@ -7,8 +7,8 @@ delta = Light('D0:73:D5:2B:96:41', '192.168.0.203')
 echo = Light('D0:73:D5:40:31:1D', '192.168.0.204')
 foxtrot = Light('D0:73:D5:40:15:4C', '192.168.0.205')
 gamma = Light('D0:73:D5:2A:93:0C', '192.168.0.206')
-hotel = Light('', '192.168.0.207')
-india = Light('', '192.168.0.208')
+hotel = Light('D0:73:D5:2B:F7:AB', '192.168.0.207')
+india = Light('D0:73:D5:2C:09:DD', '192.168.0.208')
 
 all_lights = [
     alpha,
@@ -18,6 +18,8 @@ all_lights = [
     echo,
     foxtrot,
     gamma,
+    hotel,
+    india,
 ]
 
 window_lights = [
@@ -31,6 +33,8 @@ room_lights = [
     echo,
     foxtrot,
     gamma,
+    hotel,
+    india
 ]
 
 window_group = Group(window_lights)
