@@ -60,10 +60,11 @@ def on_button_press(channel):
         wait_for_button_release(channel)
 
     except Exception:
-        type, value, traceback = sys.exc_info()
-        log_data("An error was encountered of type: {}".format(type))
-        log_data("Value: {}".format(value))
-        log_data(str(traceback))
+        t, v, tb = sys.exc_info()
+        log_data("An error was encountered of type: {}".format(t))
+        log_data("Value: {}".format(v))
+        log_data(str(tb))
+        tb.print_exc()
         raise
 
 

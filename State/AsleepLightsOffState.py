@@ -10,8 +10,8 @@ class AsleepLightsOffState(State):
     name = 'Asleep Lights Off'
     on_long_press_ring_color = ColorConstant.BLUE
 
-    ring_color_alarm_on = ColorConstant.DIM_RED
-    ring_color_alarm_off = ColorConstant.DIM_GREEN
+    ring_color_alarm_on = ColorConstant.DARK_RED
+    ring_color_alarm_off = ColorConstant.DARK_GREEN
 
     on_press_ring_color_alarm_on = ColorConstant.RED
     on_press_ring_color_alarm_off = ColorConstant.GREEN
@@ -51,10 +51,10 @@ class AsleepLightsOffState(State):
     def on_time_expire_check(self):
         # Should start the wake up process
         current_time = datetime.datetime.now()
-        if self.wake_time < current_time:
+        if self.auto_alarm and self.wake_time < current_time:
             from State.WakingUpState1 import WakingUpState1
-            return WakingUpState1(self.wake_time, self)
+            return WakingUpState1(self.wake_time)
         return None
 
     def __str__(self):
-        return super().__str__() + "Alarm set: " + str(self.auto_alarm)
+        return super().__str__() + " Alarm set: " + str(self.auto_alarm)

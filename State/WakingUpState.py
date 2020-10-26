@@ -6,7 +6,7 @@ from State.State import State
 
 
 class WakingUpState(State):
-    on_press_ring_color = ColorConstant.DIM_RED
+    on_press_ring_color = ColorConstant.DARK_RED
     on_long_press_ring_color = ColorConstant.BLUE
 
     def __init__(self, id, name, ring_color, wake_up_time):

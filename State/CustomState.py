@@ -15,9 +15,6 @@ class CustomState(State):
         super().__init__(self.id, self.name, ring_color, self.on_press_ring_color,
                          self.on_long_press_ring_color, previous_state)
 
-    def on_short_press(self):
-        return self.get_next_custom_state()
-
     def on_long_press(self):
         from State.AwakeLightsOnState import AwakeLightsOnState
         return AwakeLightsOnState(self)

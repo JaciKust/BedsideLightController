@@ -9,7 +9,7 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
-      <webServer id="535aa6d3-e03b-459b-9e8d-2020fbefeac2" name="Chaise">
+      <webServer id="535aa6d3-e03b-459b-9e8d-2020fbefeac2" name="Chaise (project level)">
         <fileTransfer rootFolder="/home/pi" accessType="SFTP" host="192.168.0.158" port="22" sshConfigId="2542d19d-8806-4a36-a1a6-a058c5a0e955" sshConfig="pi@158 Chaise">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />

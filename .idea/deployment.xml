@@ -23,6 +23,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="Chaise (project level)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/Projects/BedSideLightSwitch" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Extol">
         <serverdata>
           <mappings>
@@ -62,13 +69,6 @@
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="pi@158 Chaise">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/home/pi/Projects" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

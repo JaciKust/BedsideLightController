@@ -24,8 +24,8 @@ class AwakeLightsOnState(State):
         return AsleepLightsOffState(TimeFunctions.get_next(TimeConstant.wakeup_time), self)
 
     def on_extra_long_press(self):
-        from State import StateConstants
-        return StateConstants.order[0]
+        from State.CyanCustomState import CyanCustomState
+        return CyanCustomState()
 
     def execute_state_change(self):
         print('changed to: ' + self.name)

@@ -16,12 +16,13 @@ YELLOW = [100, 100, 0]
 DIM_WHITE = [3, 5, 5]
 MEDIUM_WHITE = [20, 20, 20]
 
-DIM_BLUE = [0, 0, 1]
-DIM_RED = [1, 0, 0]
-DIM_GREEN = [0, 1, 0]
+DARK_BLUE = [0, 0, 1]
+DARK_RED = [1, 0, 0]
+DARK_GREEN = [0, 1, 0]
+
+DIM_MAGENTA = [20, 0, 20]
 
 DIMMEST_WHITE = [0.1, 0.1, 0.1]
-
 
 PRIMARIES = [
     RED,

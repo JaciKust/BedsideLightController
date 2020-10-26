@@ -1,6 +1,8 @@
 import colorsys
 import time
 
+from lifxlan import Group
+
 from Constants import Color as ColorConstant
 
 
@@ -61,3 +63,6 @@ class State:
                 except:
                     print('... Failed Three Times')
                     pass
+
+    def _set_light(self, light, color, transition_time):
+        self._set_lights(Group([light]), color, transition_time)
