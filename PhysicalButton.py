@@ -56,19 +56,3 @@ class PhysicalButton:
         data = str(data)
         output = '[{}] {}'.format(now, data)
         print(output)
-
-    def get_new_state_from_press(self, current_state, button_time):
-        return_state = None
-
-        # extra long press
-        if button_time >= ButtonConstant.EXTRA_LONG_PRESS_MIN:
-            return_state = current_state.on_primary_extra_long_press()
-
-        # long button press
-        elif button_time >= ButtonConstant.LONG_PRESS_MIN:
-            return_state = current_state.on_primary_long_press()
-
-        # short press
-        elif button_time >= ButtonConstant.NOISE_THRESHOLD:
-            return_state = current_state.on_primary_short_press()
-        return return_state

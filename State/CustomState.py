@@ -1,3 +1,4 @@
+from Constants import Color as ColorConstant
 from State.State import State
 
 
@@ -11,6 +12,9 @@ class CustomState(State):
     def __init__(self):
         super().__init__(None)
 
+    def get_door_button_colors(self):
+        return [ColorConstant.WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLACK]
+
     def on_primary_long_press(self):
         from State.AwakeLightsOnState import AwakeLightsOnState
         return AwakeLightsOnState(self)
@@ -18,6 +22,9 @@ class CustomState(State):
     def on_primary_extra_long_press(self):
         from State.AwakeLightsOffState import AwakeLightsOffState
         return AwakeLightsOffState(self)
+
+    def on_door_short_press(self):
+        return self.on_primary_long_press()
 
     def get_next_custom_state(self):
         state_count = len(self.get_custom_state_list())

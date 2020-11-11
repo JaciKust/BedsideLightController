@@ -3,11 +3,16 @@ import time
 
 from lifxlan import Group
 
+from Constants import Button as ButtonConstant
 from Constants import Color as ColorConstant
+from Constants import DoorButton as DoorButtonConstant
+from Constants import PrimaryButton as PrimaryButtonConstant
+from Constants import SecondaryButton as SecondaryButtonConstant
 
 
 class State:
     name = 'Base State'
+    id = -1
 
     def __init__(self, previous_state):
         self.previous_state = previous_state
@@ -55,6 +60,64 @@ class State:
 
     def on_door_extra_long_press(self):
         return None
+
+    def get_state_for(self, button, button_time):
+        if button.name == PrimaryButtonConstant.NAME:
+            return self.get_state_for_primary_button(button_time)
+
+        if button.name == SecondaryButtonConstant.NAME:
+            return self.get_state_for_secondary_button(button_time)
+
+        if button.name == DoorButtonConstant.NAME:
+            return self.get_state_for_door_button(button_time)
+
+    def get_state_for_primary_button(self, button_time):
+        return_state = None
+
+        # extra long press
+        if button_time >= ButtonConstant.EXTRA_LONG_PRESS_MIN:
+            return_state = self.on_primary_extra_long_press()
+
+        # long button press
+        elif button_time >= ButtonConstant.LONG_PRESS_MIN:
+            return_state = self.on_primary_long_press()
+
+        # short press
+        elif button_time >= ButtonConstant.NOISE_THRESHOLD:
+            return_state = self.on_primary_short_press()
+        return return_state
+
+    def get_state_for_secondary_button(self, button_time):
+        return_state = None
+
+        # extra long press
+        if button_time >= ButtonConstant.EXTRA_LONG_PRESS_MIN:
+            return_state = self.on_secondary_extra_long_press()
+
+        # long button press
+        elif button_time >= ButtonConstant.LONG_PRESS_MIN:
+            return_state = self.on_secondary_long_press()
+
+        # short press
+        elif button_time >= ButtonConstant.NOISE_THRESHOLD:
+            return_state = self.on_secondary_short_press()
+        return return_state
+
+    def get_state_for_door_button(self, button_time):
+        return_state = None
+
+        # extra long press
+        if button_time >= ButtonConstant.EXTRA_LONG_PRESS_MIN:
+            return_state = self.on_door_extra_long_press()
+
+        # long button press
+        elif button_time >= ButtonConstant.LONG_PRESS_MIN:
+            return_state = self.on_door_long_press()
+
+        # short press
+        elif button_time >= ButtonConstant.NOISE_THRESHOLD:
+            return_state = self.on_door_short_press()
+        return return_state
 
     def __eq__(self, other):
         return other.id == self.id

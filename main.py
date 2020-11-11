@@ -44,7 +44,22 @@ def log_data(data):
 
 
 def on_primary_button_press(channel):
+    on_button_press(primary_button, current_state.get_primary_button_colors())
+
+
+def on_door_button_press(channel):
+    on_button_press(door_button, current_state.get_door_button_colors())
+
+
+button_pressed = False
+
+
+def on_button_press(button, colors):
+    global button_pressed
     try:
+        if button_pressed:
+            return
+        button_pressed = True
         global current_state
         button_start_press_time = time.time()
         button_press_time = 0
@@ -52,16 +67,16 @@ def on_primary_button_press(channel):
         has_short_press_been_set = False
         time.sleep(0.01)
 
-        while GPIO.input(channel) == ButtonConstant.BUTTON_PRESSED_VALUE and \
+        while GPIO.input(button.trigger_pin) == ButtonConstant.BUTTON_PRESSED_VALUE and \
                 button_press_time < ButtonConstant.EXTRA_LONG_PRESS_MIN:  # Wait for the button up
 
             button_press_time, has_long_press_been_set, has_short_press_been_set = \
-                primary_button.handle_button_color(button_start_press_time, has_long_press_been_set,
-                                                   has_short_press_been_set, current_state.get_primary_button_colors())
+                button.handle_button_color(button_start_press_time, has_long_press_been_set, has_short_press_been_set,
+                                           colors)
 
-        log_data("Primary Button pressed for {} seconds".format(round(button_press_time, 3)))
-        set_new_state(primary_button.get_new_state_from_press(current_state, button_press_time))
-        wait_for_button_release(channel)
+        log_data("{} Button pressed for {} seconds".format(button.name, round(button_press_time, 3)))
+        set_new_state(current_state.get_state_for(button, button_press_time))
+        wait_for_button_release(button.trigger_pin)
 
     except Exception:
         t, v, tb = sys.exc_info()
@@ -69,17 +84,18 @@ def on_primary_button_press(channel):
         log_data("Value: {}".format(v))
         log_data(str(tb))
         raise
+    finally:
+        button_pressed = False
 
 
 def set_new_state(state):
     global current_state
     if state is None:
-        primary_button.set_button_color(current_state.get_primary_button_colors()[ButtonConstant.DEFAULT_COLOR])
+        set_all_button_colors_to_default(current_state)
     else:
-        print("Throwing shit from set state")
         current_state = state
         log_data("Setting state to: " + str(current_state))
-        primary_button.set_button_color(current_state.get_primary_button_colors()[ButtonConstant.DEFAULT_COLOR])
+        set_all_button_colors_to_default(current_state)
         current_state.execute_state_change()
 
 
@@ -87,9 +103,10 @@ def wait_for_button_release(channel):
     while GPIO.input(channel) == ButtonConstant.BUTTON_PRESSED_VALUE:
         time.sleep(0.1)
 
+
 def init():
     log_data('Starting')
-    primary_button.set_button_color(current_state.get_primary_button_colors()[ButtonConstant.DEFAULT_COLOR])
+    set_all_button_colors_to_default(current_state)
 
     GPIO.add_event_detect(primary_button.trigger_pin, GPIO.RISING, callback=on_primary_button_press,
                           bouncetime=ButtonConstant.BOUNCE_TIME_MS)
@@ -97,8 +114,14 @@ def init():
     GPIO.add_event_detect(secondary_button.trigger_pin, GPIO.RISING, callback=on_primary_button_press,
                           bouncetime=ButtonConstant.BOUNCE_TIME_MS)
 
-    GPIO.add_event_detect(door_button.trigger_pin, GPIO.RISING, callback=on_primary_button_press,
+    GPIO.add_event_detect(door_button.trigger_pin, GPIO.RISING, callback=on_door_button_press,
                           bouncetime=ButtonConstant.BOUNCE_TIME_MS)
+
+
+def set_all_button_colors_to_default(from_state):
+    primary_button.set_button_color(from_state.get_primary_button_colors()[ButtonConstant.DEFAULT_COLOR])
+    secondary_button.set_button_color(from_state.get_secondary_button_colors()[ButtonConstant.DEFAULT_COLOR])
+    door_button.set_button_color(from_state.get_door_button_colors()[ButtonConstant.DEFAULT_COLOR])
 
 
 if __name__ == '__main__':
@@ -112,7 +135,7 @@ if __name__ == '__main__':
             if new_state is not None:
                 current_state = new_state
                 current_state.execute_state_change()
-                primary_button.set_button_color(current_state.get_primary_button_colors()[ButtonConstant.DEFAULT_COLOR])
+                set_all_button_colors_to_default(current_state)
 
         except:
             print("Throwing shit from loop.")

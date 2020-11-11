@@ -18,6 +18,9 @@ class AwakeLightsOffState(State):
     def get_primary_button_colors(self):
         return [ColorConstant.MEDIUM_WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
 
+    def get_door_button_colors(self):
+        return [ColorConstant.MEDIUM_WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLACK]
+
     def on_primary_short_press(self):
         from State.AwakeLightsOnState import AwakeLightsOnState
         return AwakeLightsOnState(self)
@@ -25,6 +28,9 @@ class AwakeLightsOffState(State):
     def on_primary_long_press(self):
         from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(TimeFunctions.get_next(TimeConstant.wakeup_time), self)
+
+    def on_door_short_press(self):
+        return self.on_primary_short_press()
 
     def execute_state_change(self):
         print('changed to: ' + self.name)
