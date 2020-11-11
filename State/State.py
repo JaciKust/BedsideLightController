@@ -7,27 +7,53 @@ from Constants import Color as ColorConstant
 
 
 class State:
-    def __init__(self, id, name, ring_color, on_press_ring_color, on_long_press_ring_color, previous_state):
-        self.id = id
-        self.name = name
-        self.ring_color = ring_color
-        self.on_press_ring_color = on_press_ring_color
-        self.on_long_press_ring_color = on_long_press_ring_color
+    name = 'Base State'
+
+    def __init__(self, previous_state):
         self.previous_state = previous_state
 
-    def on_short_press(self):
+    def get_primary_button_colors(self):
+        raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
+
+    def get_secondary_button_colors(self):
+        return [ColorConstant.BLACK, ColorConstant.BLACK, ColorConstant.BLACK]
+        # raise NotImplemented('Getting the secondary button color is not implemented for class ' + self.name)
+
+    def get_door_button_colors(self):
+        return [ColorConstant.BLACK, ColorConstant.BLACK, ColorConstant.BLACK]
+        # raise NotImplemented('Getting the door button color is not implemented for class ' + self.name)
+
+    def on_primary_short_press(self):
         return None
 
-    def on_long_press(self):
+    def on_primary_long_press(self):
         return None
 
-    def on_extra_long_press(self):
+    def on_primary_extra_long_press(self):
         return None
 
     def execute_state_change(self):
         pass
 
     def on_time_expire_check(self):
+        return None
+
+    def on_secondary_short_press(self):
+        return None
+
+    def on_secondary_long_press(self):
+        return None
+
+    def on_secondary_extra_long_press(self):
+        return None
+
+    def on_door_short_press(self):
+        return None
+
+    def on_door_long_press(self):
+        return None
+
+    def on_door_extra_long_press(self):
         return None
 
     def __eq__(self, other):

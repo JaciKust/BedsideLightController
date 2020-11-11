@@ -9,11 +9,13 @@ from State.WakingUpState import WakingUpState
 class WakingUpState1(WakingUpState):
     id = 5
     name = 'Waking Up 1'
-    ring_color = ColorConstant.DARK_CYAN
 
     def __init__(self, wake_up_time):
-        super().__init__(self.id, self.name, self.ring_color, wake_up_time)
+        super().__init__(wake_up_time)
         self.state_complete_time = wake_up_time + datetime.timedelta(minutes=TimeConstant.waking_up_1_duration_minutes)
+
+    def get_primary_button_colors(self):
+        return [ColorConstant.DARK_CYAN, ColorConstant.DARK_RED, ColorConstant.BLUE]
 
     def execute_state_change(self):
         self._set_lights(LightConstant.window_group, ColorConstant.WHITE,

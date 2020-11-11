@@ -1,0 +1,6 @@
+RED_PIN = 5
+GREEN_PIN = 6
+BLUE_PIN = 12
+
+TRIGGER_PIN = 13
+NAME = 'Door'

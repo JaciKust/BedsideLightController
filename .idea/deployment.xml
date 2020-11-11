@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Chaise" uploadOnCheckin="81b1ad53-3076-4e0c-b76b-dbb90169a383" autoUploadExternalChanges="true" showAutoUploadSettingsWarning="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="pi@159 Kayo" uploadOnCheckin="81b1ad53-3076-4e0c-b76b-dbb90169a383" autoUploadExternalChanges="true" showAutoUploadSettingsWarning="false">
     <serverData>
       <paths name="Aril">
         <serverdata>
@@ -33,7 +33,7 @@
       <paths name="Extol">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/Projects/BedsideLightController" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
@@ -41,6 +41,13 @@
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Kayo">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/Projects/BedsideLightController" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
@@ -69,6 +76,13 @@
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="pi@159 Kayo">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/pi/Projects/BedsideLightController" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

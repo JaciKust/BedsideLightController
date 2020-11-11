@@ -22,43 +22,43 @@ hotel = Light('D0:73:D5:2B:F7:AB', '192.168.0.207')
 india = Light('D0:73:D5:2C:09:DD', '192.168.0.208')
 
 all_lights = [
-    alpha,
-    bravo,
-    charlie,
-    delta,
-    echo,
-    foxtrot,
-    gamma,
-    hotel,
+    # alpha,
+    # bravo,
+    # charlie,
+    # delta,
+    # echo,
+    # foxtrot,
+    # gamma,
+    # hotel,
     india,
 ]
 
 window_lights = [
-    alpha,
-    bravo,
+    # alpha,
+    # bravo,
 ]
 
 room_lights = [
-    charlie,
-    delta,
-    echo,
-    foxtrot,
-    gamma,
-    hotel,
+    # charlie,
+    # delta,
+    # echo,
+    # foxtrot,
+    # gamma,
+    # hotel,
     india
 ]
 
 desk_lights = [
-    hotel,
+    # hotel,
     india
 ]
 
 general_lights = [
-    charlie,
-    delta,
-    echo,
-    foxtrot,
-    gamma
+    # charlie,
+    # delta,
+    # echo,
+    # foxtrot,
+    # gamma
 ]
 
 window_group = Group(window_lights)

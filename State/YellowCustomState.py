@@ -5,10 +5,12 @@ from State.CustomState import CustomState
 
 class YellowCustomState(CustomState):
     name = 'Custom - Yellow'
-    ring_color = ColorConstant.YELLOW
 
     def __init__(self):
-        super().__init__(self.ring_color, 0, None)
+        super().__init__()
+
+    def get_primary_button_colors(self):
+        return [ColorConstant.YELLOW, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
 
     def execute_state_change(self):
         self._set_light(LightConstant.alpha, ColorConstant.WHITE, 1)
@@ -23,6 +25,6 @@ class YellowCustomState(CustomState):
         self._set_light(LightConstant.hotel, ColorConstant.CYAN, 1)
         self._set_light(LightConstant.india, ColorConstant.MAGENTA, 1)
 
-    def on_short_press(self):
+    def on_primary_short_press(self):
         from State.CyanCustomState import CyanCustomState
         return CyanCustomState()

@@ -9,29 +9,25 @@ class AsleepLightsOnState(State):
     id = 2
     name = 'Asleep Lights On'
 
-    ring_color_alarm_on = ColorConstant.DARK_RED
-    ring_color_alarm_off = ColorConstant.DARK_GREEN
-
-    on_press_ring_color_alarm_on = ColorConstant.RED
-    on_press_ring_color_alarm_off = ColorConstant.GREEN
-
-    on_long_press_ring_color = ColorConstant.BLUE
-
     def __init__(self, wake_time, previous_state=None, auto_alarm=True):
         if auto_alarm:
-            super().__init__(self.id, self.name, self.ring_color_alarm_on, self.on_press_ring_color_alarm_on,
-                             self.on_long_press_ring_color, previous_state)
+            super().__init__(previous_state)
         else:
-            super().__init__(self.id, self.name, self.ring_color_alarm_off, self.on_press_ring_color_alarm_off, self.on_long_press_ring_color, previous_state)
+            super().__init__(previous_state)
         self.auto_alarm = auto_alarm
         self.wake_time = wake_time
         self.all_lights_on = False
 
-    def on_short_press(self):
+    def get_primary_button_colors(self):
+        if self.auto_alarm:
+            return [ColorConstant.DARK_RED, ColorConstant.RED, ColorConstant.BLUE]
+        return [ColorConstant.DARK_GREEN, ColorConstant.GREEN, ColorConstant.BLUE]
+
+    def on_primary_short_press(self):
         from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(self.wake_time, self, self.auto_alarm)
 
-    def on_long_press(self):
+    def on_primary_long_press(self):
         from State.AwakeLightsOnState import AwakeLightsOnState
 
         if not self.all_lights_on:
@@ -41,7 +37,7 @@ class AsleepLightsOnState(State):
         else:
             return AwakeLightsOnState(self)
 
-    def on_extra_long_press(self):
+    def on_primary_extra_long_press(self):
         return AsleepLightsOnState(self.wake_time, self.previous_state, not self.auto_alarm)
 
     def execute_state_change(self):

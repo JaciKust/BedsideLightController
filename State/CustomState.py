@@ -1,25 +1,21 @@
-from Constants import Color as ColorConstant
 from State.State import State
 
 
 class CustomState(State):
     id = -1
     name = 'Custom'
-    on_press_ring_color = ColorConstant.DIM_WHITE
-    on_long_press_ring_color = ColorConstant.BLUE
+
     custom_state_list = None
     current_custom_state = 0
 
-    def __init__(self, ring_color, current_custom_state, previous_state):
-        self.current_custom_state = current_custom_state
-        super().__init__(self.id, self.name, ring_color, self.on_press_ring_color,
-                         self.on_long_press_ring_color, previous_state)
+    def __init__(self):
+        super().__init__(None)
 
-    def on_long_press(self):
+    def on_primary_long_press(self):
         from State.AwakeLightsOnState import AwakeLightsOnState
         return AwakeLightsOnState(self)
 
-    def on_extra_long_press(self):
+    def on_primary_extra_long_press(self):
         from State.AwakeLightsOffState import AwakeLightsOffState
         return AwakeLightsOffState(self)
 

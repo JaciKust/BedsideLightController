@@ -16,6 +16,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="41118b77-c2e2-4ad3-96c2-f7457e1b6e82" name="Kayo">
+        <fileTransfer rootFolder="/home/pi" accessType="SFTP" host="192.168.0.159" port="22" sshConfigId="f1af0459-cc68-4e42-b19f-da48f3475851" sshConfig="pi@159 Kayo">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

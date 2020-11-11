@@ -13,13 +13,16 @@ class AwakeLightsOffState(State):
     on_long_press_ring_color = ColorConstant.BLUE
 
     def __init__(self, previous_state=None):
-        super().__init__(self.id, self.name, self.ring_color, self.on_press_ring_color, self.on_long_press_ring_color, previous_state)
+        super().__init__(previous_state)
 
-    def on_short_press(self):
+    def get_primary_button_colors(self):
+        return [ColorConstant.MEDIUM_WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
+
+    def on_primary_short_press(self):
         from State.AwakeLightsOnState import AwakeLightsOnState
         return AwakeLightsOnState(self)
 
-    def on_long_press(self):
+    def on_primary_long_press(self):
         from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(TimeFunctions.get_next(TimeConstant.wakeup_time), self)
 

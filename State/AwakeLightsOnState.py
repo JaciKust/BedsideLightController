@@ -8,22 +8,22 @@ from State.State import State
 class AwakeLightsOnState(State):
     id = 4
     name = 'Awake Lights On'
-    ring_color = ColorConstant.WHITE
-    on_press_ring_color = ColorConstant.DIM_WHITE
-    on_long_press_ring_color = ColorConstant.BLUE
 
     def __init__(self, previous_state=None):
-        super().__init__(self.id, self.name, self.ring_color, self.on_press_ring_color, self.on_long_press_ring_color, previous_state)
+        super().__init__(previous_state)
 
-    def on_short_press(self):
+    def get_primary_button_colors(self):
+        return [ColorConstant.WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
+
+    def on_primary_short_press(self):
         from State.AwakeLightsOffState import AwakeLightsOffState
         return AwakeLightsOffState(self)
 
-    def on_long_press(self):
+    def on_primary_long_press(self):
         from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(TimeFunctions.get_next(TimeConstant.wakeup_time), self)
 
-    def on_extra_long_press(self):
+    def on_primary_extra_long_press(self):
         from State.CyanCustomState import CyanCustomState
         return CyanCustomState()
 
