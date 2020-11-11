@@ -8,7 +8,7 @@ from Constants import Color as ColorConstant
 from Constants import DoorButton as DoorButtonConstant
 from Constants import PrimaryButton as PrimaryButtonConstant
 from Constants import SecondaryButton as SecondaryButtonConstant
-from RfTransmitter.Transmitter433 import Transmitter433
+from Transmitter433 import Transmitter433
 
 
 class State:
@@ -23,7 +23,7 @@ class State:
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
 
     def get_secondary_button_colors(self):
-        return [ColorConstant.BLACK, ColorConstant.BLACK, ColorConstant.BLACK]
+        return [ColorConstant.BLUE, ColorConstant.GREEN, ColorConstant.RED]
 
     def get_door_button_colors(self):
         return [ColorConstant.BLACK, ColorConstant.BLACK, ColorConstant.BLACK]
@@ -43,13 +43,13 @@ class State:
     def on_time_expire_check(self):
         return None
 
-    is_on = False
-
     def on_secondary_short_press(self):
         self._toggle_fan()
+        return None
 
     def on_secondary_long_press(self):
         self._toggle_plant_lights()
+        return None
 
     def on_secondary_extra_long_press(self):
         return None
@@ -166,7 +166,7 @@ class State:
 
     def _turn_off_fan(self):
         self.transmitter433.turn_1_off()
-        self.is_fan_on = True
+        self.is_fan_on = False
 
     def _toggle_fan(self):
         if self.is_fan_on:

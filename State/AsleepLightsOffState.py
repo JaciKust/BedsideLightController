@@ -22,6 +22,9 @@ class AsleepLightsOffState(State):
             return [ColorConstant.DARK_RED, ColorConstant.RED, ColorConstant.BLUE]
         return [ColorConstant.DARK_GREEN, ColorConstant.GREEN, ColorConstant.BLUE]
 
+    def get_secondary_button_colors(self):
+        return [ColorConstant.DARK_BLUE, ColorConstant.DARK_GREEN, ColorConstant.DARK_RED]
+
     def on_primary_short_press(self):
         from State.AsleepLightsOnState import AsleepLightsOnState
         return AsleepLightsOnState(self.wake_time, self, self.auto_alarm)
