@@ -51,6 +51,10 @@ def on_door_button_press(channel):
     on_button_press(door_button, current_state.get_door_button_colors())
 
 
+def on_secondary_button_press(channel):
+    on_button_press(secondary_button, current_state.get_secondary_button_colors())
+
+
 button_pressed = False
 
 
@@ -111,7 +115,7 @@ def init():
     GPIO.add_event_detect(primary_button.trigger_pin, GPIO.RISING, callback=on_primary_button_press,
                           bouncetime=ButtonConstant.BOUNCE_TIME_MS)
 
-    GPIO.add_event_detect(secondary_button.trigger_pin, GPIO.RISING, callback=on_primary_button_press,
+    GPIO.add_event_detect(secondary_button.trigger_pin, GPIO.RISING, callback=on_secondary_button_press,
                           bouncetime=ButtonConstant.BOUNCE_TIME_MS)
 
     GPIO.add_event_detect(door_button.trigger_pin, GPIO.RISING, callback=on_door_button_press,

@@ -8,6 +8,7 @@ from Constants import Color as ColorConstant
 from Constants import DoorButton as DoorButtonConstant
 from Constants import PrimaryButton as PrimaryButtonConstant
 from Constants import SecondaryButton as SecondaryButtonConstant
+from RfTransmitter.RxTx import RxTx
 
 
 class State:
@@ -22,11 +23,9 @@ class State:
 
     def get_secondary_button_colors(self):
         return [ColorConstant.BLACK, ColorConstant.BLACK, ColorConstant.BLACK]
-        # raise NotImplemented('Getting the secondary button color is not implemented for class ' + self.name)
 
     def get_door_button_colors(self):
         return [ColorConstant.BLACK, ColorConstant.BLACK, ColorConstant.BLACK]
-        # raise NotImplemented('Getting the door button color is not implemented for class ' + self.name)
 
     def on_primary_short_press(self):
         return None
@@ -43,8 +42,17 @@ class State:
     def on_time_expire_check(self):
         return None
 
+    is_on = False
+
     def on_secondary_short_press(self):
-        return None
+        rxtx = RxTx()
+        if self.is_on:
+            rxtx.txCode("1010111111101010110000111", 0.00015, 0.00062, 0.00054, 0.00023, 0.00614)
+            self.is_on = False
+        else:
+
+            rxtx.txCode("1010111111101010110011001", 0.00015, 0.00062, 0.00054, 0.00023, 0.00614)
+            self.is_on = True
 
     def on_secondary_long_press(self):
         return None
