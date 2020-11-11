@@ -20,6 +20,8 @@ class WakingUpState1(WakingUpState):
     def execute_state_change(self):
         self._set_lights(LightConstant.window_group, ColorConstant.WHITE,
                          TimeConstant.waking_up_1_duration_minutes * 60 * 1_000)
+        self._turn_off_plant_lights()
+        self._turn_on_fan()
 
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()

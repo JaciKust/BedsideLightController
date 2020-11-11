@@ -43,6 +43,8 @@ class AsleepLightsOnState(State):
     def execute_state_change(self):
         print('changed to: ' + self.name)
         self._set_room_partial_on()
+        self._turn_off_plant_lights()
+        self._turn_on_fan()
 
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()

@@ -34,6 +34,8 @@ class AwakeLightsOffState(State):
 
     def execute_state_change(self):
         print('changed to: ' + self.name)
+        self._turn_on_plant_lights()
+        self._turn_off_fan()
         self._set_lights(LightConstant.all_group, ColorConstant.BLACK, 1_000)
 
     def on_time_expire_check(self):

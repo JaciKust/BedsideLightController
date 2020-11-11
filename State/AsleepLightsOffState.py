@@ -43,6 +43,8 @@ class AsleepLightsOffState(State):
             transition_time = 10_000
 
         self._set_lights(LightConstant.all_group, ColorConstant.BLACK, transition_time)
+        self._turn_off_plant_lights()
+        self._turn_on_fan()
 
     def on_time_expire_check(self):
         # Should start the wake up process

@@ -8,7 +8,7 @@ from Constants import Color as ColorConstant
 from Constants import DoorButton as DoorButtonConstant
 from Constants import PrimaryButton as PrimaryButtonConstant
 from Constants import SecondaryButton as SecondaryButtonConstant
-from RfTransmitter.RxTx import RxTx
+from RfTransmitter.Transmitter433 import Transmitter433
 
 
 class State:
@@ -17,6 +17,7 @@ class State:
 
     def __init__(self, previous_state):
         self.previous_state = previous_state
+        self.transmitter433 = Transmitter433()
 
     def get_primary_button_colors(self):
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
@@ -45,17 +46,10 @@ class State:
     is_on = False
 
     def on_secondary_short_press(self):
-        rxtx = RxTx()
-        if self.is_on:
-            rxtx.txCode("1010111111101010110000111", 0.00015, 0.00062, 0.00054, 0.00023, 0.00614)
-            self.is_on = False
-        else:
-
-            rxtx.txCode("1010111111101010110011001", 0.00015, 0.00062, 0.00054, 0.00023, 0.00614)
-            self.is_on = True
+        self._toggle_fan()
 
     def on_secondary_long_press(self):
-        return None
+        self._toggle_plant_lights()
 
     def on_secondary_extra_long_press(self):
         return None
@@ -163,3 +157,35 @@ class State:
 
     def _set_light(self, light, color, transition_time):
         self._set_lights(Group([light]), color, transition_time)
+
+    is_fan_on = False
+
+    def _turn_on_fan(self):
+        self.transmitter433.turn_1_on()
+        self.is_fan_on = True
+
+    def _turn_off_fan(self):
+        self.transmitter433.turn_1_off()
+        self.is_fan_on = True
+
+    def _toggle_fan(self):
+        if self.is_fan_on:
+            self._turn_off_fan()
+        else:
+            self._turn_on_fan()
+
+    is_plant_lights_on = False
+
+    def _turn_on_plant_lights(self):
+        self.transmitter433.turn_2_on()
+        self.is_plant_lights_on = True
+
+    def _turn_off_plant_lights(self):
+        self.transmitter433.turn_2_off()
+        self.is_plant_lights_on = False
+
+    def _toggle_plant_lights(self):
+        if self.is_plant_lights_on:
+            self._turn_off_plant_lights()
+        else:
+            self._turn_on_plant_lights()

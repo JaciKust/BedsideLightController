@@ -38,6 +38,8 @@ class AwakeLightsOnState(State):
         from State.AsleepLightsOffState import AsleepLightsOffState
         from State.AsleepLightsOnState import AsleepLightsOnState
         transition_time = 1_000
+        self._turn_on_plant_lights()
+        self._turn_off_fan()
         if isinstance(self.previous_state, AsleepLightsOffState) or \
                 isinstance(self.previous_state, AsleepLightsOnState):
             transition_time = 10_000

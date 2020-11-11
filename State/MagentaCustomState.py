@@ -16,6 +16,8 @@ class MagentaCustomState(CustomState):
     def execute_state_change(self):
         self._set_lights(LightConstant.window_group, ColorConstant.WHITE, 1)
         self._set_lights(LightConstant.room_group, ColorConstant.BLACK, 1)
+        self._turn_off_plant_lights()
+        self._turn_off_fan()
 
     def on_primary_short_press(self):
         from State.YellowCustomState import YellowCustomState
