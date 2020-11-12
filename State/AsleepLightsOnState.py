@@ -36,6 +36,8 @@ class AsleepLightsOnState(State):
         if not self.all_lights_on:
             self._set_room_all_on()
             self.all_lights_on = True
+            self._turn_on_monitor()
+
             return None
         else:
             return AwakeLightsOnState(self)
@@ -49,6 +51,7 @@ class AsleepLightsOnState(State):
         self._turn_off_plant_lights()
         self._turn_on_fan()
         self._turn_off_oddish_light()
+        self._turn_off_monitor()
 
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()

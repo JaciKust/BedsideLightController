@@ -45,3 +45,4 @@ class AwakeLightsOnState(State):
         self._set_lights(LightConstant.all_group, ColorConstant.WHITE, transition_time)
         self._turn_on_plant_lights()
         self._turn_on_oddish_light()
+        self._turn_on_monitor()

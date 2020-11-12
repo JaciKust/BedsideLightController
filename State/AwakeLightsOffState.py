@@ -38,6 +38,7 @@ class AwakeLightsOffState(State):
         self._turn_off_fan()
         self._set_lights(LightConstant.all_group, ColorConstant.BLACK, 1_000)
         self._turn_on_oddish_light()
+        self._turn_off_monitor()
 
     def on_time_expire_check(self):
         # No action

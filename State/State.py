@@ -52,11 +52,11 @@ class State:
 
     def on_secondary_long_press(self):
         self._toggle_plant_lights()
+        self._toggle_oddish_light()
         return None
 
     def on_secondary_extra_long_press(self):
-        print("Toggling Relay")
-        self._toggle_oddish_light()
+        self._toggle_monitor()
         return None
 
     def on_door_short_press(self):
@@ -194,6 +194,22 @@ class State:
             self._turn_off_plant_lights()
         else:
             self._turn_on_plant_lights()
+
+    is_monitor_on = False
+
+    def _turn_on_monitor(self):
+        self._transmitter433.turn_4_on()
+        self.is_monitor_on = True
+
+    def _turn_off_monitor(self):
+        self._transmitter433.turn_4_off()
+        self.is_monitor_on = False
+
+    def _toggle_monitor(self):
+        if self.is_monitor_on:
+            self._turn_off_monitor()
+        else:
+            self._turn_on_monitor()
 
     def _turn_on_oddish_light(self):
         self._oddish_light_relay.turn_on()

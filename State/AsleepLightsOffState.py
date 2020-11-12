@@ -49,6 +49,7 @@ class AsleepLightsOffState(State):
         self._turn_off_plant_lights()
         self._turn_on_fan()
         self._turn_off_oddish_light()
+        self._turn_off_monitor()
 
     def on_time_expire_check(self):
         # Should start the wake up process
