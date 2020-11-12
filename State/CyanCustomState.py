@@ -18,6 +18,7 @@ class CyanCustomState(CustomState):
         self._set_lights(LightConstant.india, ColorConstant.WHITE, 1)
         self._turn_off_plant_lights()
         self._turn_off_fan()
+        self._turn_on_oddish_light()
 
     def on_primary_short_press(self):
         from State.MagentaCustomState import MagentaCustomState

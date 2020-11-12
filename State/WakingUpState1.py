@@ -22,6 +22,7 @@ class WakingUpState1(WakingUpState):
                          TimeConstant.waking_up_1_duration_minutes * 60 * 1_000)
         self._turn_off_plant_lights()
         self._turn_on_fan()
+        self._turn_off_oddish_light()
 
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()
