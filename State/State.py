@@ -57,7 +57,10 @@ class State:
 
     def on_secondary_long_press(self):
         self.plant_lights.toggle()
-        self.oddish_light.toggle()
+        if self.plant_lights.get_is_on():
+            self.oddish_light.set_on()
+        else:
+            self.oddish_light.set_off()
         return None
 
     def on_secondary_extra_long_press(self):
