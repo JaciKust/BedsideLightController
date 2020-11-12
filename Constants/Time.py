@@ -1,6 +1,6 @@
 import datetime
 
-wakeup_time = datetime.time(6, 15)
-waking_up_1_duration_minutes = 1
-waking_up_2_duration_minutes = 1
+wakeup_time = datetime.time(4, 40)
+waking_up_1_duration_minutes = 10
+waking_up_2_duration_minutes = 10
 snooze_time = 30
