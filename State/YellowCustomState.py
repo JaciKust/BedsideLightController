@@ -25,10 +25,10 @@ class YellowCustomState(CustomState):
         self._set_light(LightConstant.hotel, ColorConstant.CYAN, 1)
         self._set_light(LightConstant.india, ColorConstant.MAGENTA, 1)
 
-        self._turn_off_plant_lights()
-        self._turn_off_fan()
-        self._turn_off_oddish_light()
-        self._turn_on_monitor()
+        self.plant_lights.set_off()
+        self.fan.set_off()
+        self.oddish_light.set_off()
+        self.monitor.set_on()
 
     def on_primary_short_press(self):
         from State.CyanCustomState import CyanCustomState

@@ -1,23 +1,17 @@
 from RPi import GPIO
 
+from Toggleable import Toggleable
 
-class Relay:
+
+class Relay(Toggleable):
     def __init__(self, pin):
         self.pin = pin
         GPIO.setup(self.pin, GPIO.OUT)
 
-    is_on = False
-
-    def turn_on(self):
+    def _execute_set_on(self):
         GPIO.output(self.pin, GPIO.LOW)
         self.is_on = True
 
-    def turn_off(self):
+    def _execute_set_off(self):
         GPIO.output(self.pin, GPIO.HIGH)
         self.is_on = False
-
-    def toggle(self):
-        if self.is_on:
-            self.turn_off()
-        else:
-            self.turn_on()

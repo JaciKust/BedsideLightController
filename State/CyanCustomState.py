@@ -16,10 +16,11 @@ class CyanCustomState(CustomState):
         self._set_lights(LightConstant.window_group, ColorConstant.WHITE, 1)
         self._set_lights(LightConstant.room_group, ColorConstant.BLACK, 1)
         self._set_lights(LightConstant.india, ColorConstant.WHITE, 1)
-        self._turn_off_plant_lights()
-        self._turn_off_fan()
-        self._turn_on_oddish_light()
-        self._turn_on_monitor()
+
+        self.plant_lights.set_off()
+        self.fan.set_off()
+        self.oddish_light.set_on()
+        self.monitor.set_on()
 
     def on_primary_short_press(self):
         from State.MagentaCustomState import MagentaCustomState

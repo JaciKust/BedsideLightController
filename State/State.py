@@ -19,8 +19,13 @@ class State:
 
     def __init__(self, previous_state):
         self.previous_state = previous_state
-        self._transmitter433 = Transmitter433()
-        self._oddish_light_relay = Relay(RelayConstant.ODDISH_RELAY_PIN)
+
+        transmitter433 = Transmitter433()
+        self.fan = transmitter433.fan
+        self.monitor = transmitter433.monitor
+        self.plant_lights = transmitter433.plant_lights
+
+        self.oddish_light = Relay(RelayConstant.ODDISH_RELAY_PIN)
 
     def get_primary_button_colors(self):
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
@@ -47,16 +52,16 @@ class State:
         return None
 
     def on_secondary_short_press(self):
-        self._toggle_fan()
+        self.fan.toggle()
         return None
 
     def on_secondary_long_press(self):
-        self._toggle_plant_lights()
-        self._toggle_oddish_light()
+        self.plant_lights.toggle()
+        self.oddish_light.toggle()
         return None
 
     def on_secondary_extra_long_press(self):
-        self._toggle_monitor()
+        self.monitor.toggle()
         return None
 
     def on_door_short_press(self):
@@ -162,60 +167,3 @@ class State:
 
     def _set_light(self, light, color, transition_time):
         self._set_lights(Group([light]), color, transition_time)
-
-    is_fan_on = False
-
-    def _turn_on_fan(self):
-        self._transmitter433.turn_1_on()
-        self.is_fan_on = True
-
-    def _turn_off_fan(self):
-        self._transmitter433.turn_1_off()
-        self.is_fan_on = False
-
-    def _toggle_fan(self):
-        if self.is_fan_on:
-            self._turn_off_fan()
-        else:
-            self._turn_on_fan()
-
-    is_plant_lights_on = False
-
-    def _turn_on_plant_lights(self):
-        self._transmitter433.turn_2_on()
-        self.is_plant_lights_on = True
-
-    def _turn_off_plant_lights(self):
-        self._transmitter433.turn_2_off()
-        self.is_plant_lights_on = False
-
-    def _toggle_plant_lights(self):
-        if self.is_plant_lights_on:
-            self._turn_off_plant_lights()
-        else:
-            self._turn_on_plant_lights()
-
-    is_monitor_on = False
-
-    def _turn_on_monitor(self):
-        self._transmitter433.turn_4_on()
-        self.is_monitor_on = True
-
-    def _turn_off_monitor(self):
-        self._transmitter433.turn_4_off()
-        self.is_monitor_on = False
-
-    def _toggle_monitor(self):
-        if self.is_monitor_on:
-            self._turn_off_monitor()
-        else:
-            self._turn_on_monitor()
-
-    def _turn_on_oddish_light(self):
-        self._oddish_light_relay.turn_on()
-
-    def _turn_off_oddish_light(self):
-        self._oddish_light_relay.turn_off()
-
-    def _toggle_oddish_light(self):
-        self._oddish_light_relay.toggle()

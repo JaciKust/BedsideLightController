@@ -21,10 +21,11 @@ class WakingUpState2(WakingUpState):
     def execute_state_change(self):
         self._set_lights(LightConstant.room_group, ColorConstant.WHITE,
                          TimeConstant.waking_up_2_duration_minutes * 60 * 1_000)
-        self._turn_off_plant_lights()
-        self._turn_on_fan()
-        self._turn_off_oddish_light()
-        self._turn_off_monitor()
+
+        self.plant_lights.set_off()
+        self.fan.set_on()
+        self.oddish_light.set_off()
+        self.monitor.set_off()
 
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()
