@@ -19,7 +19,7 @@ class MagentaCustomState(CustomState):
         self._turn_off_plant_lights()
         self._turn_off_fan()
         self._turn_off_oddish_light()
-        self._turn_on_monitor()
+        self._turn_off_monitor()
 
     def on_primary_short_press(self):
         from State.YellowCustomState import YellowCustomState
