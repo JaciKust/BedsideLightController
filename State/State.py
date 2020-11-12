@@ -7,7 +7,9 @@ from Constants import Button as ButtonConstant
 from Constants import Color as ColorConstant
 from Constants import DoorButton as DoorButtonConstant
 from Constants import PrimaryButton as PrimaryButtonConstant
+from Constants import Relay as RelayConstant
 from Constants import SecondaryButton as SecondaryButtonConstant
+from Relay import Relay
 from Transmitter433 import Transmitter433
 
 
@@ -17,7 +19,8 @@ class State:
 
     def __init__(self, previous_state):
         self.previous_state = previous_state
-        self.transmitter433 = Transmitter433()
+        self._transmitter433 = Transmitter433()
+        self._oddish_light_relay = Relay(RelayConstant.ODDISH_RELAY_PIN)
 
     def get_primary_button_colors(self):
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
@@ -52,6 +55,8 @@ class State:
         return None
 
     def on_secondary_extra_long_press(self):
+        print("Toggling Relay")
+        self._toggle_oddish_light()
         return None
 
     def on_door_short_press(self):
@@ -161,11 +166,11 @@ class State:
     is_fan_on = False
 
     def _turn_on_fan(self):
-        self.transmitter433.turn_1_on()
+        self._transmitter433.turn_1_on()
         self.is_fan_on = True
 
     def _turn_off_fan(self):
-        self.transmitter433.turn_1_off()
+        self._transmitter433.turn_1_off()
         self.is_fan_on = False
 
     def _toggle_fan(self):
@@ -177,11 +182,11 @@ class State:
     is_plant_lights_on = False
 
     def _turn_on_plant_lights(self):
-        self.transmitter433.turn_2_on()
+        self._transmitter433.turn_2_on()
         self.is_plant_lights_on = True
 
     def _turn_off_plant_lights(self):
-        self.transmitter433.turn_2_off()
+        self._transmitter433.turn_2_off()
         self.is_plant_lights_on = False
 
     def _toggle_plant_lights(self):
@@ -189,3 +194,12 @@ class State:
             self._turn_off_plant_lights()
         else:
             self._turn_on_plant_lights()
+
+    def _turn_on_oddish_light(self):
+        self._oddish_light_relay.turn_on()
+
+    def _turn_off_oddish_light(self):
+        self._oddish_light_relay.turn_off()
+
+    def _toggle_oddish_light(self):
+        self._oddish_light_relay.toggle()
