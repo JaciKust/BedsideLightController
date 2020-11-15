@@ -5,6 +5,7 @@ from State.CustomState import CustomState
 
 class CyanCustomState(CustomState):
     name = 'Custom - Cyan'
+    id = 5
 
     def __init__(self):
         super().__init__()

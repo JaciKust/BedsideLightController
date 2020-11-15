@@ -7,7 +7,7 @@ from State.WakingUpState import WakingUpState
 
 
 class WakingUpState1(WakingUpState):
-    id = 5
+    id = 8
     name = 'Waking Up 1'
 
     def __init__(self, wake_up_time):

@@ -5,6 +5,7 @@ from State.CustomState import CustomState
 
 class MagentaCustomState(CustomState):
     name = 'Custom - Magenta'
+    id = 6
     ring_color = ColorConstant.DIM_MAGENTA
 
     def __init__(self):

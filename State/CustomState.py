@@ -3,7 +3,6 @@ from State.State import State
 
 
 class CustomState(State):
-    id = -1
     name = 'Custom'
 
     custom_state_list = None
