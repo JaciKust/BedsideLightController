@@ -20,7 +20,6 @@ class Toggleable:
         pass
 
     def set_on(self):
-        was_on = self._is_on
         try:
             self._execute_set_on()
             self._is_on = True
@@ -30,7 +29,6 @@ class Toggleable:
             self._update_database(DatabaseState.ON)
 
     def set_off(self):
-        was_on = self._is_on
         try:
             self._execute_set_off()
             self._is_on = False
