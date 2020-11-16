@@ -7,7 +7,9 @@ from Toggleable import Toggleable
 
 
 class OutletSwitch(Toggleable):
-    def __init__(self, codes, gpio_pin, one_high_time, one_low_time, zero_high_time, zero_low_time, interval):
+    def __init__(self, database_id, codes, gpio_pin, one_high_time, one_low_time, zero_high_time, zero_low_time,
+                 interval):
+        super().__init__(database_id)
         self.gpio_pin = gpio_pin
         self.one_high_time = one_high_time
         self.one_low_time = one_low_time

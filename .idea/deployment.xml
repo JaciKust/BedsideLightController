@@ -82,7 +82,7 @@
       <paths name="pi@159 Kayo">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/pi/Projects/BedsideLightController" local="$PROJECT_DIR$" />
+            <mapping deploy="/Projects/BedsideLightController" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

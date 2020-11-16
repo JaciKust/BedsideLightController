@@ -4,7 +4,9 @@ from Toggleable import Toggleable
 
 
 class Relay(Toggleable):
-    def __init__(self, pin):
+    def __init__(self, database_id, pin):
+        super().__init__(database_id)
+
         self.pin = pin
         GPIO.setup(self.pin, GPIO.OUT)
 

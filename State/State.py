@@ -25,7 +25,7 @@ class State:
         self.monitor = transmitter433.monitor
         self.plant_lights = transmitter433.plant_lights
 
-        self.oddish_light = Relay(RelayConstant.ODDISH_RELAY_PIN)
+        self.oddish_light = Relay(RelayConstant.ID, RelayConstant.ODDISH_RELAY_PIN)
 
     def get_primary_button_colors(self):
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)

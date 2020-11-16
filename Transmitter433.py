@@ -8,6 +8,7 @@ class Transmitter433:
     def __init__(self):
         GPIO.setup(TransmitterConstant.PIN, GPIO.OUT)
         self.fan = OutletSwitch(
+            TransmitterConstant.OUTLET_1_ID,
             TransmitterConstant.OUTLET_1_CODES,
             TransmitterConstant.PIN,
             TransmitterConstant.ONE_HIGH_TIME,
@@ -18,6 +19,7 @@ class Transmitter433:
         )
 
         self.plant_lights = OutletSwitch(
+            TransmitterConstant.OUTLET_2_ID,
             TransmitterConstant.OUTLET_2_CODES,
             TransmitterConstant.PIN,
             TransmitterConstant.ONE_HIGH_TIME,
@@ -28,6 +30,7 @@ class Transmitter433:
         )
 
         self.monitor = OutletSwitch(
+            TransmitterConstant.OUTLET_4_ID,
             TransmitterConstant.OUTLET_4_CODES,
             TransmitterConstant.PIN,
             TransmitterConstant.ONE_HIGH_TIME,
