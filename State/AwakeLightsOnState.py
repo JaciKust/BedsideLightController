@@ -34,7 +34,7 @@ class AwakeLightsOnState(State):
         return self.on_primary_short_press()
 
     def execute_state_change(self):
-        print('changed to: ' + self.name)
+        super().execute_state_change()
         from State.AsleepLightsOffState import AsleepLightsOffState
         from State.AsleepLightsOnState import AsleepLightsOnState
 

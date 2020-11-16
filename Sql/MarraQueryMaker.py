@@ -43,3 +43,7 @@ class MarraQueryMaker:
         cursor = self.connection.cursor()
         cursor.execute(MarraQuery.insert_state_update, (toggleable_id, state))
         cursor.close()
+
+    def insert_state_status(self, state_id):
+        cursor = self.connection.cursor()
+        cursor.execute(MarraQuery.insert_state_status, (state_id,))

@@ -15,6 +15,7 @@ class MagentaCustomState(CustomState):
         return [ColorConstant.DIM_MAGENTA, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
 
     def execute_state_change(self):
+        super().execute_state_change()
         self._set_lights(LightConstant.window_group, ColorConstant.WHITE, 1)
         self._set_lights(LightConstant.room_group, ColorConstant.BLACK, 1)
 

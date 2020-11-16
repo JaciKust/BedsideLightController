@@ -6,6 +6,7 @@ from State.CustomState import CustomState
 class YellowCustomState(CustomState):
     name = 'Custom - Yellow'
     id = 7
+
     def __init__(self):
         super().__init__()
 
@@ -13,6 +14,7 @@ class YellowCustomState(CustomState):
         return [ColorConstant.YELLOW, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
 
     def execute_state_change(self):
+        super().execute_state_change()
         self._set_light(LightConstant.alpha, ColorConstant.WHITE, 1)
         self._set_light(LightConstant.bravo, ColorConstant.CYAN, 1)
         self._set_light(LightConstant.charlie, ColorConstant.WHITE, 1)

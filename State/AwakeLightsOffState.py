@@ -33,7 +33,7 @@ class AwakeLightsOffState(State):
         return self.on_primary_short_press()
 
     def execute_state_change(self):
-        print('changed to: ' + self.name)
+        super().execute_state_change()
         self._set_lights(LightConstant.all_group, ColorConstant.BLACK, 1_000)
 
         self.plant_lights.set_on()

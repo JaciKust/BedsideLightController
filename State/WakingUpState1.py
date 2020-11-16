@@ -18,6 +18,7 @@ class WakingUpState1(WakingUpState):
         return [ColorConstant.DARK_CYAN, ColorConstant.DARK_RED, ColorConstant.BLUE]
 
     def execute_state_change(self):
+        super().execute_state_change()
         self._set_lights(LightConstant.window_group, ColorConstant.WHITE,
                          TimeConstant.waking_up_1_duration_minutes * 60 * 1_000)
 

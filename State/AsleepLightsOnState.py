@@ -46,7 +46,7 @@ class AsleepLightsOnState(State):
         return AsleepLightsOnState(self.wake_time, self.previous_state, not self.auto_alarm)
 
     def execute_state_change(self):
-        print('changed to: ' + self.name)
+        super().execute_state_change()
         self._set_room_partial_on()
 
         self.plant_lights.set_off()

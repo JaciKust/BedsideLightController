@@ -10,6 +10,7 @@ from Constants import PrimaryButton as PrimaryButtonConstant
 from Constants import Relay as RelayConstant
 from Constants import SecondaryButton as SecondaryButtonConstant
 from Relay import Relay
+from Sql.MarraQueryMaker import MarraQueryMaker
 from Transmitter433 import Transmitter433
 
 
@@ -26,6 +27,9 @@ class State:
         self.plant_lights = transmitter433.plant_lights
 
         self.oddish_light = Relay(RelayConstant.ID, RelayConstant.ODDISH_RELAY_PIN)
+
+        self.maker = MarraQueryMaker()
+        self.maker.open_connection()
 
     def get_primary_button_colors(self):
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
@@ -46,7 +50,8 @@ class State:
         return None
 
     def execute_state_change(self):
-        pass
+        print("State changed to " + self.name)
+        self._update_database()
 
     def on_time_expire_check(self):
         return None
@@ -170,3 +175,10 @@ class State:
 
     def _set_light(self, light, color, transition_time):
         self._set_lights(Group([light]), color, transition_time)
+
+    def _update_database(self):
+        try:
+            self.maker.insert_state_status(self.id)
+        except:
+            print("Unable to update database state for " + str(self.id))
+            pass

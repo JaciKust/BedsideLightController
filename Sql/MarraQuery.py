@@ -5,3 +5,11 @@ insert_state_update = """
         VALUES
             (%s, %s);
 """
+
+insert_state_status = """
+    INSERT INTO
+        public.state_status
+            (state_id)
+        VALUES
+            (%s);
+"""

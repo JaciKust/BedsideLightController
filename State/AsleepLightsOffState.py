@@ -37,7 +37,7 @@ class AsleepLightsOffState(State):
         return AsleepLightsOffState(self.wake_time, self.previous_state, not self.auto_alarm)
 
     def execute_state_change(self):
-        print('changed to: ' + self.name)
+        super().execute_state_change()
         from State.AwakeLightsOnState import AwakeLightsOnState
 
         transition_time = 0
