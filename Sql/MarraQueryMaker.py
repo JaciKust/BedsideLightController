@@ -35,9 +35,12 @@ class MarraQueryMaker:
         self.connection.autocommit = True
 
     def close_connection(self):
-        if self.connection is not None:
-            self.connection.close()
-            self.connection = None
+        try:
+            if self.connection is not None:
+                self.connection.close()
+                self.connection = None
+        except:
+            pass
 
     def insert_toggleable_state(self, toggleable_id, state):
         cursor = self.connection.cursor()

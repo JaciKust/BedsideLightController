@@ -31,6 +31,9 @@ class State:
         self.maker = MarraQueryMaker()
         self.maker.open_connection()
 
+    def __del__(self):
+        del self.maker
+
     def get_primary_button_colors(self):
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
 

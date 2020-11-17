@@ -97,10 +97,12 @@ def set_new_state(state):
     if state is None:
         set_all_button_colors_to_default(current_state)
     else:
+        old_state = current_state
         current_state = state
         log_data("Setting state to: " + str(current_state))
         set_all_button_colors_to_default(current_state)
         current_state.execute_state_change()
+        del old_state
 
 
 def wait_for_button_release(channel):
