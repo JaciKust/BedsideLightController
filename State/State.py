@@ -28,11 +28,8 @@ class State:
 
         self.oddish_light = Relay(RelayConstant.ID, RelayConstant.ODDISH_RELAY_PIN)
 
-        self.maker = MarraQueryMaker()
+        self.maker = MarraQueryMaker.getInstance()
         self.maker.open_connection()
-
-    def __del__(self):
-        del self.maker
 
     def get_primary_button_colors(self):
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)

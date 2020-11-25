@@ -8,15 +8,28 @@ from Sql import MarraQuery
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'Common'))
 import MarraDatabaseConfig
 
-
 class MarraQueryMaker:
+    __instance = None
+
+    @staticmethod
+    def getInstance():
+        """ Static access method. """
+        if MarraQueryMaker.__instance == None:
+            MarraQueryMaker()
+        return MarraQueryMaker.__instance
+
     def __init__(self):
-        self.marra_database_host = MarraDatabaseConfig.postgres['host']
-        self.marra_database_name = MarraDatabaseConfig.postgres['name']
-        self.marra_database_user = MarraDatabaseConfig.postgres['username']
-        self.marra_database_pass = MarraDatabaseConfig.postgres['password']
-        self.connection = None
-        pass
+        """ Virtually private constructor. """
+        if MarraQueryMaker.__instance != None:
+            raise Exception("This class is a singleton!")
+        else:
+            self.marra_database_host = MarraDatabaseConfig.postgres['host']
+            self.marra_database_name = MarraDatabaseConfig.postgres['name']
+            self.marra_database_user = MarraDatabaseConfig.postgres['username']
+            self.marra_database_pass = MarraDatabaseConfig.postgres['password']
+            self.connection = None
+
+            MarraQueryMaker.__instance = self
 
     def __del__(self):
         self.close_connection()
@@ -50,3 +63,4 @@ class MarraQueryMaker:
     def insert_state_status(self, state_id):
         cursor = self.connection.cursor()
         cursor.execute(MarraQuery.insert_state_status, (state_id,))
+

@@ -5,13 +5,10 @@ from Sql.MarraQueryMaker import MarraQueryMaker
 class Toggleable:
     def __init__(self, database_id):
         self.database_id = database_id
-        self.maker = MarraQueryMaker()
+        self.maker = MarraQueryMaker.getInstance()
         self.maker.open_connection()
 
     _is_on = False
-
-    def __del__(self):
-        self.maker.close_connection()
 
     def _execute_set_on(self):
         pass
