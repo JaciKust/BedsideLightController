@@ -21,8 +21,8 @@ class CyanCustomState(CustomState):
 
         self.plant_lights.set_off()
         self.fan.set_off()
-        self.oddish_light.set_on()
-        self.monitor.set_on()
+        self.oddish_light.set_off()
+        self.monitor.set_off()
 
     def on_primary_short_press(self):
         from State.MagentaCustomState import MagentaCustomState

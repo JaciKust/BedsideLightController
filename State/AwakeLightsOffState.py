@@ -29,6 +29,10 @@ class AwakeLightsOffState(State):
         from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(TimeFunctions.get_next(TimeConstant.wakeup_time), self)
 
+    def on_primary_extra_long_press(self):
+        from State.Rainbow.RainbowState import RainbowState
+        return RainbowState()
+
     def on_door_short_press(self):
         return self.on_primary_short_press()
 

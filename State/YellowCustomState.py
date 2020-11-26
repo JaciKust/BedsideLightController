@@ -16,7 +16,7 @@ class YellowCustomState(CustomState):
     def execute_state_change(self):
         super().execute_state_change()
         self._set_light(LightConstant.alpha, ColorConstant.WHITE, 1)
-        self._set_light(LightConstant.bravo, ColorConstant.CYAN, 1)
+        # self._set_light(LightConstant.bravo, ColorConstant.CYAN, 1)
         self._set_light(LightConstant.charlie, ColorConstant.WHITE, 1)
 
         self._set_light(LightConstant.delta, ColorConstant.MAGENTA, 1)
@@ -30,12 +30,13 @@ class YellowCustomState(CustomState):
         self.plant_lights.set_off()
         self.fan.set_off()
         self.oddish_light.set_off()
-        self.monitor.set_on()
+        self.monitor.set_off()
 
     def on_primary_short_press(self):
         from State.CyanCustomState import CyanCustomState
         return CyanCustomState()
 
     def on_primary_extra_long_press(self):
-        # TODO: call RainbowState
+        from State.Rainbow.RainbowState import RainbowState
+        return RainbowState()
         pass

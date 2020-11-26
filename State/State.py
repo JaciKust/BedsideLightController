@@ -1,5 +1,4 @@
 import colorsys
-import time
 
 from lifxlan import Group
 
@@ -157,21 +156,14 @@ class State:
 
     def _set_lights(self, group, color, transition_time):
         color = self._rgb_to_hsv(color)
-        try:
-            group.set_color(color, transition_time)
-        except:
-            print('. Failed Once')
-            time.sleep(0.1)
+        num_tries = 5
+        for x in range(num_tries):
             try:
                 group.set_color(color, transition_time)
             except:
-                print('.. Failed Twice')
-                time.sleep(0.1)
-                try:
-                    group.set_color(color, transition_time)
-                except:
-                    print('... Failed Three Times')
-                    pass
+                print("failed {} time to set light".format(x + 1))
+            else:
+                break
 
     def _set_light(self, light, color, transition_time):
         self._set_lights(Group([light]), color, transition_time)

@@ -4,7 +4,7 @@ from lifxlan import Light, Group
 alpha = Light('d0:73:d5:2b:5b:08', '192.168.0.200')
 
 # Window Light
-bravo = Light('d0:73:d5:2a:69:0c', '192.168.0.201')
+# bravo = Light('d0:73:d5:2a:69:0c', '192.168.0.201')
 
 # Solo Lamp Light
 charlie = Light('D0:73:D5:2B:BA:14', '192.168.0.202')
@@ -23,7 +23,7 @@ india = Light('D0:73:D5:2C:09:DD', '192.168.0.208')
 
 all_lights = [
     alpha,
-    bravo,
+    #   bravo,
     charlie,
     delta,
     echo,
@@ -35,7 +35,7 @@ all_lights = [
 
 window_lights = [
     alpha,
-    bravo,
+    #  bravo,
 ]
 
 room_lights = [
