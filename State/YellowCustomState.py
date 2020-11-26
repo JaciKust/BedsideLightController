@@ -35,3 +35,7 @@ class YellowCustomState(CustomState):
     def on_primary_short_press(self):
         from State.CyanCustomState import CyanCustomState
         return CyanCustomState()
+
+    def on_primary_extra_long_press(self):
+        # TODO: call RainbowState
+        pass

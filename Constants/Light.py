@@ -64,3 +64,38 @@ general_lights = [
 window_group = Group(window_lights)
 room_group = Group(room_lights)
 all_group = Group(all_lights)
+
+closet_large_lamp = [
+    gamma,
+    delta,
+    charlie
+]
+
+bedside_large_lamp = [
+    foxtrot,
+    echo
+]
+
+pidgey_lamp = [
+    india
+]
+
+oddish_lamp = [
+    hotel
+]
+
+window_lamp = [
+    alpha
+]
+
+jaci_bedside = [
+    india,
+    hotel
+]
+
+far_lamps = [
+    alpha,
+    gamma,
+    delta,
+    charlie
+]
