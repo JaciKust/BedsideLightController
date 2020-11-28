@@ -29,6 +29,9 @@ class RainbowState(State):
 
         self._update_light_show()
 
+    def __del__(self):
+        self._stop_current_light_show()
+
     def get_primary_button_colors(self):
         return [ColorConstant.MAGENTA, ColorConstant.DARK_MAGENTA, ColorConstant.RED]
 
@@ -100,6 +103,7 @@ class RainbowState(State):
         self._update_light_show()
 
     def on_secondary_long_press(self):
+        self._stop_current_light_show()
         return RainbowState()
 
     def on_secondary_extra_long_press(self):
