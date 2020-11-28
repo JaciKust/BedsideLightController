@@ -87,7 +87,7 @@ class RainbowState(State):
         self._update_light_show()
 
     def on_primary_long_press(self):
-        self._cycle_speed()
+        self._cycle_wait()
         self._update_light_show()
 
     def on_primary_extra_long_press(self):
@@ -96,7 +96,7 @@ class RainbowState(State):
         return AwakeLightsOnState()
 
     def on_secondary_short_press(self):
-        self._cycle_wait()
+        self._cycle_speed()
         self._update_light_show()
 
     def on_secondary_long_press(self):

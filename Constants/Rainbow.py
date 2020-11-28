@@ -59,3 +59,12 @@ rainbow_5 = [
     Color.MAGENTA,
     Color.RED
 ]
+
+all_six = [
+    Color.GREEN,
+    Color.CYAN,
+    Color.BLUE,
+    Color.MAGENTA,
+    Color.RED,
+    Color.YELLOW
+]

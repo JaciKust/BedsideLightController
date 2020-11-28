@@ -31,7 +31,11 @@ class LightShow:
         assert self.is_stopped(), "Cannot start the process while it is already running."
 
         self._should_stop = False
-        self.process = threading.Thread(target=self.run)
+        if self.pattern.all_pattern:
+            self.process = threading.Thread(target=self.run_2)
+        else:
+            self.process = threading.Thread(target=self.run)
+
         self.process.start()
 
     def stop(self):
@@ -57,6 +61,18 @@ class LightShow:
                 self._set_light_array(light, self.colors[c], overt)
                 c += 1
                 c %= len(self.colors)
+            c += 1
+            c %= len(self.colors)
+            time.sleep(self.transition_time)
+            time.sleep(self.stop_time)
+
+    def run_2(self):
+        overt = 1000 * self.transition_time
+        c = 0
+        while True:
+            if self._should_stop:
+                break
+            self._set_light_array(self.lights, self.colors[c], overt)
             c += 1
             c %= len(self.colors)
             time.sleep(self.transition_time)
