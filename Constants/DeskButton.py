@@ -1,0 +1,7 @@
+LEFT = "DeskLeft"
+RIGHT = "DeskRight"
+REAR = "DeskRear"
+IP_ADDR = "192.168.0.158"
+PORT = "5556"
+REQUEST_TIMEOUT = 2500
+REQUEST_RETRIES = 3

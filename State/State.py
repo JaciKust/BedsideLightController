@@ -1,9 +1,11 @@
 import colorsys
+import logging
 
 from lifxlan import Group
 
 from Constants import Button as ButtonConstant
 from Constants import Color as ColorConstant
+from Constants import DeskButton as DeskButtonConstant
 from Constants import DoorButton as DoorButtonConstant
 from Constants import PrimaryButton as PrimaryButtonConstant
 from Constants import Relay as RelayConstant
@@ -39,6 +41,15 @@ class State:
     def get_door_button_colors(self):
         return [ColorConstant.BLACK, ColorConstant.BLACK, ColorConstant.BLACK]
 
+    def get_desk_right_button_colors(self):
+        return self.get_secondary_button_colors()
+
+    def get_desk_left_button_colors(self):
+        return self.get_primary_button_colors()
+
+    def get_desk_rear_button_colors(self):
+        return [ColorConstant.BLACK, ColorConstant.BLACK, ColorConstant.BLACK]
+
     def on_primary_short_press(self):
         return None
 
@@ -46,6 +57,33 @@ class State:
         return None
 
     def on_primary_extra_long_press(self):
+        return None
+
+    def on_desk_right_short_press(self):
+        return self.on_secondary_short_press()
+
+    def on_desk_right_long_press(self):
+        return self.on_secondary_long_press()
+
+    def on_desk_right_extra_long_press(self):
+        return self.on_secondary_extra_long_press()
+
+    def on_desk_left_short_press(self):
+        return self.on_primary_short_press()
+
+    def on_desk_left_long_press(self):
+        return self.on_primary_long_press()
+
+    def on_desk_left_extra_long_press(self):
+        return self.on_primary_extra_long_press()
+
+    def on_desk_rear_short_press(self):
+        return None
+
+    def on_desk_rear_long_press(self):
+        return None
+
+    def on_desk_rear_extra_long_press(self):
         return None
 
     def execute_state_change(self):
@@ -80,15 +118,26 @@ class State:
     def on_door_extra_long_press(self):
         return None
 
-    def get_state_for(self, button, button_time):
-        if button.name == PrimaryButtonConstant.NAME:
-            return self.get_state_for_primary_button(button_time)
+    def get_state_for(self, button_name, press_time):
+        if button_name == PrimaryButtonConstant.NAME:
+            return self.get_state_for_primary_button(press_time)
 
-        if button.name == SecondaryButtonConstant.NAME:
-            return self.get_state_for_secondary_button(button_time)
+        if button_name == SecondaryButtonConstant.NAME:
+            return self.get_state_for_secondary_button(press_time)
 
-        if button.name == DoorButtonConstant.NAME:
-            return self.get_state_for_door_button(button_time)
+        if button_name == DoorButtonConstant.NAME:
+            return self.get_state_for_door_button(press_time)
+
+        if button_name == DeskButtonConstant.RIGHT:
+            return self.get_state_for_desk_right(press_time)
+
+        if button_name == DeskButtonConstant.LEFT:
+            return self.get_state_for_desk_left(press_time)
+
+        if button_name == DeskButtonConstant.REAR:
+            return self.get_state_for_desk_rear(press_time)
+
+        logging.error("Could not determine button name.")
 
     def get_state_for_primary_button(self, button_time):
         return_state = None
@@ -136,6 +185,55 @@ class State:
         # short press
         elif button_time >= ButtonConstant.NOISE_THRESHOLD:
             return_state = self.on_door_short_press()
+        return return_state
+
+    def get_state_for_desk_right(self, button_time):
+        return_state = None
+
+        # extra long press
+        if button_time >= ButtonConstant.EXTRA_LONG_PRESS_MIN:
+            return_state = self.on_desk_right_extra_long_press()
+
+        # long button press
+        elif button_time >= ButtonConstant.LONG_PRESS_MIN:
+            return_state = self.on_desk_right_long_press()
+
+        # short press
+        elif button_time >= ButtonConstant.NOISE_THRESHOLD:
+            return_state = self.on_desk_right_short_press()
+        return return_state
+
+    def get_state_for_desk_left(self, button_time):
+        return_state = None
+
+        # extra long press
+        if button_time >= ButtonConstant.EXTRA_LONG_PRESS_MIN:
+            return_state = self.on_desk_left_extra_long_press()
+
+        # long button press
+        elif button_time >= ButtonConstant.LONG_PRESS_MIN:
+            return_state = self.on_desk_left_long_press()
+
+        # short press
+        elif button_time >= ButtonConstant.NOISE_THRESHOLD:
+            return_state = self.on_desk_left_short_press()
+        return return_state
+
+    def get_state_for_desk_rear(self, button_time):
+        return_state = None
+
+        # extra long press
+        if button_time >= ButtonConstant.EXTRA_LONG_PRESS_MIN:
+            return_state = self.on_desk_rear_extra_long_press()
+
+        # long button press
+        elif button_time >= ButtonConstant.LONG_PRESS_MIN:
+            return_state = self.on_desk_rear_long_press()
+
+        # short press
+        elif button_time >= ButtonConstant.NOISE_THRESHOLD:
+            return_state = self.on_desk_rear_short_press()
+
         return return_state
 
     def __eq__(self, other):

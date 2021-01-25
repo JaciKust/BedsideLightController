@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Kayo" uploadOnCheckin="ce5cd1da-21ed-40b8-bd6d-b24f4913a794" autoUploadExternalChanges="true" showAutoUploadSettingsWarning="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Kayo" autoUploadExternalChanges="true" showAutoUploadSettingsWarning="false">
     <serverData>
       <paths name="Chaise (project level)">
         <serverdata>
@@ -30,8 +30,14 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="pi@192.168.0.158:22">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
     </serverData>
-    <option name="myUploadOnCheckinName" value="pi@159 Kayo" />
     <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
