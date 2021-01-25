@@ -3,24 +3,27 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="0eca8e48-89a7-41a6-9222-07869f2f0518" name="Extol">
-        <fileTransfer rootFolder="/home/pi" accessType="SFTP" host="192.168.0.157" port="22" sshConfigId="645dd101-5a76-4f35-bfa9-828cf19cafac" sshConfig="pi@157 Extol">
+        <fileTransfer host="192.168.0.157" port="22" rootFolder="/home/pi" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
+          <option name="port" value="22" />
         </fileTransfer>
       </webServer>
       <webServer id="535aa6d3-e03b-459b-9e8d-2020fbefeac2" name="Chaise (project level)">
-        <fileTransfer rootFolder="/home/pi" accessType="SFTP" host="192.168.0.158" port="22" sshConfigId="2542d19d-8806-4a36-a1a6-a058c5a0e955" sshConfig="pi@158 Chaise">
+        <fileTransfer host="192.168.0.158" port="22" rootFolder="/home/pi" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
+          <option name="port" value="22" />
         </fileTransfer>
       </webServer>
-      <webServer id="41118b77-c2e2-4ad3-96c2-f7457e1b6e82" name="Kayo">
-        <fileTransfer rootFolder="/home/pi" accessType="SFTP" host="192.168.0.159" port="22" sshConfigId="f1af0459-cc68-4e42-b19f-da48f3475851" sshConfig="pi@159 Kayo">
+      <webServer id="c275c5ff-de6e-4240-9ec6-d3bd5e112cef" name="Kayo 3" url="http://192.168.0.159">
+        <fileTransfer host="192.168.0.159" port="22" rootFolder="/home/pi" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
+          <option name="port" value="22" />
         </fileTransfer>
       </webServer>
     </option>

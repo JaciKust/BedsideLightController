@@ -2,8 +2,11 @@ from time import sleep
 
 from Constants import Color as ColorConstant
 from Constants import Light as LightConstant
-from State.Rainbow import LightPattern
+from State.Rainbow import BaseLightPattern
+from State.Rainbow import PatternType
 from State.Rainbow.LightShow import LightShow
+from State.Rainbow.OneLightShow import OneLightShow
+from State.Rainbow.RandomLightShow import RandomLightShow
 from State.State import State
 
 
@@ -50,11 +53,11 @@ class RainbowState(State):
 
     def _cycle_pattern(self):
         self.current_pattern += 1
-        self.current_pattern %= len(LightPattern.patterns)
+        self.current_pattern %= len(BaseLightPattern.patterns)
         print("Current pattern: " + str(self._get_pattern().name))
 
     def _get_pattern(self):
-        return LightPattern.patterns[self.current_pattern]
+        return BaseLightPattern.patterns[self.current_pattern]
 
     def _cycle_speed(self):
         self.current_speed += 1
@@ -82,7 +85,14 @@ class RainbowState(State):
 
     def _update_light_show(self):
         self._stop_current_light_show()
-        self.light_show = LightShow(self._get_pattern(), self._get_speed(), self._get_wait())
+        pattern_type = self._get_pattern().pattern
+        if pattern_type == PatternType.BASE:
+            self.light_show = LightShow(self._get_pattern(), self._get_speed(), self._get_wait())
+        elif pattern_type == PatternType.ONE:
+            self.light_show = OneLightShow(self._get_pattern(), self._get_speed(), self._get_wait())
+        elif pattern_type == PatternType.RANDOM:
+            self.light_show = RandomLightShow(self._get_pattern(), self._get_speed(), self._get_wait())
+
         self.light_show.start()
 
     def on_primary_short_press(self):

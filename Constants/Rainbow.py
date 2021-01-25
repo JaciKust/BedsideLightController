@@ -32,16 +32,23 @@ blue_cycle_3 = [
 
 three_lights = [
     Light.jaci_bedside,
-    Light.bedside_large_lamp,
-    Light.far_lamps
+    Light.red_lamp,
+    Light.computer_lamps
 ]
 
 all_lights = [
     Light.pidgey_lamp,
     Light.oddish_lamp,
-    Light.closet_large_lamp,
-    Light.window_lights,
-    Light.bedside_large_lamp
+    Light.yellow_lamp,
+    Light.silver_lamp,
+    Light.red_lamp
+]
+
+most_lights = [
+    Light.jaci_bedside,
+    Light.yellow_lamp,
+    Light.silver_lamp,
+    Light.red_lamp
 ]
 
 cyan_cycle_5 = [

@@ -23,7 +23,7 @@ class YellowCustomState(CustomState):
         self._set_light(LightConstant.echo, ColorConstant.CYAN, 1)
         self._set_light(LightConstant.foxtrot, ColorConstant.WHITE, 1)
 
-        self._set_light(LightConstant.gamma, ColorConstant.MAGENTA, 1)
+        self._set_light(LightConstant.golf, ColorConstant.MAGENTA, 1)
         self._set_light(LightConstant.hotel, ColorConstant.CYAN, 1)
         self._set_light(LightConstant.india, ColorConstant.MAGENTA, 1)
 
