@@ -1,6 +1,5 @@
 import TimeFunctions
 from Constants import Color as ColorConstant
-from Constants import Light as LightConstant
 from Constants import Time as TimeConstant
 from State.State import State
 
@@ -30,6 +29,10 @@ class AwakeLightsOnState(State):
         from State.CyanCustomState import CyanCustomState
         return CyanCustomState()
 
+    def on_desk_left_long_press(self):
+        from State.DeskState import DeskState
+        return DeskState(self)
+
     def on_door_short_press(self):
         return self.on_primary_short_press()
 
@@ -44,7 +47,7 @@ class AwakeLightsOnState(State):
         if isinstance(self.previous_state, AsleepLightsOffState) or \
                 isinstance(self.previous_state, AsleepLightsOnState):
             transition_time = 10_000
-        self._set_lights(LightConstant.all_group, ColorConstant.WHITE, transition_time)
+        self.set_all_lights_on(transition_time)
 
         self.plant_lights.set_on()
         self.oddish_light.set_on()

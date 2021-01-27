@@ -30,25 +30,18 @@ blue_cycle_3 = [
     Color.BLUE
 ]
 
-three_lights = [
-    Light.jaci_bedside,
-    Light.red_lamp,
-    Light.computer_lamps
-]
-
-all_lights = [
-    Light.pidgey_lamp,
-    Light.oddish_lamp,
+all_lamps = [
+    Light.black_bedside_lamp,
+    Light.white_bedside_lamp,
     Light.yellow_lamp,
     Light.silver_lamp,
     Light.red_lamp
 ]
 
-most_lights = [
-    Light.jaci_bedside,
-    Light.yellow_lamp,
-    Light.silver_lamp,
-    Light.red_lamp
+three_lamps = [
+    Light.desk_lamps,
+    Light.white_bedside_lamp,
+    Light.black_bedside_lamp,
 ]
 
 cyan_cycle_5 = [

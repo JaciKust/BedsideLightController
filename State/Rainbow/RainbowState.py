@@ -116,6 +116,8 @@ class RainbowState(State):
         self._stop_current_light_show()
         return RainbowState()
 
+    # These all exit back to lights on.
+
     def on_secondary_extra_long_press(self):
         return self.on_primary_extra_long_press()
 
@@ -126,4 +128,13 @@ class RainbowState(State):
         return self.on_primary_extra_long_press()
 
     def on_door_extra_long_press(self):
+        return self.on_primary_extra_long_press()
+
+    def on_desk_rear_short_press(self):
+        return self.on_primary_extra_long_press()
+
+    def on_desk_rear_long_press(self):
+        return self.on_primary_extra_long_press()
+
+    def on_desk_rear_extra_long_press(self):
         return self.on_primary_extra_long_press()

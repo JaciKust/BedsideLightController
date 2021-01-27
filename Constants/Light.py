@@ -13,10 +13,10 @@ delta = Light('D0:73:D5:2B:96:41', '192.168.0.203')
 # Silver
 golf = Light('D0:73:D5:2A:93:0C', '192.168.0.206')
 
-# Bedside Door
+# White bedside
 hotel = Light('D0:73:D5:2B:F7:AB', '192.168.0.207')
 
-# Bedside Wall
+# Black bedside
 india = Light('D0:73:D5:2C:09:DD', '192.168.0.208')
 
 all_lights = [
@@ -31,49 +31,11 @@ all_lights = [
     india,
 ]
 
-window_lights = [
-    alpha,
-    bravo,
-]
-
-room_lights = [
-    charlie,
-    delta,
-    echo,
-    foxtrot,
-    golf,
-    hotel,
+black_bedside_lamp = [
     india
 ]
 
-desk_lights = [
-    hotel,
-    india
-]
-
-general_lights = [
-    charlie,
-    delta,
-    echo,
-    foxtrot,
-    golf
-]
-
-window_group = Group(window_lights)
-room_group = Group(room_lights)
-all_group = Group(all_lights)
-
-pidgey_lamp = [
-    india
-]
-
-oddish_lamp = [
-    hotel
-]
-
-# -------------------------------------------
-jaci_bedside = [
-    india,
+white_bedside_lamp = [
     hotel
 ]
 
@@ -89,8 +51,18 @@ yellow_lamp = [
     delta
 ]
 
+bedside_lamps = white_bedside_lamp + black_bedside_lamp
+desk_lamps = yellow_lamp + red_lamp
+
 silver_lamp = [
     golf
 ]
 
-computer_lamps = silver_lamp + yellow_lamp
+red_group = Group(red_lamp)
+yellow_group = Group(yellow_lamp)
+entry_group = Group(silver_lamp)
+jaci_bedside_group = Group(bedside_lamps)
+all_group = Group(all_lights)
+desk_group = Group(desk_lamps)
+bed_black_group = Group(black_bedside_lamp)
+bed_white_group = Group(white_bedside_lamp)

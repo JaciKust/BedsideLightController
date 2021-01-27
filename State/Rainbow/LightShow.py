@@ -78,7 +78,6 @@ class LightShow:
                 group.set_color(color, transition_time)
             except:
                 pass
-                # print("failed {} time to set light".format(x + 1))
             else:
                 break
 

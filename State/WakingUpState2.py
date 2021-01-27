@@ -20,8 +20,9 @@ class WakingUpState2(WakingUpState):
 
     def execute_state_change(self):
         super().execute_state_change()
-        self._set_lights(LightConstant.room_group, ColorConstant.WHITE,
-                         TimeConstant.waking_up_2_duration_minutes * 60 * 1_000)
+
+        transition_time = TimeConstant.waking_up_2_duration_minutes * 60 * 1_000
+        self.set_lights_on(LightConstant.all_group, transition_time)
 
         self.plant_lights.set_off()
         self.fan.set_on()

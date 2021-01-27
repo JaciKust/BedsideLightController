@@ -34,10 +34,8 @@ class AsleepLightsOnState(State):
         from State.AwakeLightsOnState import AwakeLightsOnState
 
         if not self.all_lights_on:
-            self._set_room_all_on()
+            self._set_lights(LightConstant.all_group, ColorConstant.DIMMEST_WHITE, 0)
             self.all_lights_on = True
-            self.monitor.set_on()
-
             return None
         else:
             return AwakeLightsOnState(self)
@@ -63,10 +61,8 @@ class AsleepLightsOnState(State):
 
     def _set_room_partial_on(self):
         self._set_light(LightConstant.india, ColorConstant.DIMMEST_WHITE, 0)
-        self._set_lights(LightConstant.window_group, ColorConstant.DIMMEST_WHITE, 0)
+        self._set_lights(LightConstant.entry_group, ColorConstant.DIMMEST_WHITE, 0)
 
-    def _set_room_all_on(self):
-        self._set_lights(LightConstant.all_group, ColorConstant.DIMMEST_WHITE, 0)
 
     def __str__(self):
         return super().__str__() + " Alarm set: " + str(self.auto_alarm)

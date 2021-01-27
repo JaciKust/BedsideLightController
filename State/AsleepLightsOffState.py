@@ -1,7 +1,6 @@
 import datetime
 
 from Constants import Color as ColorConstant
-from Constants import Light as LightConstant
 from State.State import State
 
 
@@ -45,7 +44,7 @@ class AsleepLightsOffState(State):
         if isinstance(self.previous_state, AwakeLightsOnState):
             transition_time = 10_000
 
-        self._set_lights(LightConstant.all_group, ColorConstant.BLACK, transition_time)
+        self.set_all_lights_off(transition_time)
         self.plant_lights.set_off()
         self.fan.set_on()
         self.oddish_light.set_off()

@@ -1,6 +1,5 @@
 import TimeFunctions
 from Constants import Color as ColorConstant
-from Constants import Light as LightConstant
 from Constants import Time as TimeConstant
 from State.State import State
 
@@ -38,7 +37,7 @@ class AwakeLightsOffState(State):
 
     def execute_state_change(self):
         super().execute_state_change()
-        self._set_lights(LightConstant.all_group, ColorConstant.BLACK, 1_000)
+        self.set_all_lights_off(1000)
 
         self.plant_lights.set_on()
         self.fan.set_off()
