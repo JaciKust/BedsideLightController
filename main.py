@@ -204,13 +204,11 @@ def set_all_button_colors_to_default(from_state):
     primary_button.set_button_color(from_state.get_primary_button_colors()[ButtonConstant.DEFAULT_COLOR])
     secondary_button.set_button_color(from_state.get_secondary_button_colors()[ButtonConstant.DEFAULT_COLOR])
     door_button.set_button_color(from_state.get_door_button_colors()[ButtonConstant.DEFAULT_COLOR])
+    send_thread = threading.Thread(target=set_up_and_send_to_desk_buttons, args=(
+    from_state.get_desk_right_button_colors(), from_state.get_desk_left_button_colors(),
+    from_state.get_desk_rear_button_colors()))
 
-    set_up_and_send_to_desk_buttons(
-        from_state.get_desk_right_button_colors(),
-        from_state.get_desk_left_button_colors(),
-        from_state.get_desk_rear_button_colors()
-    )
-
+    send_thread.start()
 
 if __name__ == '__main__':
     init()
