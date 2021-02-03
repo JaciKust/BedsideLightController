@@ -45,6 +45,7 @@ class DeskState(AwakeLightsOffState):
         else:
             self.set_lights_off(LightConstant.jaci_bedside_group)
             self.set_lights_on(LightConstant.desk_group, 2000, self.current_temperature)
+            self.set_lights_on(LightConstant.entry_group, 2000, self.current_temperature)
 
     def on_door_short_press(self):
         if self.all_lights_on:
