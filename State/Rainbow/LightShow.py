@@ -12,8 +12,8 @@ class LightShow:
     def __init__(self, light_pattern, transition_time, stop_time):
         assert isinstance(light_pattern, BaseLightPattern), \
             "Expected LightShowSetting for light_show_setting but got {}".format(type(light_pattern))
-        assert isinstance(transition_time, int), "Expected float for transition_time but got {}".format(
-            type(transition_time))
+        # assert isinstance(transition_time, int), "Expected float for transition_time but got {}".format(
+        #         #     type(transition_time))
         assert isinstance(stop_time, int), "Expected float for stop_time but got {}".format(type(stop_time))
 
         self.pattern = light_pattern
@@ -68,6 +68,8 @@ class LightShow:
         g = rgb_color[ColorConstant.GREEN_LOCATION] / 100.0
         b = rgb_color[ColorConstant.BLUE_LOCATION] / 100.0
         h, s, v = colorsys.rgb_to_hsv(r, g, b)
+        if len(rgb_color) == 4:
+            temperature = rgb_color[3]
         return [h * 65535, s * 65535, v * 65535, temperature]
 
     def _set_lights(self, group, color, transition_time):

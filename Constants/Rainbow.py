@@ -30,6 +30,11 @@ blue_cycle_3 = [
     Color.BLUE
 ]
 
+whites = [
+    Color.COLD_WHITE,
+    Color.HOT_WHITE,
+]
+
 all_lamps = [
     Light.black_bedside_lamp,
     Light.white_bedside_lamp,

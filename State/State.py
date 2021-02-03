@@ -254,6 +254,8 @@ class State:
         g = rgb_color[ColorConstant.GREEN_LOCATION] / 100.0
         b = rgb_color[ColorConstant.BLUE_LOCATION] / 100.0
         h, s, v = colorsys.rgb_to_hsv(r, g, b)
+        if len(rgb_color) == 4:
+            temperature = rgb_color[3]
         return [h * 65535, s * 65535, v * 65535, temperature]
 
     def get_transition_time(self, time):

@@ -27,8 +27,13 @@ primary_one = BaseLightPattern(LightConstant.all_lights, Rainbow.primary_color_3
 primary_random = BaseLightPattern(Rainbow.three_lamps, Rainbow.primary_color_3, "Random Primary Cycle 3",
                                   PatternType.RANDOM)
 all_random = BaseLightPattern(Rainbow.all_lamps, Rainbow.all_six, "Random All Cycle 3", PatternType.RANDOM)
+white_random = BaseLightPattern(Rainbow.all_lamps, Rainbow.whites, "RANDOM WHITES", PatternType.RANDOM)
+whites_one = BaseLightPattern(LightConstant.all_lights, Rainbow.whites, "STRUCTKRED WHITES", PatternType.ONE)
+
 patterns = [
     all_random,
+    white_random,
+    whites_one,
     primary_cycle_three,
     primary_one,
     primary_random,

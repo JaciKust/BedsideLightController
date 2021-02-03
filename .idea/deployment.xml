@@ -2,6 +2,13 @@
 <project version="4">
   <component name="PublishConfigData" autoUpload="Always" serverName="Kayo" autoUploadExternalChanges="true" showAutoUploadSettingsWarning="false">
     <serverData>
+      <paths name="Chaise">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Chaise (project level)">
         <serverdata>
           <mappings>
@@ -16,6 +23,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="Hoya">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Kayo">
         <serverdata>
           <mappings>
@@ -27,13 +41,6 @@
         <serverdata>
           <mappings>
             <mapping deploy="/Projects/BedsideLightController" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="pi@192.168.0.158:22">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

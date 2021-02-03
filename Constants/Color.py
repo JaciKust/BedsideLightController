@@ -1,3 +1,4 @@
+from Constants import Light_Temperature as temp
 WHITE = [100, 100, 100]
 BLACK = [0, 0, 0]
 
@@ -23,6 +24,9 @@ DARK_GREEN = [0, 1, 0]
 DIM_MAGENTA = [20, 0, 20]
 
 DIMMEST_WHITE = [0.1, 0.1, 0.1]
+
+COLD_WHITE = [100, 100, 100, temp.BLUE_ICE]
+HOT_WHITE = [100, 100, 100, temp.ULTRA_WARM]
 
 PRIMARIES = [
     RED,
