@@ -1,5 +1,5 @@
+import Color as ColorConstant
 import TimeFunctions
-from Constants import Color as ColorConstant
 from Constants import Time as TimeConstant
 from State.State import State
 

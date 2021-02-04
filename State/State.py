@@ -1,10 +1,7 @@
-import colorsys
 import logging
 
-from lifxlan import Group
-
+import Color as ColorConstant
 from Constants import Button as ButtonConstant
-from Constants import Color as ColorConstant
 from Constants import DeskButton as DeskButtonConstant
 from Constants import DoorButton as DoorButtonConstant
 from Constants import Light as LightConstant
@@ -249,48 +246,31 @@ class State:
     def __str__(self):
         return self.name
 
-    def _rgb_to_hsv(self, rgb_color, temperature):
-        r = rgb_color[ColorConstant.RED_LOCATION] / 100.0
-        g = rgb_color[ColorConstant.GREEN_LOCATION] / 100.0
-        b = rgb_color[ColorConstant.BLUE_LOCATION] / 100.0
-        h, s, v = colorsys.rgb_to_hsv(r, g, b)
-        if len(rgb_color) == 4:
-            temperature = rgb_color[3]
-        return [h * 65535, s * 65535, v * 65535, temperature]
-
     def get_transition_time(self, time):
         return self.default_transition_time if time is None else time
 
-    def get_temperature(self, temp):
-        return self.default_temperature if temp is None else temp
+    def set_all_lights_off(self, transition_time=None):
+        self._set_lights(LightConstant.all_group, ColorConstant.BLACK, transition_time)
 
-    def set_all_lights_off(self, transition_time=None, temperature=None):
-        self._set_lights(LightConstant.all_group, ColorConstant.BLACK, transition_time, temperature)
+    def set_all_lights_on(self, transition_time=None):
+        self._set_lights(LightConstant.all_group, ColorConstant.WHITE, transition_time)
 
-    def set_all_lights_on(self, transition_time=None, temperature=None):
-        self._set_lights(LightConstant.all_group, ColorConstant.WHITE, transition_time, temperature)
+    def set_lights_on(self, group, transition_time=None):
+        self._set_lights(group, ColorConstant.WHITE, transition_time)
 
-    def set_lights_on(self, group, transition_time=None, temperature=None):
-        self._set_lights(group, ColorConstant.WHITE, transition_time, temperature)
+    def set_lights_off(self, group, transition_time=None):
+        self._set_lights(group, ColorConstant.BLACK, transition_time)
 
-    def set_lights_off(self, group, transition_time=None, temperature=None):
-        self._set_lights(group, ColorConstant.BLACK, transition_time, temperature)
-
-    def _set_lights(self, group, color, transition_time=None, temperature=None):
+    def _set_lights(self, group, color, transition_time=None):
         transition_time = self.get_transition_time(transition_time)
-        temperature = self.get_temperature(temperature)
-        color = self._rgb_to_hsv(color, temperature)
         num_tries = 5
         for x in range(num_tries):
             try:
-                group.set_color(color, transition_time)
+                group.set_color(color.as_hsv_array(), transition_time)
             except:
                 print("failed {} time to set light".format(x + 1))
             else:
                 break
-
-    def _set_light(self, light, color, transition_time, temperature=3500):
-        self._set_lights(Group([light]), color, transition_time, temperature)
 
     def _update_database(self):
         try:
@@ -298,3 +278,4 @@ class State:
         except:
             print("Unable to update database state for " + str(self.id))
             pass
+

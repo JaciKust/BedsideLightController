@@ -4,7 +4,6 @@ from datetime import datetime
 from RPi import GPIO
 
 from Constants import Button as ButtonConstant
-from Constants import Color as ColorConstant
 
 
 class PhysicalButton:
@@ -35,9 +34,9 @@ class PhysicalButton:
         if self.previous_color == color:
             return
         self.previous_color = color
-        self.red_led.ChangeDutyCycle(self.LED_MAXIMUM - color[ColorConstant.RED_LOCATION])
-        self.green_led.ChangeDutyCycle(self.LED_MAXIMUM - color[ColorConstant.GREEN_LOCATION])
-        self.blue_led.ChangeDutyCycle(self.LED_MAXIMUM - color[ColorConstant.BLUE_LOCATION])
+        self.red_led.ChangeDutyCycle(self.LED_MAXIMUM - color.red)
+        self.green_led.ChangeDutyCycle(self.LED_MAXIMUM - color.green)
+        self.blue_led.ChangeDutyCycle(self.LED_MAXIMUM - color.blue)
 
     def handle_button_color(self, button_start_press_time, has_long_press_been_set, has_short_press_been_set,
                             button_colors):

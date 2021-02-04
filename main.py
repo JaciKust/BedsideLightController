@@ -44,7 +44,11 @@ def send_to_desk_buttons(data):
 
 
 def set_up_and_send_to_desk_buttons(right_colors, left_colors, rear_colors):
-    obj = DeskButtonColor(right_colors, left_colors, rear_colors)
+    right = list(map(lambda a: a.as_rgb_array(), right_colors))
+    left = list(map(lambda a: a.as_rgb_array(), left_colors))
+    rear = list(map(lambda a: a.as_rgb_array(), rear_colors))
+
+    obj = DeskButtonColor(right, left, rear)
     data = json.dumps(obj.__dict__)
     send_to_desk_buttons(data)
 

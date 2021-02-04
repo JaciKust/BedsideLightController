@@ -1,6 +1,6 @@
 import datetime
 
-from Constants import Color as ColorConstant
+import Color as ColorConstant
 from Constants import Light as LightConstant
 from State.State import State
 

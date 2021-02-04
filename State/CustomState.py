@@ -1,4 +1,4 @@
-from Constants import Color as ColorConstant
+import Color as ColorConstant
 from State.State import State
 
 

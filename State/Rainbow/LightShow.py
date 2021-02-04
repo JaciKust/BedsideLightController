@@ -1,10 +1,8 @@
-import colorsys
 import threading
 import time
 
 from lifxlan import Group
 
-from Constants import Color as ColorConstant
 from State.Rainbow.BaseLightPattern import BaseLightPattern
 
 
@@ -62,15 +60,6 @@ class LightShow:
             c %= len(self.colors)
             time.sleep(self.transition_time)
             time.sleep(self.stop_time)
-
-    def _rgb_to_hsv(self, rgb_color, temperature=3500):
-        r = rgb_color[ColorConstant.RED_LOCATION] / 100.0
-        g = rgb_color[ColorConstant.GREEN_LOCATION] / 100.0
-        b = rgb_color[ColorConstant.BLUE_LOCATION] / 100.0
-        h, s, v = colorsys.rgb_to_hsv(r, g, b)
-        if len(rgb_color) == 4:
-            temperature = rgb_color[3]
-        return [h * 65535, s * 65535, v * 65535, temperature]
 
     def _set_lights(self, group, color, transition_time):
         color = self._rgb_to_hsv(color)
