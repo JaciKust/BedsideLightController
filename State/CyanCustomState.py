@@ -1,5 +1,4 @@
 import Color as ColorConstant
-from Constants import Light as LightConstant
 from State.CustomState import CustomState
 
 
@@ -15,14 +14,16 @@ class CyanCustomState(CustomState):
 
     def execute_state_change(self):
         super().execute_state_change()
-        self._set_lights(LightConstant.window_group, ColorConstant.WHITE, 1)
-        self._set_lights(LightConstant.room_group, ColorConstant.BLACK, 1)
-        self._set_lights(LightConstant.india, ColorConstant.WHITE, 1)
 
-        self.plant_lights.set_off()
-        self.fan.set_off()
-        self.oddish_light.set_off()
-        self.monitor.set_off()
+        # TODO: Determine if this should exist still.
+        # self._set_lights(LightConstant.window_group, ColorConstant.WHITE, 1)
+        # self._set_lights(LightConstant.room_group, ColorConstant.BLACK, 1)
+        # self._set_lights(LightConstant.india, ColorConstant.WHITE, 1)
+        #
+        # self.plant_lights.set_off()
+        # self.fan.set_off()
+        # self.oddish_light.set_off()
+        # self.monitor.set_off()
 
     def on_primary_short_press(self):
         from State.MagentaCustomState import MagentaCustomState

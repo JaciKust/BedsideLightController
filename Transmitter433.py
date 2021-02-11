@@ -1,7 +1,7 @@
 from RPi import GPIO
 
 from Constants import Transmitter as TransmitterConstant
-from OutletSwitch import OutletSwitch
+from Interactable.OutletSwitch import OutletSwitch
 
 
 class Transmitter433:

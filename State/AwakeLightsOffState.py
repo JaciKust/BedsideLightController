@@ -1,4 +1,5 @@
 import Color as ColorConstant
+import Interactable.Light.Light as LightConstant
 import TimeFunctions
 from Constants import Time as TimeConstant
 from State.State import State
@@ -37,7 +38,7 @@ class AwakeLightsOffState(State):
 
     def execute_state_change(self):
         super().execute_state_change()
-        self.set_all_lights_off(1000)
+        LightConstant.all_lamp.turn_off(1000)
 
         self.plant_lights.set_on()
         self.fan.set_off()

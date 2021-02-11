@@ -1,7 +1,7 @@
 import logging
 
 import Color as ColorConstant
-from Constants import Light as LightConstant
+import Interactable.Light.Light as LightConstant
 from Constants import LightKelvin as TemperatureConstant
 from State.AwakeLightsOffState import AwakeLightsOffState
 
@@ -41,12 +41,11 @@ class DeskState(AwakeLightsOffState):
             self.all_lights_on = not self.all_lights_on
 
         if self.all_lights_on:
-
-            self.set_all_lights_on(None)
+            LightConstant.all_lamp.turn_on(self.current_white)
         else:
-            self.set_lights_off(LightConstant.jaci_bedside_group)
-            self.set_lights_on(LightConstant.desk_group, 2000)
-            self.set_lights_on(LightConstant.entry_group, 2000)
+            LightConstant.jaci_bedside_lamp.turn_off()
+            LightConstant.entry_lamp.turn_on(self.current_white)
+            LightConstant.desk_lamp.turn_on(self.current_white)
 
     def on_door_short_press(self):
         if self.all_lights_on:

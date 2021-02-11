@@ -1,7 +1,7 @@
 import datetime
 
 import Color as ColorConstant
-from Constants import Light as LightConstant
+import Interactable.Light.Light as LightConstant
 from Constants import Time as TimeConstant
 from State.WakingUpState import WakingUpState
 
@@ -22,7 +22,8 @@ class WakingUpState2(WakingUpState):
         super().execute_state_change()
 
         transition_time = TimeConstant.waking_up_2_duration_minutes * 60 * 1_000
-        self.set_lights_on(LightConstant.all_group, transition_time)
+        LightConstant.entry_lamp.turn_on(self.current_white, transition_time)
+        LightConstant.jaci_bedside_lamp.turn_on(self.current_white, transition_time)
 
         self.plant_lights.set_off()
         self.fan.set_on()

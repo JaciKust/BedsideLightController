@@ -4,11 +4,10 @@ import Color as ColorConstant
 from Constants import Button as ButtonConstant
 from Constants import DeskButton as DeskButtonConstant
 from Constants import DoorButton as DoorButtonConstant
-from Constants import Light as LightConstant
 from Constants import PrimaryButton as PrimaryButtonConstant
 from Constants import Relay as RelayConstant
 from Constants import SecondaryButton as SecondaryButtonConstant
-from Relay import Relay
+from Interactable.Relay import Relay
 from Sql.MarraQueryMaker import MarraQueryMaker
 from Transmitter433 import Transmitter433
 
@@ -24,11 +23,12 @@ class State:
         self.fan = transmitter433.fan
         self.monitor = transmitter433.monitor
         self.plant_lights = transmitter433.plant_lights
-
         self.oddish_light = Relay(RelayConstant.ID, RelayConstant.ODDISH_RELAY_PIN)
 
         self.maker = MarraQueryMaker.getInstance()
         self.maker.open_connection()
+
+        self.current_white = ColorConstant.WHITE
 
         self.default_transition_time = 200
         self.default_temperature = 3500
@@ -245,32 +245,6 @@ class State:
 
     def __str__(self):
         return self.name
-
-    def get_transition_time(self, time):
-        return self.default_transition_time if time is None else time
-
-    def set_all_lights_off(self, transition_time=None):
-        self._set_lights(LightConstant.all_group, ColorConstant.BLACK, transition_time)
-
-    def set_all_lights_on(self, transition_time=None):
-        self._set_lights(LightConstant.all_group, ColorConstant.WHITE, transition_time)
-
-    def set_lights_on(self, group, transition_time=None):
-        self._set_lights(group, ColorConstant.WHITE, transition_time)
-
-    def set_lights_off(self, group, transition_time=None):
-        self._set_lights(group, ColorConstant.BLACK, transition_time)
-
-    def _set_lights(self, group, color, transition_time=None):
-        transition_time = self.get_transition_time(transition_time)
-        num_tries = 5
-        for x in range(num_tries):
-            try:
-                group.set_color(color.as_hsv_array(), transition_time)
-            except:
-                print("failed {} time to set light".format(x + 1))
-            else:
-                break
 
     def _update_database(self):
         try:

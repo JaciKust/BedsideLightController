@@ -1,7 +1,7 @@
 import datetime
 
 import Color as ColorConstant
-from Constants import Light as LightConstant
+import Interactable.Light.Light as LightConstant
 from State.State import State
 
 
@@ -34,7 +34,7 @@ class AsleepLightsOnState(State):
         from State.AwakeLightsOnState import AwakeLightsOnState
 
         if not self.all_lights_on:
-            self._set_lights(LightConstant.all_group, ColorConstant.DIMMEST_WHITE, 0)
+            LightConstant.all_lamp.turn_on(ColorConstant.DIMMEST_WHITE)
             self.all_lights_on = True
             return None
         else:
@@ -60,9 +60,8 @@ class AsleepLightsOnState(State):
         return None
 
     def _set_room_partial_on(self):
-        self._set_light(LightConstant.india, ColorConstant.DIMMEST_WHITE, 0)
-        self._set_lights(LightConstant.entry_group, ColorConstant.DIMMEST_WHITE, 0)
-
+        LightConstant.entry_lamp.turn_on(ColorConstant.DIMMEST_WHITE, 0)
+        LightConstant.jaci_bedside_lamp.turn_on(ColorConstant.DIMMEST_WHITE, 0)
 
     def __str__(self):
         return super().__str__() + " Alarm set: " + str(self.auto_alarm)

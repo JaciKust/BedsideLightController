@@ -1,6 +1,6 @@
 from RPi import GPIO
 
-from Toggleable import Toggleable
+from Interactable.Toggleable import Toggleable
 
 
 class Relay(Toggleable):

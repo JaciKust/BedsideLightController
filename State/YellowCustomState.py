@@ -1,5 +1,4 @@
 import Color as ColorConstant
-from Constants import Light as LightConstant
 from State.CustomState import CustomState
 
 

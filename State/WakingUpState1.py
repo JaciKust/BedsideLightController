@@ -1,7 +1,7 @@
 import datetime
 
 import Color as ColorConstant
-from Constants import Light as LightConstant
+import Interactable.Light.Light as LightConstant
 from Constants import Time as TimeConstant
 from State.WakingUpState import WakingUpState
 
@@ -19,9 +19,8 @@ class WakingUpState1(WakingUpState):
 
     def execute_state_change(self):
         super().execute_state_change()
-
         transition_time = TimeConstant.waking_up_1_duration_minutes * 60 * 1_000
-        self.set_lights_on(LightConstant.red_lamp, transition_time)
+        LightConstant.desk_lamp.turn_on(self.current_white, transition_time)
 
         self.plant_lights.set_off()
         self.fan.set_on()

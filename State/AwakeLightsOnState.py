@@ -1,4 +1,5 @@
 import Color as ColorConstant
+import Interactable.Light.Light as LightConstant
 import TimeFunctions
 from Constants import Time as TimeConstant
 from State.State import State
@@ -47,7 +48,7 @@ class AwakeLightsOnState(State):
         if isinstance(self.previous_state, AsleepLightsOffState) or \
                 isinstance(self.previous_state, AsleepLightsOnState):
             transition_time = 10_000
-        self.set_all_lights_on(transition_time)
+        LightConstant.all_lamp.turn_on(self.current_white, transition_time)
 
         self.plant_lights.set_on()
         self.oddish_light.set_on()
