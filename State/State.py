@@ -30,9 +30,6 @@ class State:
 
         self.current_white = ColorConstant.WHITE
 
-        self.default_transition_time = 200
-        self.default_temperature = 3500
-
     def get_primary_button_colors(self):
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
 
