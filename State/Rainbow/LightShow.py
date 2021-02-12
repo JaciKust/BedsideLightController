@@ -1,8 +1,6 @@
 import threading
 import time
 
-from lifxlan import Group
-
 from State.Rainbow.BaseLightPattern import BaseLightPattern
 
 
@@ -53,7 +51,7 @@ class LightShow:
             if self._should_stop:
                 break
             for light in self.lights:
-                self._set_light_array(light, self.colors[c], overt)
+                light.turn_on(self.colors[c], overt)
                 c += 1
                 c %= len(self.colors)
             c += 1
@@ -61,16 +59,4 @@ class LightShow:
             time.sleep(self.transition_time)
             time.sleep(self.stop_time)
 
-    def _set_lights(self, group, color, transition_time):
-        color = self._rgb_to_hsv(color)
-        num_tries = 5
-        for x in range(num_tries):
-            try:
-                group.set_color(color, transition_time)
-            except:
-                pass
-            else:
-                break
 
-    def _set_light_array(self, lights, color, transition_time):
-        self._set_lights(Group(lights), color, transition_time)

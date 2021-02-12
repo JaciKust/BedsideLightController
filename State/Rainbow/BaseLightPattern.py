@@ -1,4 +1,5 @@
-from Constants import Light as LightConstant
+import Interactable.Light.Light as LightConstant
+
 from Constants import Rainbow
 from State.Rainbow import PatternType
 
@@ -21,26 +22,18 @@ shadows = BaseLightPattern(Rainbow.three_lamps, Rainbow.shadows_3, "Shadows", Pa
 blue_cycle = BaseLightPattern(Rainbow.three_lamps, Rainbow.blue_cycle_3, "Blue Cycle", PatternType.BASE)
 cyan_cycle = BaseLightPattern(Rainbow.all_lamps, Rainbow.cyan_cycle_5, "Cyan Cycle", PatternType.BASE)
 
-rainbow_one = BaseLightPattern(LightConstant.all_lights, Rainbow.all_six, "One Cycle", PatternType.ONE)
-primary_one = BaseLightPattern(LightConstant.all_lights, Rainbow.primary_color_3, "One Primary", PatternType.ONE)
+rainbow_one = BaseLightPattern(LightConstant.all_lamp, Rainbow.all_six, "One Cycle", PatternType.ONE)
+primary_one = BaseLightPattern(LightConstant.all_lamp, Rainbow.primary_color_3, "One Primary", PatternType.ONE)
 
 primary_random = BaseLightPattern(Rainbow.three_lamps, Rainbow.primary_color_3, "Random Primary Cycle 3",
                                   PatternType.RANDOM)
 all_random = BaseLightPattern(Rainbow.all_lamps, Rainbow.all_six, "Random All Cycle 3", PatternType.RANDOM)
 white_random = BaseLightPattern(Rainbow.all_lamps, Rainbow.whites, "RANDOM WHITES", PatternType.RANDOM)
-whites_one = BaseLightPattern(LightConstant.all_lights, Rainbow.whites, "STRUCTKRED WHITES", PatternType.ONE)
+whites_one = BaseLightPattern(LightConstant.all_lamp, Rainbow.whites, "STRUCTKRED WHITES", PatternType.ONE)
 
 patterns = [
     all_random,
+    rainbow_one,
     white_random,
     whites_one,
-    primary_cycle_three,
-    primary_one,
-    primary_random,
-    rainbow_one,
-    rainbow_all,
-    cyan_cycle,
-    bright,
-    shadows,
-    blue_cycle
 ]

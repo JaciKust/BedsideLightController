@@ -14,6 +14,6 @@ class RandomLightShow(LightShow):
             if self._should_stop:
                 break
             for light in self.lights:
-                self._set_light_array(light, random.choice(self.colors), overt)
+                light.turn_on(random.choice(self.colors), overt)
             time.sleep(self.transition_time)
             time.sleep(self.stop_time)

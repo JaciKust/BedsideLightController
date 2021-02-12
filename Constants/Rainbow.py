@@ -1,4 +1,5 @@
-from Constants import Color, Light
+import Color
+import Interactable.Light.Light as Light
 
 primary_color_3 = [
     Color.RED,
@@ -36,10 +37,10 @@ whites = [
 ]
 
 all_lamps = [
-    Light.black_bedside_lamp,
-    Light.white_bedside_lamp,
+    Light.bed_black_lamp,
+    Light.bed_white_lamp,
     Light.yellow_lamp,
-    Light.silver_lamp,
+    Light.entry_lamp,
     Light.red_lamp
 ]
 

@@ -13,7 +13,7 @@ class OneLightShow(LightShow):
         while True:
             if self._should_stop:
                 break
-            self._set_light_array(self.lights, self.colors[c], overt)
+            self.lights.turn_on(self.colors[c], overt)
             c += 1
             c %= len(self.colors)
             time.sleep(self.transition_time)

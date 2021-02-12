@@ -1,7 +1,7 @@
 from time import sleep
 
-from Constants import Color as ColorConstant
-from Constants import Light as LightConstant
+import Color as ColorConstant
+import Interactable.Light.Light as LightConstant
 from State.Rainbow import BaseLightPattern
 from State.Rainbow import PatternType
 from State.Rainbow.LightShow import LightShow
@@ -45,7 +45,7 @@ class RainbowState(State):
         return [ColorConstant.CYAN, ColorConstant.DARK_CYAN, ColorConstant.BLUE]
 
     def execute_state_change(self):
-        self._set_lights(LightConstant.all_group, ColorConstant.MAGENTA, 0)
+        LightConstant.all_lamp.turn_on(ColorConstant.MAGENTA)
         self.plant_lights.set_off()
         self.oddish_light.set_off()
         self.fan.set_off()
