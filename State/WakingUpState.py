@@ -25,3 +25,7 @@ class WakingUpState(State):
         # Turn off Alarm
         from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(self.wake_up_time, self, False)
+
+    def on_kelvin_changed(self):
+        # Nothing should be done here.
+        pass

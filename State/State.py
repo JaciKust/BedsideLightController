@@ -27,9 +27,12 @@ class State:
 
         self.maker = MarraQueryMaker.getInstance()
         self.maker.open_connection()
+        if previous_state is None or previous_state.current_white is None:
+            self.current_white = ColorConstant.WHITES_IN_KELVIN_CYCLE[ColorConstant.WHITE_START_INDEX]
+        else:
+            self.current_white = previous_state.current_white
 
-        self.current_white = ColorConstant.WHITE
-
+    # region Button actions
     def get_primary_button_colors(self):
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
 
@@ -57,40 +60,6 @@ class State:
     def on_primary_extra_long_press(self):
         return None
 
-    def on_desk_right_short_press(self):
-        return self.on_secondary_short_press()
-
-    def on_desk_right_long_press(self):
-        return self.on_secondary_long_press()
-
-    def on_desk_right_extra_long_press(self):
-        return self.on_secondary_extra_long_press()
-
-    def on_desk_left_short_press(self):
-        return self.on_primary_short_press()
-
-    def on_desk_left_long_press(self):
-        return self.on_primary_long_press()
-
-    def on_desk_left_extra_long_press(self):
-        return self.on_primary_extra_long_press()
-
-    def on_desk_rear_short_press(self):
-        return None
-
-    def on_desk_rear_long_press(self):
-        return None
-
-    def on_desk_rear_extra_long_press(self):
-        return None
-
-    def execute_state_change(self):
-        print("State changed to " + self.name)
-        self._update_database()
-
-    def on_time_expire_check(self):
-        return None
-
     def on_secondary_short_press(self):
         self.fan.toggle()
         return None
@@ -115,6 +84,67 @@ class State:
 
     def on_door_extra_long_press(self):
         return None
+
+    def on_desk_right_short_press(self):
+        return self.on_secondary_short_press()
+
+    def on_desk_right_long_press(self):
+        return self.on_secondary_long_press()
+
+    def on_desk_right_extra_long_press(self):
+        return self.on_secondary_extra_long_press()
+
+    def on_desk_left_short_press(self):
+        return self.on_primary_short_press()
+
+    def on_desk_left_long_press(self):
+        return self.on_primary_long_press()
+
+    def on_desk_left_extra_long_press(self):
+        return self.on_primary_extra_long_press()
+
+    def on_desk_rear_short_press(self):
+        self.cycle_kelvin()
+
+    def on_desk_rear_long_press(self):
+        return None
+
+    def on_desk_rear_extra_long_press(self):
+        return None
+
+    # endregion
+
+    # region Light Kelvin Change
+
+    current_white = None
+
+    def on_kelvin_changed(self):
+        pass
+
+    def cycle_kelvin(self):
+        location = None
+        try:
+            location = ColorConstant.WHITES_IN_KELVIN_CYCLE.index(self.current_white)
+        except:
+            location = -1
+        location += 1
+        location %= len(ColorConstant.WHITES_IN_KELVIN_CYCLE)
+        self.current_white = ColorConstant.WHITES_IN_KELVIN_CYCLE[location]
+        self.on_kelvin_changed()
+
+    def set_default_white(self):
+        pass
+
+    # endregion
+
+    def execute_state_change(self):
+        print("State changed to " + self.name)
+        self._update_database()
+
+    def on_time_expire_check(self):
+        return None
+
+    # region Get State for Button
 
     def get_state_for(self, button_name, press_time):
         if button_name == PrimaryButtonConstant.NAME:
@@ -233,6 +263,8 @@ class State:
             return_state = self.on_desk_rear_short_press()
 
         return return_state
+
+    # endregion
 
     def __eq__(self, other):
         return other.id == self.id

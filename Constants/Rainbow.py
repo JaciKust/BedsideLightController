@@ -15,25 +15,25 @@ secondary_colors_3 = [
 
 shadows_3 = [
     Color.BLACK,
-    Color.WHITE,
-    Color.WHITE
+    Color.WHITE_NEUTRAL,
+    Color.WHITE_NEUTRAL
 ]
 
 bright_3 = [
     Color.BLACK,
     Color.BLACK,
-    Color.WHITE
+    Color.WHITE_NEUTRAL
 ]
 
 blue_cycle_3 = [
-    Color.WHITE,
-    Color.WHITE,
+    Color.WHITE_NEUTRAL,
+    Color.WHITE_NEUTRAL,
     Color.BLUE
 ]
 
 whites = [
-    Color.COLD_WHITE,
-    Color.HOT_WHITE,
+    Color.WHITE_BLUE_ICE,
+    Color.WHITE_ULTRA_WARM,
 ]
 
 all_lamps = [
@@ -51,10 +51,10 @@ three_lamps = [
 ]
 
 cyan_cycle_5 = [
-    Color.WHITE,
-    Color.WHITE,
-    Color.WHITE,
-    Color.WHITE,
+    Color.WHITE_NEUTRAL,
+    Color.WHITE_NEUTRAL,
+    Color.WHITE_NEUTRAL,
+    Color.WHITE_NEUTRAL,
     Color.CYAN,
 ]
 

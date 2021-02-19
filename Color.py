@@ -47,11 +47,6 @@ class Color:
 def get_white(temperature):
     return Color(100, 100, 100, temperature)
 
-
-WHITE = get_white(LightKelvinConstant.NEUTRAL)
-COLD_WHITE = get_white(LightKelvinConstant.BLUE_ICE)
-HOT_WHITE = get_white(LightKelvinConstant.ULTRA_WARM)
-
 BLACK = Color(0, 0, 0)
 
 RED = Color(100, 0, 0)
@@ -76,6 +71,52 @@ DARK_GREEN = Color(0, 1, 0)
 DIM_MAGENTA = Color(20, 0, 20)
 
 DIMMEST_WHITE = Color(0.1, 0.1, 0.1)
+
+WHITE_ULTRA_WARM = get_white(LightKelvinConstant.ULTRA_WARM)
+WHITE_INCANDESCENT = get_white(LightKelvinConstant.INCANDESCENT)
+WHITE_WARM = get_white(LightKelvinConstant.WARM)
+WHITE_NEUTRAL_WARM = get_white(LightKelvinConstant.NEUTRAL_WARM)
+WHITE_NEUTRAL = get_white(LightKelvinConstant.NEUTRAL)
+WHITE_COOL = get_white(LightKelvinConstant.COOL)
+WHITE_COOL_DAYLIGHT = get_white(LightKelvinConstant.COOL_DAYLIGHT)
+WHITE_SOFT_DAYLIGHT = get_white(LightKelvinConstant.SOFT_DAYLIGHT)
+WHITE_DAYLIGHT = get_white(LightKelvinConstant.DAYLIGHT)
+WHITE_NOON_DAYLIGHT = get_white(LightKelvinConstant.NOON_DAYLIGHT)
+WHITE_BRIGHT_DAYLIGHT = get_white(LightKelvinConstant.BRIGHT_DAYLIGHT)
+WHITE_CLOUDY_DAYLIGHT = get_white(LightKelvinConstant.CLOUDY_DAYLIGHT)
+WHITE_BLUE_DAYLIGHT = get_white(LightKelvinConstant.BLUE_DAYLIGHT)
+WHITE_BLUE_OVERCAST = get_white(LightKelvinConstant.BLUE_OVERCAST)
+WHITE_BLUE_WATER = get_white(LightKelvinConstant.BLUE_WATER)
+WHITE_BLUE_ICE = get_white(LightKelvinConstant.BLUE_ICE)
+
+WHITES_IN_KELVIN_CYCLE = [
+    WHITE_ULTRA_WARM,
+    WHITE_NEUTRAL,
+    WHITE_DAYLIGHT,
+    WHITE_BLUE_DAYLIGHT,
+    WHITE_BLUE_ICE,
+]
+
+WHITE_START_INDEX = 2
+
+ALL_WHITES = [
+    WHITE_ULTRA_WARM,
+    WHITE_INCANDESCENT,
+    WHITE_WARM,
+    WHITE_NEUTRAL_WARM,
+    WHITE_NEUTRAL,
+    WHITE_COOL,
+    WHITE_COOL_DAYLIGHT,
+    WHITE_SOFT_DAYLIGHT,
+    WHITE_DAYLIGHT,
+    WHITE_NOON_DAYLIGHT,
+    WHITE_BRIGHT_DAYLIGHT,
+    WHITE_CLOUDY_DAYLIGHT,
+    WHITE_BLUE_DAYLIGHT,
+    WHITE_BLUE_OVERCAST,
+    WHITE_BLUE_WATER,
+    WHITE_BLUE_ICE
+]
 
 PRIMARIES = [
     RED,

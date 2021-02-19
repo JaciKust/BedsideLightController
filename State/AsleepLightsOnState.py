@@ -52,6 +52,12 @@ class AsleepLightsOnState(State):
         self.oddish_light.set_off()
         self.monitor.set_off()
 
+    def on_kelvin_changed(self):
+        # No reason to do anything here. The white is chosen
+        # automatically and shouldn't be changed based off off the
+        # current Kelvin.
+        pass
+
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()
         if self.auto_alarm and self.wake_time < current_time:

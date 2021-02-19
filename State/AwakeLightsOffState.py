@@ -45,6 +45,10 @@ class AwakeLightsOffState(State):
         self.oddish_light.set_on()
         self.monitor.set_off()
 
+    def on_kelvin_changed(self):
+        # No reason to change anything here. lights are off.
+        pass
+
     def on_time_expire_check(self):
         # No action
         return None

@@ -12,11 +12,12 @@ class AwakeLightsOnState(State):
     def __init__(self, previous_state=None):
         super().__init__(previous_state)
 
+
     def get_primary_button_colors(self):
-        return [ColorConstant.WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
+        return [ColorConstant.WHITE_NEUTRAL, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
 
     def get_door_button_colors(self):
-        return [ColorConstant.WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLACK]
+        return [ColorConstant.WHITE_NEUTRAL, ColorConstant.DIM_WHITE, ColorConstant.BLACK]
 
     def on_primary_short_press(self):
         from State.AwakeLightsOffState import AwakeLightsOffState
@@ -37,6 +38,10 @@ class AwakeLightsOnState(State):
     def on_door_short_press(self):
         return self.on_primary_short_press()
 
+    def on_kelvin_changed(self):
+        LightConstant.all_lamp.turn_on(self.current_white)
+        pass
+
     def execute_state_change(self):
         super().execute_state_change()
         from State.AsleepLightsOffState import AsleepLightsOffState
@@ -50,6 +55,9 @@ class AwakeLightsOnState(State):
             transition_time = 10_000
         LightConstant.all_lamp.turn_on(self.current_white, transition_time)
 
+        from State.WakingUpState2 import WakingUpState2
+        if isinstance(self.previous_state, WakingUpState2):
+            self.set_default_white()
         self.plant_lights.set_on()
         self.oddish_light.set_on()
         self.monitor.set_on()
