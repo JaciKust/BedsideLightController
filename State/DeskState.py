@@ -14,7 +14,7 @@ class DeskState(AwakeLightsOffState):
         self.current_white = ColorConstant.WHITE_CLOUDY_DAYLIGHT
         self.set_lighting_level(False)
 
-        self.plant_lights.set_off()
+        self.plant_lights.set_on()
         self.oddish_light.set_on()
         self.monitor.set_off()
 
