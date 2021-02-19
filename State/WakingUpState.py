@@ -10,6 +10,8 @@ class WakingUpState(State):
         self.wake_up_time = wake_up_time
         super().__init__(None)
 
+    # region Button Actions
+
     def on_primary_short_press(self):
         # Snooze
         new_wake_time = datetime.datetime.now() + datetime.timedelta(minutes=TimeConstant.snooze_time)
@@ -26,6 +28,4 @@ class WakingUpState(State):
         from State.AsleepLightsOffState import AsleepLightsOffState
         return AsleepLightsOffState(self.wake_up_time, self, False)
 
-    def on_kelvin_changed(self):
-        # Nothing should be done here.
-        pass
+    # endregion

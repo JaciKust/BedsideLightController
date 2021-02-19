@@ -15,11 +15,17 @@ class AwakeLightsOffState(State):
     def __init__(self, previous_state=None):
         super().__init__(previous_state)
 
+    # region Button Color
+
     def get_primary_button_colors(self):
         return [ColorConstant.MEDIUM_WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
 
     def get_door_button_colors(self):
         return [ColorConstant.MEDIUM_WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLACK]
+
+    # endregion
+
+    # region Button Actions
 
     def on_primary_short_press(self):
         from State.AwakeLightsOnState import AwakeLightsOnState
@@ -36,6 +42,8 @@ class AwakeLightsOffState(State):
     def on_door_short_press(self):
         return self.on_primary_short_press()
 
+    # endregion
+
     def execute_state_change(self):
         super().execute_state_change()
         LightConstant.all_lamp.turn_off(1000)
@@ -44,10 +52,6 @@ class AwakeLightsOffState(State):
         self.fan.set_off()
         self.oddish_light.set_on()
         self.monitor.set_off()
-
-    def on_kelvin_changed(self):
-        # No reason to change anything here. lights are off.
-        pass
 
     def on_time_expire_check(self):
         # No action

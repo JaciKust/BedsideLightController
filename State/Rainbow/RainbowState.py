@@ -14,14 +14,6 @@ class RainbowState(State):
     id = 40
     name = 'Rainbow'
 
-    DEFAULT_SPEED_LOCATION = 3
-    speeds = [1, 2, 5, 10, 15, 20, 30]
-
-    DEFAULT_PATTERN_LOCATION = 0
-
-    DEFAULT_WAIT_LOCATION = 0
-    waits = [0, 1, 5, 15, 30]
-
     def __init__(self):
         super().__init__(None)
         self.light_show = None
@@ -35,6 +27,15 @@ class RainbowState(State):
     def __del__(self):
         self._stop_current_light_show()
 
+    def execute_state_change(self):
+        LightConstant.all_lamp.turn_on(ColorConstant.MAGENTA)
+        self.plant_lights.set_off()
+        self.oddish_light.set_off()
+        self.fan.set_off()
+        self.monitor.set_off()
+
+    # region Button Color
+
     def get_primary_button_colors(self):
         return [ColorConstant.MAGENTA, ColorConstant.DARK_MAGENTA, ColorConstant.RED]
 
@@ -44,12 +45,11 @@ class RainbowState(State):
     def get_secondary_button_colors(self):
         return [ColorConstant.CYAN, ColorConstant.DARK_CYAN, ColorConstant.BLUE]
 
-    def execute_state_change(self):
-        LightConstant.all_lamp.turn_on(ColorConstant.MAGENTA)
-        self.plant_lights.set_off()
-        self.oddish_light.set_off()
-        self.fan.set_off()
-        self.monitor.set_off()
+    # endregion
+
+    # region Pattern
+
+    DEFAULT_PATTERN_LOCATION = 0
 
     def _cycle_pattern(self):
         self.current_pattern += 1
@@ -59,6 +59,13 @@ class RainbowState(State):
     def _get_pattern(self):
         return BaseLightPattern.patterns[self.current_pattern]
 
+    # endregion
+
+    # region Speed
+
+    DEFAULT_SPEED_LOCATION = 3
+    speeds = [1, 2, 5, 10, 15, 20, 30]
+
     def _cycle_speed(self):
         self.current_speed += 1
         self.current_speed %= len(self.speeds)
@@ -67,6 +74,13 @@ class RainbowState(State):
     def _get_speed(self):
         return self.speeds[self.current_speed]
 
+    # endregion
+
+    # region Wait
+
+    DEFAULT_WAIT_LOCATION = 0
+    waits = [0, 1, 5, 15, 30]
+
     def _cycle_wait(self):
         self.current_wait += 1
         self.current_wait %= len(self.waits)
@@ -74,6 +88,10 @@ class RainbowState(State):
 
     def _get_wait(self):
         return self.waits[self.current_wait]
+
+    # endregion
+
+    # region Light Show
 
     def _stop_current_light_show(self):
         if self.light_show is not None:
@@ -95,6 +113,9 @@ class RainbowState(State):
 
         self.light_show.start()
 
+    # endregion
+
+    # region Button Actions
     def on_primary_short_press(self):
         self._cycle_pattern()
         self._update_light_show()
@@ -138,3 +159,5 @@ class RainbowState(State):
 
     def on_desk_rear_extra_long_press(self):
         return self.on_primary_extra_long_press()
+
+    # endregion

@@ -25,6 +25,8 @@ class AsleepLightsOffState(State):
     def get_secondary_button_colors(self):
         return [ColorConstant.BLACK, ColorConstant.DARK_GREEN, ColorConstant.DARK_RED]
 
+    # region Button Actions
+
     def on_primary_short_press(self):
         from State.AsleepLightsOnState import AsleepLightsOnState
         return AsleepLightsOnState(self.wake_time, self, self.auto_alarm)
@@ -35,6 +37,8 @@ class AsleepLightsOffState(State):
 
     def on_primary_extra_long_press(self):
         return AsleepLightsOffState(self.wake_time, self.previous_state, not self.auto_alarm)
+
+    # endregion
 
     def execute_state_change(self):
         super().execute_state_change()

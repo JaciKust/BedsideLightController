@@ -18,6 +18,8 @@ class AsleepLightsOnState(State):
         self.wake_time = wake_time
         self.all_lights_on = False
 
+    # region Button Color
+
     def get_primary_button_colors(self):
         if self.auto_alarm:
             return [ColorConstant.DARK_RED, ColorConstant.RED, ColorConstant.BLUE]
@@ -25,6 +27,10 @@ class AsleepLightsOnState(State):
 
     def get_secondary_button_colors(self):
         return [ColorConstant.DARK_BLUE, ColorConstant.DARK_GREEN, ColorConstant.DARK_RED]
+
+    # endregion
+
+    # region Button Actions
 
     def on_primary_short_press(self):
         from State.AsleepLightsOffState import AsleepLightsOffState
@@ -43,6 +49,8 @@ class AsleepLightsOnState(State):
     def on_primary_extra_long_press(self):
         return AsleepLightsOnState(self.wake_time, self.previous_state, not self.auto_alarm)
 
+    # endregion
+
     def execute_state_change(self):
         super().execute_state_change()
         self._set_room_partial_on()
@@ -51,12 +59,6 @@ class AsleepLightsOnState(State):
         self.fan.set_on()
         self.oddish_light.set_off()
         self.monitor.set_off()
-
-    def on_kelvin_changed(self):
-        # No reason to do anything here. The white is chosen
-        # automatically and shouldn't be changed based off off the
-        # current Kelvin.
-        pass
 
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()

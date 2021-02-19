@@ -32,7 +32,8 @@ class State:
         else:
             self.current_white = previous_state.current_white
 
-    # region Button actions
+    # region Button Actions
+
     def get_primary_button_colors(self):
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
 

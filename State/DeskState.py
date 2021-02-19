@@ -8,12 +8,6 @@ class DeskState(AwakeLightsOffState):
         super().__init__(previous_state)
         self.all_lights_on = False
 
-    def get_desk_rear_button_colors(self):
-        return [ColorConstant.GREEN, ColorConstant.DARK_GREEN, ColorConstant.WHITE_NEUTRAL]
-
-    def get_desk_left_button_colors(self):
-        return [ColorConstant.RED, ColorConstant.DARK_RED, ColorConstant.WHITE_NEUTRAL]
-
     def execute_state_change(self):
         print("State changed to " + self.name)
         self._update_database()
@@ -23,6 +17,18 @@ class DeskState(AwakeLightsOffState):
         self.plant_lights.set_off()
         self.oddish_light.set_on()
         self.monitor.set_off()
+
+    # region Button Color
+
+    def get_desk_rear_button_colors(self):
+        return [ColorConstant.GREEN, ColorConstant.DARK_GREEN, ColorConstant.WHITE_NEUTRAL]
+
+    def get_desk_left_button_colors(self):
+        return [ColorConstant.RED, ColorConstant.DARK_RED, ColorConstant.WHITE_NEUTRAL]
+
+    # endregion
+
+    # region Button Actions
 
     def on_primary_long_press(self):
         from State.AwakeLightsOnState import AwakeLightsOnState
@@ -51,6 +57,8 @@ class DeskState(AwakeLightsOffState):
 
     def on_door_long_press(self):
         return AwakeLightsOffState(self)
+
+    # endregion
 
     def on_kelvin_changed(self):
         self.set_lighting_level(False)

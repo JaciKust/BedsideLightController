@@ -12,6 +12,7 @@ class AwakeLightsOnState(State):
     def __init__(self, previous_state=None):
         super().__init__(previous_state)
 
+    # region Button Actions
 
     def get_primary_button_colors(self):
         return [ColorConstant.WHITE_NEUTRAL, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
@@ -41,6 +42,8 @@ class AwakeLightsOnState(State):
     def on_kelvin_changed(self):
         LightConstant.all_lamp.turn_on(self.current_white)
         pass
+
+    # endregion
 
     def execute_state_change(self):
         super().execute_state_change()

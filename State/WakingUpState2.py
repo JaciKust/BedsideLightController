@@ -15,8 +15,12 @@ class WakingUpState2(WakingUpState):
         self.state_complete_time = wake_up_time + datetime.timedelta(
             minutes=TimeConstant.waking_up_1_duration_minutes + TimeConstant.waking_up_2_duration_minutes)
 
+    # region Button Color
+
     def get_primary_button_colors(self):
         return [ColorConstant.DARK_MAGENTA, ColorConstant.DARK_RED, ColorConstant.BLUE]
+
+    # endregion
 
     def execute_state_change(self):
         super().execute_state_change()
