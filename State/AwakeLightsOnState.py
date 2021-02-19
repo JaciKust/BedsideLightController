@@ -29,8 +29,8 @@ class AwakeLightsOnState(State):
         return AsleepLightsOffState(TimeFunctions.get_next(TimeConstant.wakeup_time), self)
 
     def on_primary_extra_long_press(self):
-        from State.CyanCustomState import CyanCustomState
-        return CyanCustomState()
+        from State.Rainbow.RainbowState import RainbowState
+        return RainbowState()
 
     def on_desk_left_long_press(self):
         from State.DeskState import DeskState
