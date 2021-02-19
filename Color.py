@@ -72,6 +72,8 @@ DIM_MAGENTA = Color(20, 0, 20)
 
 DIMMEST_WHITE = Color(0.1, 0.1, 0.1)
 
+# region All Whites
+
 WHITE_ULTRA_WARM = get_white(LightKelvinConstant.ULTRA_WARM)
 WHITE_INCANDESCENT = get_white(LightKelvinConstant.INCANDESCENT)
 WHITE_WARM = get_white(LightKelvinConstant.WARM)
@@ -117,6 +119,8 @@ ALL_WHITES = [
     WHITE_BLUE_WATER,
     WHITE_BLUE_ICE
 ]
+
+# endregion
 
 PRIMARIES = [
     RED,

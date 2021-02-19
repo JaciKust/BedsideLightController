@@ -18,6 +18,19 @@ class AsleepLightsOnState(State):
         self.wake_time = wake_time
         self.all_lights_on = False
 
+    def execute_state_change(self):
+        super().execute_state_change()
+        self._set_room_partial_on()
+
+        self.plant_lights.set_off()
+        self.fan.set_on()
+        self.oddish_light.set_off()
+        self.monitor.set_off()
+
+    def _set_room_partial_on(self):
+        LightConstant.entry_lamp.turn_on(ColorConstant.DIMMEST_WHITE, 0)
+        LightConstant.jaci_bedside_lamp.turn_on(ColorConstant.DIMMEST_WHITE, 0)
+
     # region Button Color
 
     def get_primary_button_colors(self):
@@ -51,14 +64,7 @@ class AsleepLightsOnState(State):
 
     # endregion
 
-    def execute_state_change(self):
-        super().execute_state_change()
-        self._set_room_partial_on()
-
-        self.plant_lights.set_off()
-        self.fan.set_on()
-        self.oddish_light.set_off()
-        self.monitor.set_off()
+    # region On Event
 
     def on_time_expire_check(self):
         current_time = datetime.datetime.now()
@@ -67,9 +73,7 @@ class AsleepLightsOnState(State):
             return WakingUpState1(self.wake_time)
         return None
 
-    def _set_room_partial_on(self):
-        LightConstant.entry_lamp.turn_on(ColorConstant.DIMMEST_WHITE, 0)
-        LightConstant.jaci_bedside_lamp.turn_on(ColorConstant.DIMMEST_WHITE, 0)
+    # endregion
 
     def __str__(self):
         return super().__str__() + " Alarm set: " + str(self.auto_alarm)

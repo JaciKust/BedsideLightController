@@ -60,5 +60,9 @@ class DeskState(AwakeLightsOffState):
 
     # endregion
 
+    # region On Event
+
     def on_kelvin_changed(self):
         self.set_lighting_level(False)
+
+    # endregion

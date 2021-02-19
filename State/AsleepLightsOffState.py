@@ -17,6 +17,23 @@ class AsleepLightsOffState(State):
         self.auto_alarm = auto_alarm
         self.wake_time = wake_time
 
+    def execute_state_change(self):
+        super().execute_state_change()
+        from State.AwakeLightsOnState import AwakeLightsOnState
+
+        transition_time = 0
+        # If coming from Awake Lights On change over ten seconds
+        if isinstance(self.previous_state, AwakeLightsOnState):
+            transition_time = 10_000
+
+        LightConstant.all_lamp.turn_off(transition_time)
+        self.plant_lights.set_off()
+        self.fan.set_on()
+        self.oddish_light.set_off()
+        self.monitor.set_off()
+
+    # region Button Color
+
     def get_primary_button_colors(self):
         if self.auto_alarm:
             return [ColorConstant.DARK_RED, ColorConstant.RED, ColorConstant.BLUE]
@@ -24,6 +41,8 @@ class AsleepLightsOffState(State):
 
     def get_secondary_button_colors(self):
         return [ColorConstant.BLACK, ColorConstant.DARK_GREEN, ColorConstant.DARK_RED]
+
+    # endregion
 
     # region Button Actions
 
@@ -40,24 +59,7 @@ class AsleepLightsOffState(State):
 
     # endregion
 
-    def execute_state_change(self):
-        super().execute_state_change()
-        from State.AwakeLightsOnState import AwakeLightsOnState
-
-        transition_time = 0
-        # If coming from Awake Lights On change over ten seconds
-        if isinstance(self.previous_state, AwakeLightsOnState):
-            transition_time = 10_000
-
-        LightConstant.all_lamp.turn_off(transition_time)
-        self.plant_lights.set_off()
-        self.fan.set_on()
-        self.oddish_light.set_off()
-        self.monitor.set_off()
-
-    def on_kelvin_changed(self):
-        # Asleep with the lights off. No reason to care.
-        pass
+    # region On Event
 
     def on_time_expire_check(self):
         # Should start the wake up process
@@ -66,6 +68,8 @@ class AsleepLightsOffState(State):
             from State.WakingUpState1 import WakingUpState1
             return WakingUpState1(self.wake_time)
         return None
+
+    # endregion
 
     def __str__(self):
         return super().__str__() + " Alarm set: " + str(self.auto_alarm)

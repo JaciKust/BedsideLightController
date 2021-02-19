@@ -116,6 +116,7 @@ class RainbowState(State):
     # endregion
 
     # region Button Actions
+
     def on_primary_short_press(self):
         self._cycle_pattern()
         self._update_light_show()

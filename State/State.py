@@ -32,7 +32,18 @@ class State:
         else:
             self.current_white = previous_state.current_white
 
-    # region Button Actions
+    def execute_state_change(self):
+        print("State changed to " + self.name)
+        self._update_database()
+
+    def _update_database(self):
+        try:
+            self.maker.insert_state_status(self.id)
+        except:
+            print("Unable to update database state for " + str(self.id))
+            pass
+
+    # region Button Color
 
     def get_primary_button_colors(self):
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
@@ -42,6 +53,10 @@ class State:
 
     def get_door_button_colors(self):
         return [ColorConstant.BLACK, ColorConstant.BLACK, ColorConstant.BLACK]
+
+    # endregion
+
+    # region Button Actions
 
     def get_desk_right_button_colors(self):
         return self.get_secondary_button_colors()
@@ -137,13 +152,6 @@ class State:
         pass
 
     # endregion
-
-    def execute_state_change(self):
-        print("State changed to " + self.name)
-        self._update_database()
-
-    def on_time_expire_check(self):
-        return None
 
     # region Get State for Button
 
@@ -267,6 +275,13 @@ class State:
 
     # endregion
 
+    # region Time
+
+    def on_time_expire_check(self):
+        return None
+
+    # endregion
+
     def __eq__(self, other):
         return other.id == self.id
 
@@ -275,11 +290,3 @@ class State:
 
     def __str__(self):
         return self.name
-
-    def _update_database(self):
-        try:
-            self.maker.insert_state_status(self.id)
-        except:
-            print("Unable to update database state for " + str(self.id))
-            pass
-

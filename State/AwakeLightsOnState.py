@@ -12,6 +12,26 @@ class AwakeLightsOnState(State):
     def __init__(self, previous_state=None):
         super().__init__(previous_state)
 
+    def execute_state_change(self):
+        super().execute_state_change()
+        from State.AsleepLightsOffState import AsleepLightsOffState
+        from State.AsleepLightsOnState import AsleepLightsOnState
+
+        self.fan.set_off()
+
+        transition_time = 1_000
+        if isinstance(self.previous_state, AsleepLightsOffState) or \
+                isinstance(self.previous_state, AsleepLightsOnState):
+            transition_time = 10_000
+        LightConstant.all_lamp.turn_on(self.current_white, transition_time)
+
+        from State.WakingUpState2 import WakingUpState2
+        if isinstance(self.previous_state, WakingUpState2):
+            self.set_default_white()
+        self.plant_lights.set_on()
+        self.oddish_light.set_on()
+        self.monitor.set_on()
+
     # region Button Actions
 
     def get_primary_button_colors(self):
@@ -44,23 +64,3 @@ class AwakeLightsOnState(State):
         pass
 
     # endregion
-
-    def execute_state_change(self):
-        super().execute_state_change()
-        from State.AsleepLightsOffState import AsleepLightsOffState
-        from State.AsleepLightsOnState import AsleepLightsOnState
-
-        self.fan.set_off()
-
-        transition_time = 1_000
-        if isinstance(self.previous_state, AsleepLightsOffState) or \
-                isinstance(self.previous_state, AsleepLightsOnState):
-            transition_time = 10_000
-        LightConstant.all_lamp.turn_on(self.current_white, transition_time)
-
-        from State.WakingUpState2 import WakingUpState2
-        if isinstance(self.previous_state, WakingUpState2):
-            self.set_default_white()
-        self.plant_lights.set_on()
-        self.oddish_light.set_on()
-        self.monitor.set_on()

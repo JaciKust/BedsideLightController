@@ -15,6 +15,15 @@ class AwakeLightsOffState(State):
     def __init__(self, previous_state=None):
         super().__init__(previous_state)
 
+    def execute_state_change(self):
+        super().execute_state_change()
+        LightConstant.all_lamp.turn_off(1000)
+
+        self.plant_lights.set_on()
+        self.fan.set_off()
+        self.oddish_light.set_on()
+        self.monitor.set_off()
+
     # region Button Color
 
     def get_primary_button_colors(self):
@@ -43,16 +52,3 @@ class AwakeLightsOffState(State):
         return self.on_primary_short_press()
 
     # endregion
-
-    def execute_state_change(self):
-        super().execute_state_change()
-        LightConstant.all_lamp.turn_off(1000)
-
-        self.plant_lights.set_on()
-        self.fan.set_off()
-        self.oddish_light.set_on()
-        self.monitor.set_off()
-
-    def on_time_expire_check(self):
-        # No action
-        return None
