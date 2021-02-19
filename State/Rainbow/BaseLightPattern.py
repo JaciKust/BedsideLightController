@@ -3,7 +3,6 @@ import Interactable.Light.Light as LightConstant
 from Constants import Rainbow
 from State.Rainbow import PatternType
 
-
 class BaseLightPattern:
     def __init__(self, lights, colors, name, pattern):
         assert pattern != PatternType.BASE or len(lights) == len(colors), \

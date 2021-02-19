@@ -10,7 +10,6 @@ from Interactable.Toggleable import Toggleable
 class TransmitterLock:
     is_locked = False
 
-
 class OutletSwitch(Toggleable):
     def __init__(self, database_id, codes, gpio_pin, one_high_time, one_low_time, zero_high_time, zero_low_time,
                  interval):

@@ -3,8 +3,6 @@ import threading
 from lifxlan import Group
 
 
-# import Interactable.Light.Lamp as Lamp
-
 class LifxLamp():
     def __init__(self, lifx_lights, name):
         self.name = name

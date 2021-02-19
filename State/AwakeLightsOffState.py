@@ -4,7 +4,6 @@ import TimeFunctions
 from Constants import Time as TimeConstant
 from State.State import State
 
-
 class AwakeLightsOffState(State):
     id = 3
     name = 'Awake Lights Off'

@@ -1,7 +1,6 @@
 from Constants import DatabaseState
 from Sql.MarraQueryMaker import MarraQueryMaker
 
-
 class Toggleable:
     def __init__(self, database_id):
         self.database_id = database_id

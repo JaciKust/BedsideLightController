@@ -5,7 +5,6 @@ from lifxlan import Light as Lifx
 BRAND = "LIFX"
 CATEGORY = "A19 1100lm"
 
-
 class LifxLight():
     def __init__(self, mac_address, ip_address, name):
         self.is_on = False
