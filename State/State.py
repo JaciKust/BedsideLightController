@@ -138,7 +138,6 @@ class State:
         pass
 
     def cycle_kelvin(self):
-        location = None
         try:
             location = ColorConstant.WHITES_IN_KELVIN_CYCLE.index(self.current_white)
         except:
