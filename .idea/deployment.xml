@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Kayo" autoUploadExternalChanges="true" showAutoUploadSettingsWarning="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Hoya" autoUploadExternalChanges="true" showAutoUploadSettingsWarning="false">
     <serverData>
       <paths name="Aril">
         <serverdata>
@@ -33,7 +33,7 @@
       <paths name="Hoya">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/Projects/BedsideLightSwitch" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
@@ -48,6 +48,20 @@
         <serverdata>
           <mappings>
             <mapping deploy="/Projects/BedsideLightController" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Ostentation">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="pi@192.168.0.155:22">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
