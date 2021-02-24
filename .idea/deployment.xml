@@ -33,7 +33,7 @@
       <paths name="Hoya">
         <serverdata>
           <mappings>
-            <mapping deploy="/Projects/BedsideLightSwitch" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="Projects/BedsideLightController" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
