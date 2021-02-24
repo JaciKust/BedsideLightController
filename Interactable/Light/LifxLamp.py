@@ -1,7 +1,9 @@
 import threading
+import time
 
 from lifxlan import Group
 
+SLEEP_TIME_WHEN_FAIL = 0.1
 
 class LifxLamp():
     def __init__(self, lifx_lights, name):
@@ -45,7 +47,7 @@ class LifxLamp():
             try:
                 off_group.set_color(color.as_hsv_array(), 0)
             except:
-                pass
+                time.sleep(SLEEP_TIME_WHEN_FAIL)
             else:
                 break
 
@@ -53,7 +55,7 @@ class LifxLamp():
             try:
                 off_group.set_power(True, transition_time)
             except:
-                pass
+                time.sleep(SLEEP_TIME_WHEN_FAIL)
             else:
                 break
 
@@ -61,7 +63,7 @@ class LifxLamp():
             try:
                 on_group.set_color(color.as_hsv_array(), transition_time)
             except:
-                pass
+                time.sleep(SLEEP_TIME_WHEN_FAIL)
             else:
                 break
 
@@ -77,7 +79,7 @@ class LifxLamp():
                 group.set_power(False, transition_time)
                 self.is_off = True
             except:
-                pass
+                time.sleep(SLEEP_TIME_WHEN_FAIL)
             else:
                 break
 
