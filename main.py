@@ -3,7 +3,6 @@ import logging
 import sys
 import threading
 import time
-
 import zmq
 from RPi import GPIO
 
@@ -103,21 +102,21 @@ incoming_socket.bind("tcp://{}:{}".format(MessageServerConstant.BIND_TO_ADDR, Me
 socket_thread = threading.Thread(target=run_message_server)
 
 primary_button = PhysicalButton(PrimaryButtonConstant.NAME,
-                                PrimaryButtonConstant.RED_PIN,
-                                PrimaryButtonConstant.GREEN_PIN,
-                                PrimaryButtonConstant.BLUE_PIN,
+                                PrimaryButtonConstant.RED_PWM,
+                                PrimaryButtonConstant.GREEN_PWM,
+                                PrimaryButtonConstant.BLUE_PWM,
                                 PrimaryButtonConstant.TRIGGER_PIN)
 
 secondary_button = PhysicalButton(SecondaryButtonConstant.NAME,
-                                  SecondaryButtonConstant.RED_PIN,
-                                  SecondaryButtonConstant.GREEN_PIN,
-                                  SecondaryButtonConstant.BLUE_PIN,
+                                  SecondaryButtonConstant.RED_PWM,
+                                  SecondaryButtonConstant.GREEN_PWM,
+                                  SecondaryButtonConstant.BLUE_PWM,
                                   SecondaryButtonConstant.TRIGGER_PIN)
 
 door_button = PhysicalButton(DoorButtonConstant.NAME,
-                             DoorButtonConstant.RED_PIN,
-                             DoorButtonConstant.GREEN_PIN,
-                             DoorButtonConstant.BLUE_PIN,
+                             DoorButtonConstant.RED_PWM,
+                             DoorButtonConstant.GREEN_PWM,
+                             DoorButtonConstant.BLUE_PWM,
                              DoorButtonConstant.TRIGGER_PIN)
 
 

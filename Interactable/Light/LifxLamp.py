@@ -41,6 +41,7 @@ class LifxLamp():
     def _turn_on(self, on_group, off_group, color, transition_time):
         transition_time = self._get_transition_time(transition_time)
 
+        # Since the lights are already off the color can be changed and nothing will happen in the room
         for x in range(LIFX_STATE_CHANGE_ATTEMPTS):
             try:
                 off_group.set_color(color.as_hsv_array(), 0)
@@ -49,6 +50,7 @@ class LifxLamp():
             else:
                 break
 
+        # Take all of the lights that are off and turn them on. They already have the right color set.
         for x in range(LIFX_STATE_CHANGE_ATTEMPTS):
             try:
                 off_group.set_power(True, transition_time)
@@ -57,6 +59,7 @@ class LifxLamp():
             else:
                 break
 
+        # Change the color in the lights that were previously on.
         for x in range(LIFX_STATE_CHANGE_ATTEMPTS):
             try:
                 on_group.set_color(color.as_hsv_array(), transition_time)
@@ -65,6 +68,7 @@ class LifxLamp():
             else:
                 break
 
+        # Update each light's state for future reference.
         for light in self.lifx_lifx_lights:
             light.is_off = False
             light.current_color = color
@@ -72,6 +76,7 @@ class LifxLamp():
     def _turn_off(self, group, transition_time):
         transition_time = self._get_transition_time(transition_time)
 
+        # In this case we only care about the lights that are on and all we need to do is turn them off.
         for x in range(LIFX_STATE_CHANGE_ATTEMPTS):
             try:
                 group.set_power(False, transition_time)
@@ -81,6 +86,7 @@ class LifxLamp():
             else:
                 break
 
+        # Update each light's state for future reference.
         for light in self.lifx_lifx_lights:
             light.is_off = True
             light.current_color = None
