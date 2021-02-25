@@ -61,7 +61,7 @@ CYAN = Color(0, 100, 100)
 MAGENTA = Color(100, 0, 100)
 YELLOW = Color(100, 100, 0)
 
-DIM_WHITE = Color(3, 5, 5)
+DIM_WHITE = Color(1, 1, 1)
 MEDIUM_WHITE = Color(20, 20, 20)
 
 DARK_BLUE = Color(0, 0, 1)
