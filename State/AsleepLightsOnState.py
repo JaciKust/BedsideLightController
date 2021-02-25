@@ -35,8 +35,8 @@ class AsleepLightsOnState(State):
 
     def get_primary_button_colors(self):
         if self.auto_alarm:
-            return [ColorConstant.DARK_RED, ColorConstant.RED, ColorConstant.BLUE]
-        return [ColorConstant.DARK_GREEN, ColorConstant.GREEN, ColorConstant.BLUE]
+            return [ColorConstant.DARK_RED, ColorConstant.DIM_RED, ColorConstant.DIM_BLUE]
+        return [ColorConstant.DARK_GREEN, ColorConstant.DIM_GREEN, ColorConstant.DIM_BLUE]
 
     def get_secondary_button_colors(self):
         return [ColorConstant.DARK_BLUE, ColorConstant.DARK_GREEN, ColorConstant.DARK_RED]

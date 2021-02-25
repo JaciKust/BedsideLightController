@@ -47,28 +47,39 @@ class Color:
 def get_white(temperature):
     return Color(100, 100, 100, temperature)
 
-BLACK = Color(0, 0, 0)
 
-RED = Color(100, 0, 0)
-GREEN = Color(0, 100, 0)
-BLUE = Color(0, 0, 100)
+DIM = 20
+DARK = 1
+FULL = 100
+OFF = 0
 
-DARK_CYAN = Color(0, 1, 1)
-DARK_MAGENTA = Color(1, 0, 1)
-DARK_YELLOW = Color(1, 0, 0)
+RED = Color(FULL, OFF, OFF)
+GREEN = Color(OFF, FULL, OFF)
+BLUE = Color(OFF, OFF, FULL)
 
-CYAN = Color(0, 100, 100)
-MAGENTA = Color(100, 0, 100)
-YELLOW = Color(100, 100, 0)
+DIM_RED = Color(DIM, OFF, OFF)
+DIM_GREEN = Color(OFF, DIM, OFF)
+DIM_BLUE = Color(OFF, OFF, DIM)
 
-DIM_WHITE = Color(1, 1, 1)
-MEDIUM_WHITE = Color(20, 20, 20)
+DARK_RED = Color(DARK, OFF, OFF)
+DARK_GREEN = Color(OFF, DARK, OFF)
+DARK_BLUE = Color(OFF, OFF, DARK)
 
-DARK_BLUE = Color(0, 0, 1)
-DARK_RED = Color(1, 0, 0)
-DARK_GREEN = Color(0, 1, 0)
+CYAN = Color(OFF, FULL, FULL)
+MAGENTA = Color(FULL, OFF, FULL)
+YELLOW = Color(FULL, FULL, OFF)
 
-DIM_MAGENTA = Color(20, 0, 20)
+DIM_CYAN = Color(OFF, DIM, DIM)
+DIM_MAGENTA = Color(DIM, OFF, DIM)
+DIM_YELLOW = Color(DIM, DIM, OFF)
+
+DARK_CYAN = Color(OFF, DARK, DARK)
+DARK_MAGENTA = Color(DARK, OFF, DARK)
+DARK_YELLOW = Color(DARK, DARK, OFF)
+
+DARK_WHITE = Color(DARK, DARK, DARK)
+DIM_WHITE = Color(DIM, DIM, DIM)
+BLACK = Color(OFF, OFF, OFF)
 
 DIMMEST_WHITE = Color(0.1, 0.1, 0.1)
 

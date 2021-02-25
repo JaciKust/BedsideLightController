@@ -31,13 +31,17 @@ class AwakeLightsOnState(State):
         self.oddish_light.set_on()
         self.monitor.set_on()
 
-    # region Button Actions
+    # region Button Colors
 
     def get_primary_button_colors(self):
-        return [ColorConstant.WHITE_NEUTRAL, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
+        return [ColorConstant.DIM_WHITE, ColorConstant.WHITE_NEUTRAL, ColorConstant.BLUE]
 
     def get_door_button_colors(self):
-        return [ColorConstant.WHITE_NEUTRAL, ColorConstant.DIM_WHITE, ColorConstant.BLACK]
+        return [ColorConstant.DIM_WHITE, ColorConstant.WHITE_NEUTRAL, ColorConstant.BLACK]
+
+    # endregion
+
+    # region Button Actions
 
     def on_primary_short_press(self):
         from State.AwakeLightsOffState import AwakeLightsOffState

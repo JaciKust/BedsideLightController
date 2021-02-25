@@ -7,8 +7,8 @@ from State.State import State
 class AwakeLightsOffState(State):
     id = 3
     name = 'Awake Lights Off'
-    ring_color = ColorConstant.MEDIUM_WHITE
-    on_press_ring_color = ColorConstant.DIM_WHITE
+    ring_color = ColorConstant.DIM_WHITE
+    on_press_ring_color = ColorConstant.DARK_WHITE
     on_long_press_ring_color = ColorConstant.BLUE
 
     def __init__(self, previous_state=None):
@@ -26,10 +26,16 @@ class AwakeLightsOffState(State):
     # region Button Color
 
     def get_primary_button_colors(self):
-        return [ColorConstant.MEDIUM_WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLUE]
+        return [ColorConstant.DARK_WHITE, ColorConstant.DIM_WHITE, ColorConstant.DIM_BLUE]
 
     def get_door_button_colors(self):
-        return [ColorConstant.MEDIUM_WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLACK]
+        return [ColorConstant.DARK_WHITE, ColorConstant.DIM_WHITE, ColorConstant.BLACK]
+
+    def get_secondary_button_colors(self):
+        return [ColorConstant.DARK_BLUE, ColorConstant.DIM_BLUE, ColorConstant.DIM_RED]
+
+    def get_desk_rear_button_colors(self):
+        return [ColorConstant.DARK_GREEN, ColorConstant.DIM_GREEN, ColorConstant.DIM_RED]
 
     # endregion
 

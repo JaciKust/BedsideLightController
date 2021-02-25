@@ -49,7 +49,7 @@ class State:
         raise NotImplemented('Getting the primary button color is not implemented for class ' + self.name)
 
     def get_secondary_button_colors(self):
-        return [ColorConstant.BLUE, ColorConstant.GREEN, ColorConstant.RED]
+        return [ColorConstant.DIM_BLUE, ColorConstant.BLUE, ColorConstant.RED]
 
     def get_door_button_colors(self):
         return [ColorConstant.BLACK, ColorConstant.BLACK, ColorConstant.BLACK]
@@ -65,7 +65,7 @@ class State:
         return self.get_primary_button_colors()
 
     def get_desk_rear_button_colors(self):
-        return [ColorConstant.BLACK, ColorConstant.BLACK, ColorConstant.BLACK]
+        return [ColorConstant.DIM_GREEN, ColorConstant.GREEN, ColorConstant.RED]
 
     def on_primary_short_press(self):
         return None

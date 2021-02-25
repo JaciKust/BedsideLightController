@@ -21,10 +21,13 @@ class DeskState(AwakeLightsOffState):
     # region Button Color
 
     def get_desk_rear_button_colors(self):
-        return [ColorConstant.GREEN, ColorConstant.DARK_GREEN, ColorConstant.WHITE_NEUTRAL]
+        return [ColorConstant.DIM_GREEN, ColorConstant.GREEN, ColorConstant.BLUE]
 
     def get_desk_left_button_colors(self):
-        return [ColorConstant.RED, ColorConstant.DARK_RED, ColorConstant.WHITE_NEUTRAL]
+        return [ColorConstant.DIM_RED, ColorConstant.RED, ColorConstant.BLUE]
+
+    def get_desk_right_button_colors(self):
+        return [ColorConstant.DIM_BLUE, ColorConstant.BLUE, ColorConstant.RED]
 
     # endregion
 
