@@ -7,6 +7,9 @@ import time
 import zmq
 from RPi import GPIO
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
 from Constants import Button as ButtonConstant
 from Constants import DeskButton as DeskButtonConstant
 from Constants import DoorButton as DoorButtonConstant
@@ -15,12 +18,11 @@ from Constants import PrimaryButton as PrimaryButtonConstant
 from Constants import SecondaryButton as SecondaryButtonConstant
 from DataObjects.DeskButtonColors import DeskButtonColor
 from DataObjects.RemoteRelayState import RemoteRelayState
+from DataObjects.Pulse import Pulse
 from Interactable import Relays as RelayConstant
 from PhysicalButton import PhysicalButton
 from State.AwakeLightsOnState import AwakeLightsOnState
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
 
 current_state = AwakeLightsOnState()
 current_state.execute_state_change()
@@ -61,7 +63,19 @@ def set_up_and_send_relay_change_to_desk_buttons(pin, is_on):
     send_to_desk_buttons(data)
 
 
+def set_up_and_send_pulse_relay_to_desk_buttons(pin):
+    obj = Pulse(pin)
+    data = json.dumps(obj.__dict__)
+    send_to_desk_buttons(data)
+
+
+def throw(pin, is_on):
+    raise Exception('Cannot change state. Only pulse.')
+
+
 RelayConstant.SOUND_SYSTEM_RELAY.send = set_up_and_send_relay_change_to_desk_buttons
+RelayConstant.POWER_RELAY.pulse = set_up_and_send_pulse_relay_to_desk_buttons
+RelayConstant.POWER_RELAY.send = throw
 
 
 def send(data, ip_addr, port, request_retries, request_timeout):
@@ -190,7 +204,10 @@ def set_new_state(state):
         current_state = state
         logging.info("Setting state to: " + str(current_state))
         set_all_button_colors_to_default(current_state)
+
+        old_state.execute_state_leave()
         current_state.execute_state_change()
+
         del old_state
 
 
@@ -224,6 +241,7 @@ def set_all_button_colors_to_default(from_state):
     from_state.get_desk_rear_button_colors()))
 
     send_thread.start()
+
 
 if __name__ == '__main__':
     init()

@@ -25,6 +25,7 @@ class State:
         self.plant_lights = transmitter433.plant_lights
         self.oddish_light = RelayConstant.ODDISH_RELAY
         self.sound_system_relay = RelayConstant.SOUND_SYSTEM_RELAY
+        self.power_relay = RelayConstant.POWER_RELAY
 
         self.maker = MarraQueryMaker.getInstance()
         self.maker.open_connection()
@@ -36,6 +37,9 @@ class State:
     def execute_state_change(self):
         print("State changed to " + self.name)
         self._update_database()
+
+    def execute_state_leave(self):
+        pass
 
     def _update_database(self):
         try:
@@ -124,10 +128,10 @@ class State:
         self.cycle_kelvin()
 
     def on_desk_rear_long_press(self):
-        self.sound_system_relay.toggle()
+        self.power_relay.pulse_on_off()
 
     def on_desk_rear_extra_long_press(self):
-        return None
+        self.sound_system_relay.toggle()
 
     # endregion
 

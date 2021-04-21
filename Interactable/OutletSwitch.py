@@ -35,6 +35,7 @@ class OutletSwitch(Toggleable):
     def _run(self, code):
         while TransmitterLock.is_locked:
             time.sleep(0.01)
+
         try:
             TransmitterLock.is_locked = True
             for i in range(10):

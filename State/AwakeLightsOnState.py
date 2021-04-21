@@ -1,8 +1,12 @@
+import threading
+import time
+
 import Color as ColorConstant
 import Interactable.Light.Light as LightConstant
 import TimeFunctions
 from Constants import Time as TimeConstant
 from State.State import State
+
 
 class AwakeLightsOnState(State):
     id = 4
@@ -18,18 +22,47 @@ class AwakeLightsOnState(State):
 
         self.fan.set_off()
 
-        transition_time = 1_000
+        transition_time_ms = 1_000
         if isinstance(self.previous_state, AsleepLightsOffState) or \
                 isinstance(self.previous_state, AsleepLightsOnState):
-            transition_time = 10_000
-        LightConstant.all_lamp.turn_on(self.current_white, transition_time)
+            transition_time_ms = 10_000
+        LightConstant.all_lamp.turn_on(self.current_white, transition_time_ms)
 
         from State.WakingUpState2 import WakingUpState2
         if isinstance(self.previous_state, WakingUpState2):
             self.set_default_white()
-        self.plant_lights.set_on()
-        self.oddish_light.set_on()
-        self.monitor.set_on()
+        plant_light_thread = threading.Thread(target=self.wait_run_accessories_on, args=(transition_time_ms / 1000,))
+        plant_light_thread.start()
+
+    run_delayed_accessories = False
+
+    def wait_run_accessories_on(self, transition_time_seconds):
+        try:
+            self.run_delayed_accessories = True
+            time.sleep(transition_time_seconds)
+
+            if not self.run_delayed_accessories:
+                return
+
+            self.plant_lights.set_on()
+
+            if not self.run_delayed_accessories:
+                return
+
+            self.oddish_light.set_on()
+
+            if not self.run_delayed_accessories:
+                return
+
+            self.monitor.set_on()
+        finally:
+            self.run_delayed_accessories = False
+
+    def stop_delayed_accessories(self):
+        self.run_delayed_accessories = False
+
+    def execute_state_leave(self):
+        self.stop_delayed_accessories()
 
     # region Button Colors
 
