@@ -3,6 +3,7 @@ import logging
 import sys
 import threading
 import time
+
 import zmq
 from RPi import GPIO
 
@@ -13,6 +14,8 @@ from Constants import MessageServer as MessageServerConstant
 from Constants import PrimaryButton as PrimaryButtonConstant
 from Constants import SecondaryButton as SecondaryButtonConstant
 from DataObjects.DeskButtonColors import DeskButtonColor
+from DataObjects.RemoteRelayState import RemoteRelayState
+from Interactable import Relays as RelayConstant
 from PhysicalButton import PhysicalButton
 from State.AwakeLightsOnState import AwakeLightsOnState
 
@@ -50,6 +53,15 @@ def set_up_and_send_to_desk_buttons(right_colors, left_colors, rear_colors):
     obj = DeskButtonColor(right, left, rear)
     data = json.dumps(obj.__dict__)
     send_to_desk_buttons(data)
+
+
+def set_up_and_send_relay_change_to_desk_buttons(pin, is_on):
+    obj = RemoteRelayState(pin, is_on)
+    data = json.dumps(obj.__dict__)
+    send_to_desk_buttons(data)
+
+
+RelayConstant.SOUND_SYSTEM_RELAY.send = set_up_and_send_relay_change_to_desk_buttons
 
 
 def send(data, ip_addr, port, request_retries, request_timeout):

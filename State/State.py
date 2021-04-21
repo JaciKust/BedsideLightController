@@ -7,7 +7,7 @@ from Constants import DoorButton as DoorButtonConstant
 from Constants import PrimaryButton as PrimaryButtonConstant
 from Constants import Relay as RelayConstant
 from Constants import SecondaryButton as SecondaryButtonConstant
-from Interactable.Relay import Relay
+from Interactable import Relays as RelayConstant
 from Sql.MarraQueryMaker import MarraQueryMaker
 from Transmitter433 import Transmitter433
 
@@ -23,7 +23,8 @@ class State:
         self.fan = transmitter433.fan
         self.monitor = transmitter433.monitor
         self.plant_lights = transmitter433.plant_lights
-        self.oddish_light = Relay(RelayConstant.ID, RelayConstant.ODDISH_RELAY_PIN)
+        self.oddish_light = RelayConstant.ODDISH_RELAY
+        self.sound_system_relay = RelayConstant.SOUND_SYSTEM_RELAY
 
         self.maker = MarraQueryMaker.getInstance()
         self.maker.open_connection()
@@ -123,7 +124,7 @@ class State:
         self.cycle_kelvin()
 
     def on_desk_rear_long_press(self):
-        return None
+        self.sound_system_relay.toggle()
 
     def on_desk_rear_extra_long_press(self):
         return None
