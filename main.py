@@ -39,7 +39,8 @@ def run_message_server():
         name, press_time = decode_button_press(message)
         set_new_state(current_state.get_state_for(name, press_time))
 
-        time.sleep(1)
+        sleep_time_seconds = 1
+        time.sleep(sleep_time_seconds)
 
 
 def send_to_desk_buttons(data):
