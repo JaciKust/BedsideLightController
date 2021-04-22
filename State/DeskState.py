@@ -1,3 +1,5 @@
+import threading
+
 import Color as ColorConstant
 import Interactable.Light.Light as LightConstant
 from State.AwakeLightsOffState import AwakeLightsOffState
@@ -10,7 +12,10 @@ class DeskState(AwakeLightsOffState):
 
     def execute_state_change(self):
         print("State changed to " + self.name)
-        self._update_database()
+
+        update_db = threading.Thread(self._update_database())
+        update_db.start()
+
         self.current_white = ColorConstant.WHITE_CLOUDY_DAYLIGHT
         self.set_lighting_level(False)
 

@@ -1,4 +1,5 @@
 import logging
+import threading
 
 import Color as ColorConstant
 from Constants import Button as ButtonConstant
@@ -28,7 +29,6 @@ class State:
         self.power_relay = RelayConstant.POWER_RELAY
 
         self.maker = MarraQueryMaker.getInstance()
-        self.maker.open_connection()
         if previous_state is None or previous_state.current_white is None:
             self.current_white = ColorConstant.WHITES_IN_KELVIN_CYCLE[ColorConstant.WHITE_START_INDEX]
         else:
@@ -36,7 +36,8 @@ class State:
 
     def execute_state_change(self):
         print("State changed to " + self.name)
-        self._update_database()
+        thread = threading.Thread(target=self._update_database)
+        thread.start()
 
     def execute_state_leave(self):
         pass

@@ -1,11 +1,13 @@
+import threading
+
 from Constants import DatabaseState
 from Sql.MarraQueryMaker import MarraQueryMaker
+
 
 class Toggleable:
     def __init__(self, database_id):
         self.database_id = database_id
         self.maker = MarraQueryMaker.getInstance()
-        self.maker.open_connection()
 
     _is_on = False
 
@@ -22,7 +24,8 @@ class Toggleable:
         except:
             pass
         else:
-            self._update_database(DatabaseState.ON)
+            thread = threading.Thread(target=self._update_database, args=(DatabaseState.ON,))
+            thread.start()
 
     def set_off(self):
         try:
@@ -31,7 +34,8 @@ class Toggleable:
         except:
             pass
         else:
-            self._update_database(DatabaseState.OFF)
+            thread = threading.Thread(target=self._update_database, args=(DatabaseState.OFF,))
+            thread.start()
 
     def toggle(self):
         if self._is_on:

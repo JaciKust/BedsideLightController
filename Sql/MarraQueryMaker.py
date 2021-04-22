@@ -15,13 +15,13 @@ class MarraQueryMaker:
     @staticmethod
     def getInstance():
         """ Static access method. """
-        if MarraQueryMaker.__instance == None:
+        if MarraQueryMaker.__instance is None:
             MarraQueryMaker()
         return MarraQueryMaker.__instance
 
     def __init__(self):
         """ Virtually private constructor. """
-        if MarraQueryMaker.__instance != None:
+        if MarraQueryMaker.__instance is not None:
             raise Exception("This class is a singleton!")
         else:
             self.marra_database_host = MarraDatabaseConfig.postgres['host']
@@ -36,7 +36,6 @@ class MarraQueryMaker:
         self.close_connection()
 
     def open_connection(self):
-        return
         if self.connection is not None:
             return
         try:
@@ -49,30 +48,40 @@ class MarraQueryMaker:
             self.connection.autocommit = True
         except:
             logging.warning("Could not connect to Marra.")
-            self.connection = None
+            self.close_connection()
 
     def close_connection(self):
-        return
         try:
             if self.connection is not None:
                 self.connection.close()
-                self.connection = None
         except:
             pass
+        finally:
+            self.connection = None
 
     def insert_toggleable_state(self, toggleable_id, state):
-        return
+        if self.connection is None:
+            self.open_connection()
+
         try:
+            bit_state = self._to_bit(state)
             cursor = self.connection.cursor()
-            cursor.execute(MarraQuery.insert_state_update, (toggleable_id, state))
+            cursor.execute(MarraQuery.insert_state_update, (toggleable_id, bit_state))
             cursor.close()
-        except:
+        except Exception as e:
             logging.warning("Could not write toggleable state to Marra.")
+            self.close_connection()
 
     def insert_state_status(self, state_id):
-        return
+        if self.connection is None:
+            self.open_connection()
+
         try:
             cursor = self.connection.cursor()
             cursor.execute(MarraQuery.insert_state_status, (state_id,))
         except:
             logging.warning("Could not write state to Marra.")
+            self.close_connection()
+
+    def _to_bit(self, theInt):
+        return theInt == 1
