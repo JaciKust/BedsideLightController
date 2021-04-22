@@ -1,4 +1,5 @@
 import threading
+import time
 
 from lifxlan import Light as Lifx
 
@@ -57,7 +58,7 @@ class LifxLight():
                     else:
                         self.wrapped_bulb.set_color(color.as_hsv_array(), transition_time)
             except:
-                pass
+                time.sleep(0.1)
             else:
                 break
 
