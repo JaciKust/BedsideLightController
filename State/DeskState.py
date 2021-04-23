@@ -6,6 +6,9 @@ from State.AwakeLightsOffState import AwakeLightsOffState
 
 
 class DeskState(AwakeLightsOffState):
+    id = 5
+    name = "Desk"
+
     def __init__(self, previous_state=None):
         super().__init__(previous_state)
         self.all_lights_on = False
