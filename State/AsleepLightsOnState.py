@@ -41,6 +41,9 @@ class AsleepLightsOnState(State):
     def get_secondary_button_colors(self):
         return [ColorConstant.DARK_BLUE, ColorConstant.DARK_GREEN, ColorConstant.DARK_RED]
 
+    def get_desk_rear_button_colors(self):
+        return [ColorConstant.BLACK, ColorConstant.DARK_GREEN, ColorConstant.DARK_RED]
+
     # endregion
 
     # region Button Actions

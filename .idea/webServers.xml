@@ -2,7 +2,7 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="0eca8e48-89a7-41a6-9222-07869f2f0518" name="Extol">
+      <webServer id="0eca8e48-89a7-41a6-9222-07869f2f0518" name="Extol (project level)">
         <fileTransfer host="192.168.0.157" port="22" rootFolder="/home/pi" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />

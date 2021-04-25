@@ -9,6 +9,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="Bijou">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Chaise">
         <serverdata>
           <mappings>
@@ -27,6 +34,13 @@
         <serverdata>
           <mappings>
             <mapping deploy="/Projects/BedsideLightController" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Fete">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
@@ -58,7 +72,14 @@
           </mappings>
         </serverdata>
       </paths>
-      <paths name="pi@192.168.0.155:22">
+      <paths name="Semblant">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Vicar">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
