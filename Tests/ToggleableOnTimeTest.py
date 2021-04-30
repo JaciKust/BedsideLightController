@@ -21,8 +21,9 @@ class MyTestCase(unittest.TestCase):
         end = TimeStampedState(time_11, False)
 
         expected = timedelta(hours=1)
+        dataset = [start, end]
 
-        result = ToggleableOnTimeCalculator.get_on_time([start, end], True, time_11)
+        result = ToggleableOnTimeCalculator.get_on_time(dataset, True, time_11)
         self.assertEqual(expected, result)
 
     def test_two_ranges(self):
@@ -111,7 +112,17 @@ class MyTestCase(unittest.TestCase):
         expected = timedelta(hours=3)
 
         result = ToggleableOnTimeCalculator.get_on_time(dataset, look_for_state, time_17)
-        self.assertEqual(result, expected)
+        self.assertEqual(expected, result)
+
+    def _test_is_only_on(self):
+        start = TimeStampedState(time_10, True)
+
+        dataset = [start]
+        now = time_14
+        expected = timedelta(hours=4)
+
+        result = ToggleableOnTimeCalculator.get_on_time(dataset, True, now)
+        self.assertEqual(expected, result)
 
 
 if __name__ == '__main__':

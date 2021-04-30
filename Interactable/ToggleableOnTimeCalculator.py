@@ -2,22 +2,6 @@ from datetime import timedelta, datetime
 
 
 class ToggleableOnTimeCalculator:
-    __instance = None
-
-    @staticmethod
-    def getInstance():
-        """ Static access method. """
-        if ToggleableOnTimeCalculator.__instance is None:
-            ToggleableOnTimeCalculator()
-        return ToggleableOnTimeCalculator.__instance
-
-    def __init__(self):
-        """ Virtually private constructor. """
-        if ToggleableOnTimeCalculator.__instance is not None:
-            raise Exception("This class is a singleton!")
-        else:
-            ToggleableOnTimeCalculator.__instance = self
-
     @staticmethod
     def get_on_time(times, search_for_state, run_time=None):
 
