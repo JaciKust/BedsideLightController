@@ -3,9 +3,13 @@ import logging
 import sys
 import threading
 import time
+from datetime import datetime, timedelta
 
 import zmq
 from RPi import GPIO
+
+from Interactable.ToggleableOnTimeCalculator import ToggleableOnTimeCalculator
+from Sql.MarraQueryMaker import MarraQueryMaker
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -238,17 +242,33 @@ def set_all_button_colors_to_default(from_state):
     secondary_button.set_button_color(from_state.get_secondary_button_colors()[ButtonConstant.DEFAULT_COLOR])
     door_button.set_button_color(from_state.get_door_button_colors()[ButtonConstant.DEFAULT_COLOR])
     send_thread = threading.Thread(target=set_up_and_send_to_desk_buttons, args=(
-    from_state.get_desk_right_button_colors(), from_state.get_desk_left_button_colors(),
-    from_state.get_desk_rear_button_colors()))
+        from_state.get_desk_right_button_colors(), from_state.get_desk_left_button_colors(),
+        from_state.get_desk_rear_button_colors()))
 
     send_thread.start()
+
+
+def get_time_in_toggleable_state(toggleable_id, state_to_time_in):
+    marra = MarraQueryMaker.getInstance()
+    marra.open_connection()
+    initial = marra.get_latest_toggleable_state_for_yesterday(toggleable_id)
+
+    initial.time_stamp = datetime(initial.time_stamp.year, initial.time_stamp.month, initial.time_stamp.day, 0,
+                                  0) + timedelta(days=1)
+    marra.close_connection()
+
+    first = [initial]
+    others = marra.get_time_stamps_for_toggleable_state_change_today(toggleable_id)
+    if others is not None:
+        first.extend(others)
+    return ToggleableOnTimeCalculator.get_on_time(first, state_to_time_in)
 
 
 if __name__ == '__main__':
     init()
 
     while True:
-        time.sleep(60)
+        time.sleep(10)
         try:
             new_state = current_state.on_time_expire_check()
 
@@ -257,7 +277,8 @@ if __name__ == '__main__':
                 current_state.execute_state_change()
                 set_all_button_colors_to_default(current_state)
 
-        except:
+            get_time_in_toggleable_state(2, True)
+        except Exception as e:
             print("Throwing shit from loop.")
             t, v, tb = sys.exc_info()
             logging.error("An error was encountered of type: {}".format(t))

@@ -3,6 +3,7 @@ import sys
 
 import psycopg2 as psycopg2
 
+from Interactable.TimeStampedState import TimeStampedState
 from Sql import MarraQuery
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'Common'))
@@ -82,6 +83,42 @@ class MarraQueryMaker:
         except:
             logging.warning("Could not write state to Marra.")
             self.close_connection()
+
+    def get_time_stamps_for_toggleable_state_change_today(self, toggleable_id):
+        if self.connection is None:
+            self.open_connection()
+
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(MarraQuery.get_time_stamps_for_toggleable_state_change_today, (toggleable_id,))
+
+            table = cursor.fetchall()
+            stamped_states = []
+            for data_row in table:
+                stamped_states.append(TimeStampedState.from_toggleable_state_change(data_row))
+
+            return stamped_states
+        except:
+            logging.warning("Could not get toggleable states for today from Marra.")
+            self.close_connection()
+        finally:
+            cursor.close()
+
+    def get_latest_toggleable_state_for_yesterday(self, toggleable_id):
+        if self.connection is None:
+            self.open_connection()
+
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(MarraQuery.get_last_time_stamp_for_toggleabale_state_change, (toggleable_id,))
+
+            data_row = cursor.fetchone()
+            return TimeStampedState.from_toggleable_state_change(data_row)
+        except Exception as e:
+            logging.warning("Could not get toggleable states for today from Marra.")
+            self.close_connection()
+        finally:
+            cursor.close()
 
     def _to_bit(self, theInt):
         return theInt == 1
