@@ -277,7 +277,9 @@ if __name__ == '__main__':
                 current_state.execute_state_change()
                 set_all_button_colors_to_default(current_state)
 
-            get_time_in_toggleable_state(2, True)
+            time_on = get_time_in_toggleable_state(2, True)
+            current_state.deal_with_light_time(time_on)
+
         except Exception as e:
             print("Throwing shit from loop.")
             t, v, tb = sys.exc_info()

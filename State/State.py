@@ -1,5 +1,6 @@
 import logging
 import threading
+from datetime import timedelta
 
 import Color as ColorConstant
 from Constants import Button as ButtonConstant
@@ -284,6 +285,11 @@ class State:
 
     def on_time_expire_check(self):
         return None
+
+    def deal_with_light_time(self, time_on):
+        if time_on > timedelta(hours=10) and self.plant_lights.get_is_on():
+            self.plant_lights.set_off()
+            self.oddish_light.set_off()
 
     # endregion
 
