@@ -1,6 +1,5 @@
 import logging
 import threading
-from datetime import timedelta
 
 import Color as ColorConstant
 from Constants import Button as ButtonConstant
@@ -36,7 +35,7 @@ class State:
             self.current_white = previous_state.current_white
 
     def execute_state_change(self):
-        print("State changed to " + self.name)
+        # print("State changed to " + self.name)
         thread = threading.Thread(target=self._update_database)
         thread.start()
 
@@ -282,14 +281,23 @@ class State:
     # endregion
 
     # region Time
+    # def get_time_in_toggleable_state(toggleable_id, state_to_time_in):
+    #     marra = MarraQueryMaker.getInstance()
+    #     marra.open_connection()
+    #     initial = marra.get_latest_toggleable_state_for_yesterday(toggleable_id)
+    #
+    #     initial.time_stamp = datetime(initial.time_stamp.year, initial.time_stamp.month, initial.time_stamp.day, 0,
+    #                                   0) + timedelta(days=1)
+    #
+    #     first = [initial]
+    #     others = marra.get_time_stamps_for_toggleable_state_change_today(toggleable_id)
+    #     if others is not None:
+    #         first.extend(others)
+    #     return ToggleableOnTimeCalculator.get_on_time(first, state_to_time_in)
 
-    def on_time_expire_check(self):
-        return None
-
-    def deal_with_light_time(self, time_on):
-        if time_on > timedelta(hours=10) and self.plant_lights.get_is_on():
-            self.plant_lights.set_off()
-            self.oddish_light.set_off()
+    def on_time_check(self):
+        self.plant_lights.set_off_if_over_max_time()
+        self.oddish_light.set_off_if_over_max_time()
 
     # endregion
 

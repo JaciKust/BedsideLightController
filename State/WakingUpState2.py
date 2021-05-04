@@ -36,7 +36,9 @@ class WakingUpState2(WakingUpState):
 
     # region On Event
 
-    def on_time_expire_check(self):
+    def on_time_check(self):
+        super().on_time_check()
+
         current_time = datetime.datetime.now()
         if current_time > self.state_complete_time:
             from State.AwakeLightsOnState import AwakeLightsOnState

@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from RPi import GPIO
 
 from Constants import Transmitter as TransmitterConstant
@@ -26,7 +28,8 @@ class Transmitter433:
             TransmitterConstant.ONE_LOW_TIME,
             TransmitterConstant.ZERO_HIGH_TIME,
             TransmitterConstant.ZERO_LOW_TIME,
-            TransmitterConstant.INTERVAL
+            TransmitterConstant.INTERVAL,
+            timedelta(hours=10)
         )
 
         self.monitor = OutletSwitch(

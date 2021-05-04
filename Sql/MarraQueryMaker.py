@@ -68,7 +68,7 @@ class MarraQueryMaker:
             bit_state = self._to_bit(state)
             cursor = self.connection.cursor()
             cursor.execute(MarraQuery.insert_state_update, (toggleable_id, bit_state))
-            cursor.close()
+            # cursor.close()
         except Exception as e:
             logging.warning("Could not write toggleable state to Marra.")
             self.close_connection()
@@ -98,11 +98,9 @@ class MarraQueryMaker:
                 stamped_states.append(TimeStampedState.from_toggleable_state_change(data_row))
 
             return stamped_states
-        except:
+        except Exception as e:
             logging.warning("Could not get toggleable states for today from Marra.")
             self.close_connection()
-        finally:
-            cursor.close()
 
     def get_latest_toggleable_state_for_yesterday(self, toggleable_id):
         if self.connection is None:
@@ -115,10 +113,8 @@ class MarraQueryMaker:
             data_row = cursor.fetchone()
             return TimeStampedState.from_toggleable_state_change(data_row)
         except Exception as e:
-            logging.warning("Could not get toggleable states for today from Marra.")
+            logging.warning("Could not get yesterday's states.")
             self.close_connection()
-        finally:
-            cursor.close()
 
     def _to_bit(self, theInt):
         return theInt == 1

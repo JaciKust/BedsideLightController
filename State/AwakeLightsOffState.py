@@ -18,10 +18,15 @@ class AwakeLightsOffState(State):
         super().execute_state_change()
         LightConstant.all_lamp.turn_off(1000)
 
-        self.plant_lights.set_on()
+        self.plant_lights.soft_set_on()
         self.fan.set_off()
-        self.oddish_light.set_on()
+        self.oddish_light.soft_set_on()
         self.monitor.set_off()
+
+    def on_time_check(self):
+        super().on_time_check()
+        self.plant_lights.set_on_if_under_max_time()
+        self.oddish_light.set_on_if_under_max_time()
 
     # region Button Color
 

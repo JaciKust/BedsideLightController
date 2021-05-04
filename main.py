@@ -3,13 +3,9 @@ import logging
 import sys
 import threading
 import time
-from datetime import datetime, timedelta
 
 import zmq
 from RPi import GPIO
-
-from Interactable.ToggleableOnTimeCalculator import ToggleableOnTimeCalculator
-from Sql.MarraQueryMaker import MarraQueryMaker
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -39,7 +35,7 @@ def run_message_server():
         #  Wait for next request from client
         message = incoming_socket.recv()
         incoming_socket.send(b"ack")
-        logging.info("Received request: %s" % message)
+        # logging.info("Received request: %s" % message)
         name, press_time = decode_button_press(message)
         set_new_state(current_state.get_state_for(name, press_time))
 
@@ -84,12 +80,12 @@ RelayConstant.POWER_RELAY.send = throw
 
 
 def send(data, ip_addr, port, request_retries, request_timeout):
-    logging.info("Connecting to server…")
+    # logging.info("Connecting to server…")
     client = context.socket(zmq.REQ)
     client.connect("tcp://{}:{}".format(ip_addr, port))
 
     request = str(data).encode()
-    logging.info("Sending (%s)", request)
+    #logging.info("Sending (%s)", request)
     client.send(request)
 
     retries_left = request_retries
@@ -97,26 +93,26 @@ def send(data, ip_addr, port, request_retries, request_timeout):
         if (client.poll(request_timeout) & zmq.POLLIN) != 0:
             reply = client.recv()
             if reply == b"ack":
-                logging.info("Server replied OK (%s)", reply)
+                # logging.info("Server replied OK (%s)", reply)
                 break
             else:
-                logging.error("Malformed reply from server: %s", reply)
+                # logging.error("Malformed reply from server: %s", reply)
                 continue
 
         retries_left -= 1
-        logging.warning("No response from server")
+        # logging.warning("No response from server")
         # Socket is confused. Close and remove it.
         client.setsockopt(zmq.LINGER, 0)
         client.close()
         if retries_left == 0:
-            logging.error("Server seems to be offline, abandoning")
+            # logging.error("Server seems to be offline, abandoning")
             return
 
-        logging.info("Reconnecting to server…")
+        # logging.info("Reconnecting to server…")
         # Create new connection
         client = context.socket(zmq.REQ)
         client.connect("tcp://{}:{}".format(ip_addr, port))
-        logging.info("Resending (%s)", request)
+        #logging.info("Resending (%s)", request)
         client.send(request)
 
 
@@ -186,7 +182,7 @@ def on_button_press(button, colors):
                 button.handle_button_color(button_start_press_time, has_long_press_been_set, has_short_press_been_set,
                                            colors)
 
-        logging.info("{} Button pressed for {} seconds".format(button.name, round(button_press_time, 3)))
+        #logging.info("{} Button pressed for {} seconds".format(button.name, round(button_press_time, 3)))
         set_new_state(current_state.get_state_for(button.name, button_press_time))
         wait_for_button_release(button.trigger_pin)
 
@@ -248,37 +244,18 @@ def set_all_button_colors_to_default(from_state):
     send_thread.start()
 
 
-def get_time_in_toggleable_state(toggleable_id, state_to_time_in):
-    marra = MarraQueryMaker.getInstance()
-    marra.open_connection()
-    initial = marra.get_latest_toggleable_state_for_yesterday(toggleable_id)
-
-    initial.time_stamp = datetime(initial.time_stamp.year, initial.time_stamp.month, initial.time_stamp.day, 0,
-                                  0) + timedelta(days=1)
-    marra.close_connection()
-
-    first = [initial]
-    others = marra.get_time_stamps_for_toggleable_state_change_today(toggleable_id)
-    if others is not None:
-        first.extend(others)
-    return ToggleableOnTimeCalculator.get_on_time(first, state_to_time_in)
-
-
 if __name__ == '__main__':
     init()
 
     while True:
         time.sleep(10)
         try:
-            new_state = current_state.on_time_expire_check()
+            new_state = current_state.on_time_check()
 
             if new_state is not None:
                 current_state = new_state
                 current_state.execute_state_change()
                 set_all_button_colors_to_default(current_state)
-
-            time_on = get_time_in_toggleable_state(2, True)
-            current_state.deal_with_light_time(time_on)
 
         except Exception as e:
             print("Throwing shit from loop.")
@@ -286,4 +263,3 @@ if __name__ == '__main__':
             logging.error("An error was encountered of type: {}".format(t))
             logging.error("Value: {}".format(v))
             logging.error(str(tb))
-            raise

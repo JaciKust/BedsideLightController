@@ -12,8 +12,8 @@ class TransmitterLock:
 
 class OutletSwitch(Toggleable):
     def __init__(self, database_id, codes, gpio_pin, one_high_time, one_low_time, zero_high_time, zero_low_time,
-                 interval):
-        super().__init__(database_id)
+                 interval, max_time_on=None):
+        super().__init__(database_id, max_time_on)
         self.gpio_pin = gpio_pin
         self.one_high_time = one_high_time
         self.one_low_time = one_low_time

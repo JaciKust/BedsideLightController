@@ -69,7 +69,9 @@ class AsleepLightsOnState(State):
 
     # region On Event
 
-    def on_time_expire_check(self):
+    def on_time_check(self):
+        super().on_time_check()
+
         current_time = datetime.datetime.now()
         if self.auto_alarm and self.wake_time < current_time:
             from State.WakingUpState1 import WakingUpState1
