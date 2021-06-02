@@ -27,12 +27,16 @@ class AsleepLightsOffState(State):
             transition_time = 10_000
 
         LightConstant.all_lamp.turn_off(transition_time)
+
+        self.execute_default_accessories()
+
+    # region Button Color
+
+    def execute_default_accessories(self):
         self.plant_lights.soft_set_on()
         self.fan.set_on()
         self.oddish_light.soft_set_on()
         self.monitor.set_off()
-
-    # region Button Color
 
     def get_primary_button_colors(self):
         if self.auto_alarm:
@@ -44,11 +48,6 @@ class AsleepLightsOffState(State):
 
     def get_desk_rear_button_colors(self):
         return [ColorConstant.BLACK, ColorConstant.DARK_GREEN, ColorConstant.DARK_RED]
-
-    def on_time_check(self):
-        super().on_time_check()
-        self.plant_lights.set_on_if_under_max_time()
-        self.oddish_light.set_on_if_under_max_time()
 
     # endregion
 
@@ -68,12 +67,12 @@ class AsleepLightsOffState(State):
     # endregion
 
     # region On Event
-
     def on_time_check(self):
         super().on_time_check()
 
-        # Should start the wake up process
         current_time = datetime.datetime.now()
+
+        # Should start the wake up process
         if self.auto_alarm and self.wake_time < current_time:
             from State.WakingUpState1 import WakingUpState1
             return WakingUpState1(self.wake_time)

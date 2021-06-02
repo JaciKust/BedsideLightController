@@ -112,6 +112,14 @@ class Toggleable:
     def get_is_on(self):
         return self._is_on
 
+    def write_current_state_to_database(self):
+        if (self._is_on):
+            state = DatabaseState.ON
+        else:
+            state = DatabaseState.OFF
+
+        self._update_database(state)
+
     def _update_database(self, status):
         # self.maker.open_connection()
 

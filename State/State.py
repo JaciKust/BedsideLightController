@@ -1,5 +1,6 @@
 import logging
 import threading
+from datetime import datetime, timedelta
 
 import Color as ColorConstant
 from Constants import Button as ButtonConstant
@@ -27,6 +28,8 @@ class State:
         self.oddish_light = RelayConstant.ODDISH_RELAY
         self.sound_system_relay = RelayConstant.SOUND_SYSTEM_RELAY
         self.power_relay = RelayConstant.POWER_RELAY
+
+        self._last_run = datetime.now()
 
         self.maker = MarraQueryMaker.getInstance()
         if previous_state is None or previous_state.current_white is None:
@@ -281,23 +284,28 @@ class State:
     # endregion
 
     # region Time
-    # def get_time_in_toggleable_state(toggleable_id, state_to_time_in):
-    #     marra = MarraQueryMaker.getInstance()
-    #     marra.open_connection()
-    #     initial = marra.get_latest_toggleable_state_for_yesterday(toggleable_id)
-    #
-    #     initial.time_stamp = datetime(initial.time_stamp.year, initial.time_stamp.month, initial.time_stamp.day, 0,
-    #                                   0) + timedelta(days=1)
-    #
-    #     first = [initial]
-    #     others = marra.get_time_stamps_for_toggleable_state_change_today(toggleable_id)
-    #     if others is not None:
-    #         first.extend(others)
-    #     return ToggleableOnTimeCalculator.get_on_time(first, state_to_time_in)
 
     def on_time_check(self):
         self.plant_lights.set_off_if_over_max_time()
         self.oddish_light.set_off_if_over_max_time()
+
+        self._write_plants_to_db_if_necessary()
+
+    def _write_plants_to_db_if_necessary(self):
+        current_time = datetime.now()
+
+        if self._last_run is None:
+            self._last_run = current_time
+
+        # logic to be hit once a day shortly after 0:07
+        if (current_time.hour == 0 and 6 < current_time.minute < 9
+            or current_time.hour == 23 and 46 < current_time.minute < 49) \
+                and current_time - self._last_run > timedelta(minutes=5):
+            self._last_run = current_time
+
+            self.oddish_light.write_current_state_to_database()
+            self.plant_lights.write_current_state_to_database()
+            print("\tRunning write.")
 
     # endregion
 
