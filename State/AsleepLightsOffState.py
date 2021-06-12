@@ -33,9 +33,9 @@ class AsleepLightsOffState(State):
     # region Button Color
 
     def execute_default_accessories(self):
-        self.plant_lights.soft_set_on()
+        self.plant_lights.set_off()
         self.fan.set_on()
-        self.oddish_light.soft_set_on()
+        self.oddish_light.set_off()
         self.monitor.set_off()
 
     def get_primary_button_colors(self):
