@@ -23,7 +23,7 @@ class State:
 
         transmitter433 = Transmitter433()
         self.fan = transmitter433.fan
-        self.monitor = transmitter433.monitor
+        self.monitor = transmitter433.monitors
         self.plant_lights = transmitter433.plant_lights
         self.oddish_light = RelayConstant.ODDISH_RELAY
         self.sound_system_relay = RelayConstant.SOUND_SYSTEM_RELAY

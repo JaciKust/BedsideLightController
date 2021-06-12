@@ -63,13 +63,10 @@ class Toggleable:
             self.set_on()
 
     def get_time_in_toggleable_state(self):
-        # self.maker.open_connection()
-
         try:
             todays_entries = self.maker.get_time_stamps_for_toggleable_state_change_today(self.database_id)
             todays_start_state = self.maker.get_latest_toggleable_state_for_yesterday(self.database_id)
 
-            times = None
             if todays_start_state is not None:
                 todays_start_state.time_stamp = datetime(
                     year=todays_start_state.time_stamp.year,
@@ -96,18 +93,10 @@ class Toggleable:
                     times = TimeStampedState(start, self._is_on)
             return ToggleableOnTimeCalculator.get_on_time(times, True)
 
-            # if todays_start_state is not None:
-            #     if todays_entries is not None:
-            #         first.extend(todays_entries)
-            #         return ToggleableOnTimeCalculator.get_on_time(first, state_to_time_in)
-            # elif todays_entries is not None: # initial is None
-            #     return ToggleableOnTimeCalculator.get_on_time()
-
         except Exception as e:
             logging.warning("Could not get data about a toggleable from Marra")
         finally:
             pass
-            # self.maker.close_connection()
 
     def get_is_on(self):
         return self._is_on
@@ -121,7 +110,6 @@ class Toggleable:
         self._update_database(state)
 
     def _update_database(self, status):
-        # self.maker.open_connection()
 
         try:
             self.maker.insert_toggleable_state(self.database_id, status)

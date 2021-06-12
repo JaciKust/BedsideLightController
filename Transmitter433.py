@@ -29,10 +29,10 @@ class Transmitter433:
             TransmitterConstant.ZERO_HIGH_TIME,
             TransmitterConstant.ZERO_LOW_TIME,
             TransmitterConstant.INTERVAL,
-            timedelta(hours=10)
+            timedelta(hours=14)
         )
 
-        self.monitor = OutletSwitch(
+        self.monitors = OutletSwitch(
             TransmitterConstant.OUTLET_4_ID,
             TransmitterConstant.OUTLET_4_CODES,
             TransmitterConstant.PIN,
