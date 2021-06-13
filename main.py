@@ -16,7 +16,7 @@ from Constants import DoorButton as DoorButtonConstant
 from Constants import MessageServer as MessageServerConstant
 from Constants import PrimaryButton as PrimaryButtonConstant
 from Constants import SecondaryButton as SecondaryButtonConstant
-from DataObjects.DeskButtonColors import DeskButtonColor
+from DataObjects.ButtonColor import ButtonColor
 from DataObjects.RemoteRelayState import RemoteRelayState
 from DataObjects.Pulse import Pulse
 from Interactable import Relays as RelayConstant
@@ -53,21 +53,28 @@ def set_up_and_send_to_desk_buttons(right_colors, left_colors, rear_colors):
     left = list(map(lambda a: a.as_rgb_array(), left_colors))
     rear = list(map(lambda a: a.as_rgb_array(), rear_colors))
 
-    obj = DeskButtonColor(right, left, rear)
-    data = json.dumps(obj.__dict__)
+    obj = [
+        ButtonColor(right, for_category='Accessory').__dict__,
+        ButtonColor(left, for_category='Primary').__dict__,
+        ButtonColor(rear, for_category='Special').__dict__
+    ]
+
+    data = json.dumps(obj)
     send_to_desk_buttons(data)
 
 
 def set_up_and_send_relay_change_to_desk_buttons(pin, is_on):
     obj = RemoteRelayState(pin, is_on)
     data = json.dumps(obj.__dict__)
-    send_to_desk_buttons(data)
+    # TODO: Re-enable
+    # send_to_desk_buttons(data)
 
 
 def set_up_and_send_pulse_relay_to_desk_buttons(pin):
     obj = Pulse(pin)
     data = json.dumps(obj.__dict__)
-    send_to_desk_buttons(data)
+    # TODO: Re-enable
+    #send_to_desk_buttons(data)
 
 
 def throw(pin, is_on):

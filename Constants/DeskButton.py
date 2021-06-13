@@ -1,6 +1,6 @@
-LEFT = "DeskLeft"
-RIGHT = "DeskRight"
-REAR = "DeskRear"
+LEFT = "Left"
+RIGHT = "Right"
+REAR = "Rear"
 IP_ADDR = "192.168.0.158"
 PORT = "5556"
 REQUEST_TIMEOUT = 2500
