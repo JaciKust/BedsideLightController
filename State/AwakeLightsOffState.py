@@ -16,6 +16,7 @@ class AwakeLightsOffState(State):
 
     def execute_state_change(self):
         super().execute_state_change()
+
         LightConstant.all_lamp.turn_off(1000)
 
         self.plant_lights.soft_set_on()

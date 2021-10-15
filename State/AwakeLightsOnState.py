@@ -34,11 +34,6 @@ class AwakeLightsOnState(State):
         plant_light_thread = threading.Thread(target=self.wait_run_accessories_on, args=(transition_time_ms / 1000,))
         plant_light_thread.start()
 
-    def on_time_check(self):
-        super().on_time_check()
-        self.plant_lights.set_on_if_under_max_time()
-        self.oddish_light.set_on_if_under_max_time()
-
     run_delayed_accessories = False
 
     def wait_run_accessories_on(self, transition_time_seconds):

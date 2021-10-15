@@ -118,11 +118,11 @@ class RainbowState(State):
     # region Button Actions
 
     def on_primary_short_press(self):
-        self._cycle_pattern()
+        self._cycle_wait()
         self._update_light_show()
 
     def on_primary_long_press(self):
-        self._cycle_wait()
+        self._cycle_pattern()
         self._update_light_show()
 
     def on_primary_extra_long_press(self):

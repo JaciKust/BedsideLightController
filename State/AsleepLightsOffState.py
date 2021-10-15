@@ -27,7 +27,6 @@ class AsleepLightsOffState(State):
             transition_time = 10_000
 
         LightConstant.all_lamp.turn_off(transition_time)
-
         self.execute_default_accessories()
 
     # region Button Color
