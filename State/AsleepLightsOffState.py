@@ -27,6 +27,7 @@ class AsleepLightsOffState(State):
             transition_time = 10_000
 
         LightConstant.all_lamp.turn_off(transition_time)
+        # LightConstant.all_lamp._turn_off(LightConstant.all_lamp.lifx_lifx_lights)
         self.execute_default_accessories()
 
     # region Button Color
@@ -48,6 +49,9 @@ class AsleepLightsOffState(State):
     def get_desk_rear_button_colors(self):
         return [ColorConstant.BLACK, ColorConstant.DARK_GREEN, ColorConstant.DARK_RED]
 
+    def get_door_button_colors(self):
+        return [ColorConstant.DARK_RED, ColorConstant.DIM_RED, ColorConstant.DIM_BLUE]
+
     # endregion
 
     # region Button Actions
@@ -62,6 +66,10 @@ class AsleepLightsOffState(State):
 
     def on_primary_extra_long_press(self):
         return AsleepLightsOffState(self.wake_time, self.previous_state, not self.auto_alarm)
+
+    def on_door_short_press(self):
+        from State.AsleepLightsOnState import AsleepLightsOnState
+        return AsleepLightsOnState(self.wake_time, self.previous_state, self.auto_alarm, 'door')
 
     # endregion
 

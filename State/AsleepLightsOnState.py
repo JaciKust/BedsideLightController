@@ -9,7 +9,7 @@ class AsleepLightsOnState(State):
     id = 2
     name = 'Asleep Lights On'
 
-    def __init__(self, wake_time, previous_state=None, auto_alarm=True):
+    def __init__(self, wake_time, previous_state=None, auto_alarm=True, trigger_button=None):
         if auto_alarm:
             super().__init__(previous_state)
         else:
@@ -17,6 +17,7 @@ class AsleepLightsOnState(State):
         self.auto_alarm = auto_alarm
         self.wake_time = wake_time
         self.all_lights_on = False
+        self.trigger_button = trigger_button
 
     def execute_state_change(self):
         super().execute_state_change()
@@ -29,7 +30,8 @@ class AsleepLightsOnState(State):
 
     def _set_room_partial_on(self):
         LightConstant.entry_lamp.turn_on(ColorConstant.DIMMEST_WHITE, 0)
-        LightConstant.jaci_bedside_lamp.turn_on(ColorConstant.DIMMEST_WHITE, 0)
+        if self.trigger_button is None:
+            LightConstant.jaci_bedside_lamp.turn_on(ColorConstant.DIMMEST_WHITE, 0)
 
     # region Button Color
 
@@ -43,6 +45,9 @@ class AsleepLightsOnState(State):
 
     def get_desk_rear_button_colors(self):
         return [ColorConstant.BLACK, ColorConstant.DARK_GREEN, ColorConstant.DARK_RED]
+
+    def get_door_button_colors(self):
+        return [ColorConstant.DIM_RED, ColorConstant.DARK_RED, ColorConstant.DIM_BLUE]
 
     # endregion
 
@@ -64,6 +69,10 @@ class AsleepLightsOnState(State):
 
     def on_primary_extra_long_press(self):
         return AsleepLightsOnState(self.wake_time, self.previous_state, not self.auto_alarm)
+
+    def on_door_short_press(self):
+        from State.AsleepLightsOffState import AsleepLightsOffState
+        return AsleepLightsOffState(self.wake_time, self.previous_state, self.auto_alarm)
 
     # endregion
 
