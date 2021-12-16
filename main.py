@@ -13,7 +13,6 @@ GPIO.setwarnings(False)
 from Constants import Button as ButtonConstant
 from Constants import DeskButton as DeskButtonConstant
 from Constants import DoorButton as DoorButtonConstant
-from Constants import MessageServer as MessageServerConstant
 from Constants import PrimaryButton as PrimaryButtonConstant
 from Constants import SecondaryButton as SecondaryButtonConstant
 from DataObjects.ButtonColor import ButtonColor
@@ -32,15 +31,16 @@ logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.INFO)
 
 def run_message_server():
     while True:
+        return
         #  Wait for next request from client
-        message = incoming_socket.recv()
-        incoming_socket.send(b"ack")
+        # message = incoming_socket.recv()
+        # incoming_socket.send(b"ack")
         # logging.info("Received request: %s" % message)
-        name, press_time = decode_button_press(message)
-        set_new_state(current_state.get_state_for(name, press_time))
+        # name, press_time = decode_button_press('message')
+        # set_new_state(current_state.get_state_for(name, press_time))
 
-        sleep_time_seconds = 1
-        time.sleep(sleep_time_seconds)
+        # sleep_time_seconds = 1
+        # time.sleep(sleep_time_seconds)
 
 
 def send_to_desk_buttons(data):
@@ -131,8 +131,8 @@ def decode_button_press(message):
 
 
 context = zmq.Context()
-incoming_socket = context.socket(zmq.REP)
-incoming_socket.bind("tcp://{}:{}".format(MessageServerConstant.BIND_TO_ADDR, MessageServerConstant.BIND_TO_PORT))
+# incoming_socket = context.socket(zmq.REP)
+# incoming_socket.bind("tcp://{}:{}".format(MessageServerConstant.BIND_TO_ADDR, MessageServerConstant.BIND_TO_PORT))
 socket_thread = threading.Thread(target=run_message_server)
 
 primary_button = PhysicalButton(PrimaryButtonConstant.NAME,
@@ -164,6 +164,11 @@ def on_door_button_press(channel):
 
 def on_secondary_button_press(channel):
     on_button_press(secondary_button, current_state.get_secondary_button_colors())
+
+
+def on_button_color_change_request(from_state):
+    primary_button.set_button_color(from_state.get_primary_button_colors()[ButtonConstant.DEFAULT_COLOR])
+    secondary_button.set_button_color(from_state.get_secondary_button_colors()[ButtonConstant.DEFAULT_COLOR])
 
 
 button_pressed = False

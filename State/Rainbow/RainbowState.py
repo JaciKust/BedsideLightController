@@ -21,7 +21,6 @@ class RainbowState(State):
         self.current_pattern = self.DEFAULT_PATTERN_LOCATION
         self.current_speed = self.DEFAULT_SPEED_LOCATION
         self.current_wait = self.DEFAULT_WAIT_LOCATION
-
         self._update_light_show()
 
     def __del__(self):

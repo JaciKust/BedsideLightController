@@ -37,17 +37,17 @@ whites = [
 ]
 
 all_lamps = [
-    Light.bed_black_lamp,
-    Light.bed_white_lamp,
+    Light.black_side,
+    Light.white_side,
     Light.yellow_lamp,
     Light.entry_lamp,
-    Light.red_lamp
+    Light.huge_red_lamp,
 ]
 
 three_lamps = [
     Light.desk_lamps,
-    Light.white_bedside_lamp,
-    Light.black_bedside_lamp,
+    Light.white_side,
+    Light.black_side,
 ]
 
 cyan_cycle_5 = [
